@@ -6,14 +6,39 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		F76722E92E54E67600143CE1 /* Renderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76722E82E54E67600143CE1 /* Renderer.swift */; };
+		F76722EA2E54E67600143CE1 /* Renderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76722E82E54E67600143CE1 /* Renderer.swift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		F76722BC2E54E05200143CE1 /* PatrikTheStarByAria.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PatrikTheStarByAria.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F76722D22E54E57400143CE1 /* PatrikTheStarByAriaiOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PatrikTheStarByAriaiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F76722E82E54E67600143CE1 /* Renderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Renderer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		F76722E32E54E57500143CE1 /* Exceptions for "PatrikTheStarByAriaiOS" folder in "PatrikTheStarByAriaiOS" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = F76722D12E54E57400143CE1 /* PatrikTheStarByAriaiOS */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		F76722BE2E54E05200143CE1 /* PatrikTheStarByAria */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = PatrikTheStarByAria;
+			sourceTree = "<group>";
+		};
+		F76722D32E54E57400143CE1 /* PatrikTheStarByAriaiOS */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				F76722E32E54E57500143CE1 /* Exceptions for "PatrikTheStarByAriaiOS" folder in "PatrikTheStarByAriaiOS" target */,
+			);
+			path = PatrikTheStarByAriaiOS;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -26,13 +51,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F76722CF2E54E57400143CE1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		F76722B32E54E05200143CE1 = {
 			isa = PBXGroup;
 			children = (
+				F76722E72E54E66100143CE1 /* Engine */,
 				F76722BE2E54E05200143CE1 /* PatrikTheStarByAria */,
+				F76722D32E54E57400143CE1 /* PatrikTheStarByAriaiOS */,
 				F76722BD2E54E05200143CE1 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -41,8 +75,17 @@
 			isa = PBXGroup;
 			children = (
 				F76722BC2E54E05200143CE1 /* PatrikTheStarByAria.app */,
+				F76722D22E54E57400143CE1 /* PatrikTheStarByAriaiOS.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		F76722E72E54E66100143CE1 /* Engine */ = {
+			isa = PBXGroup;
+			children = (
+				F76722E82E54E67600143CE1 /* Renderer.swift */,
+			);
+			path = Engine;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -70,6 +113,28 @@
 			productReference = F76722BC2E54E05200143CE1 /* PatrikTheStarByAria.app */;
 			productType = "com.apple.product-type.application";
 		};
+		F76722D12E54E57400143CE1 /* PatrikTheStarByAriaiOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F76722E42E54E57500143CE1 /* Build configuration list for PBXNativeTarget "PatrikTheStarByAriaiOS" */;
+			buildPhases = (
+				F76722CE2E54E57400143CE1 /* Sources */,
+				F76722CF2E54E57400143CE1 /* Frameworks */,
+				F76722D02E54E57400143CE1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				F76722D32E54E57400143CE1 /* PatrikTheStarByAriaiOS */,
+			);
+			name = PatrikTheStarByAriaiOS;
+			packageProductDependencies = (
+			);
+			productName = PatrikTheStarByAriaiOS;
+			productReference = F76722D22E54E57400143CE1 /* PatrikTheStarByAriaiOS.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -81,6 +146,9 @@
 				LastUpgradeCheck = 1640;
 				TargetAttributes = {
 					F76722BB2E54E05200143CE1 = {
+						CreatedOnToolsVersion = 16.4;
+					};
+					F76722D12E54E57400143CE1 = {
 						CreatedOnToolsVersion = 16.4;
 					};
 				};
@@ -100,12 +168,20 @@
 			projectRoot = "";
 			targets = (
 				F76722BB2E54E05200143CE1 /* PatrikTheStarByAria */,
+				F76722D12E54E57400143CE1 /* PatrikTheStarByAriaiOS */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		F76722BA2E54E05200143CE1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F76722D02E54E57400143CE1 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -119,6 +195,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F76722E92E54E67600143CE1 /* Renderer.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F76722CE2E54E57400143CE1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F76722EA2E54E67600143CE1 /* Renderer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -301,6 +386,67 @@
 			};
 			name = Release;
 		};
+		F76722E52E54E57500143CE1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = GG7GN7L79A;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PatrikTheStarByAriaiOS/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ariazare.PatrikTheStarByAriaiOS;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F76722E62E54E57500143CE1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = GG7GN7L79A;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PatrikTheStarByAriaiOS/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ariazare.PatrikTheStarByAriaiOS;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -318,6 +464,15 @@
 			buildConfigurations = (
 				F76722CC2E54E05300143CE1 /* Debug */,
 				F76722CD2E54E05300143CE1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F76722E42E54E57500143CE1 /* Build configuration list for PBXNativeTarget "PatrikTheStarByAriaiOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F76722E52E54E57500143CE1 /* Debug */,
+				F76722E62E54E57500143CE1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
