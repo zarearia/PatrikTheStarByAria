@@ -9,12 +9,21 @@
 /* Begin PBXBuildFile section */
 		F76722E92E54E67600143CE1 /* Renderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76722E82E54E67600143CE1 /* Renderer.swift */; };
 		F76722EA2E54E67600143CE1 /* Renderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76722E82E54E67600143CE1 /* Renderer.swift */; };
+		F767230C2E56E65500143CE1 /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = F767230B2E56E65500143CE1 /* Shaders.metal */; };
+		F767230D2E56E65500143CE1 /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = F767230B2E56E65500143CE1 /* Shaders.metal */; };
+		F767230F2E56EB6700143CE1 /* VertexDescriptorHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F767230E2E56EB5C00143CE1 /* VertexDescriptorHelper.swift */; };
+		F76723102E56EB6700143CE1 /* VertexDescriptorHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F767230E2E56EB5C00143CE1 /* VertexDescriptorHelper.swift */; };
+		F76723122E56EFE500143CE1 /* MathHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76723112E56EFE000143CE1 /* MathHelpers.swift */; };
+		F76723132E56EFE500143CE1 /* MathHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76723112E56EFE000143CE1 /* MathHelpers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		F76722BC2E54E05200143CE1 /* PatrikTheStarByAria.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PatrikTheStarByAria.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F76722D22E54E57400143CE1 /* PatrikTheStarByAriaiOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PatrikTheStarByAriaiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F76722E82E54E67600143CE1 /* Renderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Renderer.swift; sourceTree = "<group>"; };
+		F767230B2E56E65500143CE1 /* Shaders.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Shaders.metal; sourceTree = "<group>"; };
+		F767230E2E56EB5C00143CE1 /* VertexDescriptorHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VertexDescriptorHelper.swift; sourceTree = "<group>"; };
+		F76723112E56EFE000143CE1 /* MathHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MathHelpers.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -83,9 +92,20 @@
 		F76722E72E54E66100143CE1 /* Engine */ = {
 			isa = PBXGroup;
 			children = (
+				F76723142E56EFE800143CE1 /* Helpers */,
 				F76722E82E54E67600143CE1 /* Renderer.swift */,
+				F767230B2E56E65500143CE1 /* Shaders.metal */,
 			);
 			path = Engine;
+			sourceTree = "<group>";
+		};
+		F76723142E56EFE800143CE1 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				F76723112E56EFE000143CE1 /* MathHelpers.swift */,
+				F767230E2E56EB5C00143CE1 /* VertexDescriptorHelper.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -195,7 +215,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F76723102E56EB6700143CE1 /* VertexDescriptorHelper.swift in Sources */,
+				F767230C2E56E65500143CE1 /* Shaders.metal in Sources */,
 				F76722E92E54E67600143CE1 /* Renderer.swift in Sources */,
+				F76723122E56EFE500143CE1 /* MathHelpers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -204,6 +227,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				F76722EA2E54E67600143CE1 /* Renderer.swift in Sources */,
+				F767230F2E56EB6700143CE1 /* VertexDescriptorHelper.swift in Sources */,
+				F767230D2E56E65500143CE1 /* Shaders.metal in Sources */,
+				F76723132E56EFE500143CE1 /* MathHelpers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
