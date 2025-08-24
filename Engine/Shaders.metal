@@ -8,9 +8,12 @@
 #include <metal_stdlib>
 using namespace metal;
 
-vertex float4 vertex_main(const device float3 *vertexIn [[buffer(0)]],
-                          unsigned int vertexId [[vertex_id]]) {
-    return float4(vertexIn[vertexId], 1);
+struct VertexIn {
+    float4 position [[attribute(0)]];
+};
+
+vertex float4 vertex_main(const VertexIn vertexIn [[stage_in]]) {
+    return float4(vertexIn.position);
 }
 
 fragment float4 fragment_main() {

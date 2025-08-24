@@ -15,15 +15,7 @@ class Renderer: NSObject {
     static var colorPixelFormat: MTLPixelFormat!
     
     var pipelineState: MTLRenderPipelineState?
-    let vertices: [float3] = [float3(0.5, 0.5, 0.0),
-                              float3(-0.5, -0.5, 0.0),
-                              float3(-0.5, 0.5, 0.0),
-                              float3(0.5, -0.5, 0.0),]
-    
-    let verticeIndices: [UInt16] = [0, 1, 2, 1, 3, 0]
-    
-    var verticesBuffer: MTLBuffer
-    var indicesBuffer: MTLBuffer
+    var model: Model
     
     init(metalView: MTKView) {
         guard
@@ -39,13 +31,8 @@ class Renderer: NSObject {
         metalView.device = device
         metalView.depthStencilPixelFormat = .depth32Float
         
-        guard let verticesBuffer = device.makeBuffer(bytes: vertices, length: MemoryLayout<float3>.stride * vertices.count, options: []),
-              let indicesBuffer = device.makeBuffer(bytes: verticeIndices, length: MemoryLayout<UInt16>.stride * verticeIndices.count, options: []) else {
-            fatalError("buffer problem")
-        }
         
-        self.verticesBuffer = verticesBuffer
-        self.indicesBuffer = indicesBuffer
+        model = Model(resourse: "patrik", extention: "usda")
 
         super.init()
         
@@ -54,6 +41,8 @@ class Renderer: NSObject {
         
         
         makePipelineState()
+        
+        
     }
     
     func makePipelineState() {
@@ -66,14 +55,8 @@ class Renderer: NSObject {
         descriptor.depthAttachmentPixelFormat = .depth32Float
         descriptor.colorAttachments[0].pixelFormat = Renderer.colorPixelFormat
         
-//        let vertexDescriptor = MTLVertexDescriptor()
-//        vertexDescriptor.attributes[0].format = .float3
-//        vertexDescriptor.attributes[0].offset = 0
-//        vertexDescriptor.attributes[0].bufferIndex = 0
-//        
-//        vertexDescriptor.layouts[0].stride = MemoryLayout<float3>.stride
-//        
-//        descriptor.vertexDescriptor = vertexDescriptor
+        
+        descriptor.vertexDescriptor = MTKMetalVertexDescriptorFromModelIO(MDLVertexDescriptor.getDefaultVertexDescriptor())
         
         do {
             try pipelineState = Renderer.device.makeRenderPipelineState(descriptor: descriptor)
@@ -98,9 +81,24 @@ extension Renderer: MTKViewDelegate {
         }
         
         renderEncoder.setRenderPipelineState(pipelineState)
-        renderEncoder.setVertexBuffer(verticesBuffer, offset: 0, index: 0)
-//        renderEncoder.drawPrimitives(type: .triangle, vertexStart: 0, vertexCount: vertices.count)
-        renderEncoder.drawIndexedPrimitives(type: .triangle, indexCount: verticeIndices.count, indexType: .uint16, indexBuffer: indicesBuffer, indexBufferOffset: 0)
+        
+        for mesh in model.meshes {
+            let submeshs = mesh.submeshes
+            
+            for submesh in submeshs {
+                
+                renderEncoder.setVertexBuffer(mesh.vertexBuffers[0].buffer, offset: mesh.vertexBuffers[0].offset, index: 0)
+                
+                renderEncoder.drawIndexedPrimitives(
+                    type: .line,
+                    indexCount: submesh.indexCount,
+                    indexType: submesh.indexType,
+                    indexBuffer:
+                        submesh.indexBuffer.buffer,
+                    indexBufferOffset: 0
+                )
+            }
+        }
         
         renderEncoder.endEncoding()
         guard let drawable = view.currentDrawable else {

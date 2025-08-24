@@ -6,9 +6,32 @@
 //
 
 import Metal
+import ModelIO
 
 extension MTLVertexDescriptor {
-    func getDefaultVertexDescriptor() {
+    static func getDefaultVertexDescriptor() -> MTLVertexDescriptor {
+        
         let vertexDescriptor = MTLVertexDescriptor()
+        vertexDescriptor.attributes[0].format = .float3
+        vertexDescriptor.attributes[0].offset = 0
+        vertexDescriptor.attributes[0].bufferIndex = 0
+        
+        vertexDescriptor.layouts[0].stride = MemoryLayout<float3>.stride
+        
+        return vertexDescriptor
+    }
+}
+
+extension MDLVertexDescriptor {
+    static func getDefaultVertexDescriptor() -> MDLVertexDescriptor {
+        let vertexDescriptor = MDLVertexDescriptor()
+        
+        var offset = 0
+        vertexDescriptor.attributes[0] = MDLVertexAttribute(name: MDLVertexAttributePosition, format: .float3, offset: offset, bufferIndex: 0)
+        offset += MemoryLayout<float3>.stride
+        
+        vertexDescriptor.layouts[0] = MDLVertexBufferLayout(stride: offset)
+        
+        return vertexDescriptor
     }
 }
