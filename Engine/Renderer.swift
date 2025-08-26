@@ -17,6 +17,24 @@ class Renderer: NSObject {
     var pipelineState: MTLRenderPipelineState?
     var model: Model
     
+    //TODO: I have to make a class called node for these later
+    var uniforms = Uniforms()
+    let modelMatrix: matrix_float4x4 = matrix_float4x4.init(rotation: [0, 0, Float(45).degreesToRadians])
+    let viewMatrix: matrix_float4x4 = matrix_float4x4.init(translation: [0.5, 0, -5])
+    
+//    func rotateCamera(delta: float2) {
+//        
+//    }
+//    
+//    var cameraDistance: Float = 0
+//    func zoomCamera(delta: Float) {
+//        let sensitivity: Float = 0.005
+//        cameraDistance = sensitivity * delta
+//        viewMatrix = 
+//        
+//    }
+    
+
     init(metalView: MTKView) {
         guard
             let device = MTLCreateSystemDefaultDevice(),
@@ -42,6 +60,14 @@ class Renderer: NSObject {
         
         makePipelineState()
         
+        uniforms.modelMatrix = modelMatrix
+        
+
+        uniforms.viewMatrix = viewMatrix.inverse
+        
+        
+        let aspect: Float = Float(metalView.frame.width / metalView.frame.height)
+        uniforms.projectionMatrix = matrix_float4x4.init(projectionFov: 70, near: 0.01, far: 1000, aspect: aspect)
         
     }
     
@@ -69,7 +95,8 @@ class Renderer: NSObject {
 
 extension Renderer: MTKViewDelegate {
     func mtkView(_ view: MTKView, drawableSizeWillChange size: CGSize) {
-        
+        let aspect: Float = Float(view.frame.width / view.frame.height)
+        uniforms.projectionMatrix = matrix_float4x4.init(projectionFov: 70, near: 0.01, far: 1000, aspect: aspect)
     }
     
     func draw(in view: MTKView) {
@@ -85,12 +112,14 @@ extension Renderer: MTKViewDelegate {
         for mesh in model.meshes {
             let submeshs = mesh.submeshes
             
+            renderEncoder.setVertexBytes(&uniforms, length: MemoryLayout<Uniforms>.stride, index: 1)
+            
             for submesh in submeshs {
                 
                 renderEncoder.setVertexBuffer(mesh.vertexBuffers[0].buffer, offset: mesh.vertexBuffers[0].offset, index: 0)
                 
                 renderEncoder.drawIndexedPrimitives(
-                    type: .line,
+                    type: .triangle,
                     indexCount: submesh.indexCount,
                     indexType: submesh.indexType,
                     indexBuffer:

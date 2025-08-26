@@ -17,6 +17,7 @@ class ViewController: NSViewController {
         super.viewDidLoad()
         
         renderer = Renderer(metalView: metalView)
+//        addGestureRecognizers(to: metalView)
         
 
         // Do any additional setup after loading the view.
@@ -27,5 +28,23 @@ class ViewController: NSViewController {
         // Update the view, if already loaded.
         }
     }
+//    
+//    func addGestureRecognizers(to view: NSView) {
+//        let pan = NSPanGestureRecognizer(target: self, action: #selector(handlePan(gesture:)))
+//        view.addGestureRecognizer(pan)
+//    }
+//    
+//    @objc func handlePan(gesture: NSPanGestureRecognizer) {
+//        let translation = gesture.translation(in: gesture.view)
+//        let delta = float2(Float(translation.x),
+//                           Float(translation.y))
+//        
+//        renderer?.rotateCamera(delta: delta)
+//        gesture.setTranslation(.zero, in: gesture.view)
+//    }
+//    
+//    override func scrollWheel(with event: NSEvent) {
+//        renderer?.zoomCamera(delta: Float(event.deltaY))
+//    }
 }
 

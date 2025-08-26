@@ -33,6 +33,7 @@
 		F76723192E58410E00143CE1 /* patrik.usda */ = {isa = PBXFileReference; lastKnownFileType = text; path = patrik.usda; sourceTree = "<group>"; };
 		F767231C2E5B58B800143CE1 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		F767231F2E5B646D00143CE1 /* train.obj */ = {isa = PBXFileReference; lastKnownFileType = text; path = train.obj; sourceTree = "<group>"; };
+		F76723292E5C31DA00143CE1 /* Common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -101,11 +102,11 @@
 		F76722E72E54E66100143CE1 /* Engine */ = {
 			isa = PBXGroup;
 			children = (
+				F76723222E5C319000143CE1 /* Shaders */,
 				F767231C2E5B58B800143CE1 /* Model.swift */,
 				F76723182E583FFE00143CE1 /* Modles */,
 				F76723142E56EFE800143CE1 /* Helpers */,
 				F76722E82E54E67600143CE1 /* Renderer.swift */,
-				F767230B2E56E65500143CE1 /* Shaders.metal */,
 			);
 			path = Engine;
 			sourceTree = "<group>";
@@ -126,6 +127,15 @@
 				F76723192E58410E00143CE1 /* patrik.usda */,
 			);
 			path = Modles;
+			sourceTree = "<group>";
+		};
+		F76723222E5C319000143CE1 /* Shaders */ = {
+			isa = PBXGroup;
+			children = (
+				F767230B2E56E65500143CE1 /* Shaders.metal */,
+				F76723292E5C31DA00143CE1 /* Common.h */,
+			);
+			path = Shaders;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -322,6 +332,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OBJC_BRIDGING_HEADER = $SRCROOT/Engine/Shaders/Common.h;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -379,6 +390,7 @@
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OBJC_BRIDGING_HEADER = $SRCROOT/Engine/Shaders/Common.h;
 			};
 			name = Release;
 		};
@@ -406,6 +418,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = $SRCROOT/Engine/Shaders/Common.h;
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -434,6 +447,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = $SRCROOT/Engine/Shaders/Common.h;
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
@@ -463,6 +477,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = $SRCROOT/Engine/Shaders/Common.h;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -493,6 +508,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = $SRCROOT/Engine/Shaders/Common.h;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
