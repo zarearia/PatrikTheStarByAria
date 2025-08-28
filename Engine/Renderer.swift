@@ -19,20 +19,10 @@ class Renderer: NSObject {
     
     //TODO: I have to make a class called node for these later
     var uniforms = Uniforms()
-    let modelMatrix: matrix_float4x4 = matrix_float4x4.init(rotation: [0, 0, Float(45).degreesToRadians])
+    let modelMatrix: matrix_float4x4 = .identity()//matrix_float4x4.init(rotation: [0, 0, Float(45).degreesToRadians])
     let viewMatrix: matrix_float4x4 = matrix_float4x4.init(translation: [0.5, 0, -5])
     
-//    func rotateCamera(delta: float2) {
-//        
-//    }
-//    
-//    var cameraDistance: Float = 0
-//    func zoomCamera(delta: Float) {
-//        let sensitivity: Float = 0.005
-//        cameraDistance = sensitivity * delta
-//        viewMatrix = 
-//        
-//    }
+    var camera = ArcballCamera()
     
 
     init(metalView: MTKView) {
@@ -67,7 +57,8 @@ class Renderer: NSObject {
         
         
         let aspect: Float = Float(metalView.frame.width / metalView.frame.height)
-        uniforms.projectionMatrix = matrix_float4x4.init(projectionFov: 70, near: 0.01, far: 1000, aspect: aspect)
+        camera.aspect = aspect
+        uniforms.projectionMatrix = camera.projectionMatrix
         
     }
     
@@ -96,7 +87,8 @@ class Renderer: NSObject {
 extension Renderer: MTKViewDelegate {
     func mtkView(_ view: MTKView, drawableSizeWillChange size: CGSize) {
         let aspect: Float = Float(view.frame.width / view.frame.height)
-        uniforms.projectionMatrix = matrix_float4x4.init(projectionFov: 70, near: 0.01, far: 1000, aspect: aspect)
+        camera.aspect = aspect
+        uniforms.projectionMatrix = camera.projectionMatrix
     }
     
     func draw(in view: MTKView) {
@@ -109,10 +101,11 @@ extension Renderer: MTKViewDelegate {
         
         renderEncoder.setRenderPipelineState(pipelineState)
         
+        uniforms.viewMatrix = camera.viewMatrix
+        renderEncoder.setVertexBytes(&uniforms, length: MemoryLayout<Uniforms>.stride, index: 1)
+        
         for mesh in model.meshes {
             let submeshs = mesh.submeshes
-            
-            renderEncoder.setVertexBytes(&uniforms, length: MemoryLayout<Uniforms>.stride, index: 1)
             
             for submesh in submeshs {
                 
