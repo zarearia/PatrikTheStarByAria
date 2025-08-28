@@ -33,7 +33,7 @@ fragment float4 fragment_main(VertexOut vertexIn [[stage_in]]) {
     float3 normal = vertexIn.normal;
     float4 skyColor = float4(0, 0.5, 1, 1);
     float4 groundColor = float4(0, 1, 0, 1);
-    float colorIntensity = (normal.y + 1) / 2;
+    float colorIntensity = saturate((normal.y + 1) / 2);
     color = mix(groundColor, skyColor, colorIntensity);
     return color;
 }
