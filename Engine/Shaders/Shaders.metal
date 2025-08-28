@@ -29,5 +29,11 @@ vertex VertexOut vertex_main(const VertexIn vertexIn [[stage_in]],
 }
 
 fragment float4 fragment_main(VertexOut vertexIn [[stage_in]]) {
-    return float4(vertexIn.normal, 1);
+    float4 color;
+    float3 normal = vertexIn.normal;
+    float4 skyColor = float4(0, 0.5, 1, 1);
+    float4 groundColor = float4(0, 1, 0, 1);
+    float colorIntensity = (normal.y + 1) / 2;
+    color = mix(groundColor, skyColor, colorIntensity);
+    return color;
 }
