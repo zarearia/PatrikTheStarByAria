@@ -20,7 +20,6 @@ class Renderer: NSObject {
     //TODO: I have to make a class called node for these later
     var uniforms = Uniforms()
     let modelMatrix: matrix_float4x4 = .identity()//matrix_float4x4.init(rotation: [0, 0, Float(45).degreesToRadians])
-    let viewMatrix: matrix_float4x4 = matrix_float4x4.init(translation: [0.5, 0, -5])
     
     var camera = ArcballCamera()
     
@@ -52,12 +51,9 @@ class Renderer: NSObject {
         
         uniforms.modelMatrix = modelMatrix
         
-
-        uniforms.viewMatrix = viewMatrix.inverse
-        
-        
         let aspect: Float = Float(metalView.frame.width / metalView.frame.height)
         camera.aspect = aspect
+        camera.zoom(delta: -10)
         uniforms.projectionMatrix = camera.projectionMatrix
         
     }

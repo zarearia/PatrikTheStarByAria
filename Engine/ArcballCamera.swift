@@ -46,7 +46,7 @@ class ArcballCamera: Camera {
     }
     
     override func zoom(delta: Float, sensitivity: Float = 0.1) {
-        distance += delta * sensitivity
+        distance -= delta * sensitivity
         updateViewMatrix()
     }
     
