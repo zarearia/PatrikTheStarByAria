@@ -11,22 +11,23 @@ using namespace metal;
 
 struct VertexIn {
     float4 position [[attribute(0)]];
+    float3 normal [[attribute(1)]];
 };
 
 struct VertexOut {
     float4 position [[position]];
-    float point_size [[point_size]];
+    float3 normal;
 };
 
 vertex VertexOut vertex_main(const VertexIn vertexIn [[stage_in]],
                              constant Uniforms &uniforms [[buffer(1)]]) {
     VertexOut vertexOut = VertexOut {
         .position = uniforms.projectionMatrix * uniforms.viewMatrix * uniforms.modelMatrix * vertexIn.position,
-        .point_size = 20
+        .normal = vertexIn.normal
     };
     return vertexOut;
 }
 
-fragment float4 fragment_main() {
-    return float4(0, 1, 0, 1);
+fragment float4 fragment_main(VertexOut vertexIn [[stage_in]]) {
+    return float4(vertexIn.normal, 1);
 }

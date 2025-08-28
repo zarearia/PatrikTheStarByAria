@@ -15,6 +15,7 @@ class Renderer: NSObject {
     static var colorPixelFormat: MTLPixelFormat!
     
     var pipelineState: MTLRenderPipelineState?
+    var depthStencilState: MTLDepthStencilState?
     var model: Model
     
     //TODO: I have to make a class called node for these later
@@ -39,6 +40,8 @@ class Renderer: NSObject {
         metalView.depthStencilPixelFormat = .depth32Float
         
         
+        
+        
         model = Model(resourse: "patrik", extention: "usda")
 
         super.init()
@@ -48,12 +51,15 @@ class Renderer: NSObject {
         
         
         makePipelineState()
+        makeDepthStencileState()
+        
+        metalView.depthStencilPixelFormat = .depth32Float
         
         uniforms.modelMatrix = modelMatrix
         
         let aspect: Float = Float(metalView.frame.width / metalView.frame.height)
         camera.aspect = aspect
-        camera.zoom(delta: -10)
+        camera.zoom(delta: -30)
         uniforms.projectionMatrix = camera.projectionMatrix
         
     }
@@ -77,6 +83,14 @@ class Renderer: NSObject {
             fatalError(error.localizedDescription)
         }
     }
+    
+    func makeDepthStencileState() {
+        let descriptor = MTLDepthStencilDescriptor()
+        descriptor.depthCompareFunction = .less
+        descriptor.isDepthWriteEnabled = true
+        
+        depthStencilState = Renderer.device.makeDepthStencilState(descriptor: descriptor)
+    }
 }
 
 
@@ -96,6 +110,7 @@ extension Renderer: MTKViewDelegate {
         }
         
         renderEncoder.setRenderPipelineState(pipelineState)
+        renderEncoder.setDepthStencilState(depthStencilState)
         
         uniforms.viewMatrix = camera.viewMatrix
         renderEncoder.setVertexBytes(&uniforms, length: MemoryLayout<Uniforms>.stride, index: 1)
