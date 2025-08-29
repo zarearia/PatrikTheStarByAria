@@ -16,24 +16,42 @@ struct VertexIn {
 
 struct VertexOut {
     float4 position [[position]];
-    float3 normal;
+    float3 worldPosition;
+    float3 worldNormal;
 };
+
+float3x3 extract_top_3x3(float4x4 m)
+{
+    return float3x3(
+        m.columns[0].xyz,
+        m.columns[1].xyz,
+        m.columns[2].xyz
+    );
+}
 
 vertex VertexOut vertex_main(const VertexIn vertexIn [[stage_in]],
                              constant Uniforms &uniforms [[buffer(1)]]) {
+    
+    matrix_float3x3 normalMatrix = extract_top_3x3(uniforms.modelMatrix);
+    
     VertexOut vertexOut = VertexOut {
         .position = uniforms.projectionMatrix * uniforms.viewMatrix * uniforms.modelMatrix * vertexIn.position,
-        .normal = vertexIn.normal
+        .worldPosition = (uniforms.modelMatrix * vertexIn.position).xyz,
+        .worldNormal = normalMatrix * vertexIn.normal
     };
     return vertexOut;
 }
 
 fragment float4 fragment_main(VertexOut vertexIn [[stage_in]]) {
-    float4 color;
-    float3 normal = vertexIn.normal;
-    float4 skyColor = float4(0, 0.5, 1, 1);
-    float4 groundColor = float4(0, 1, 0, 1);
-    float colorIntensity = saturate((normal.y + 1) / 2);
-    color = mix(groundColor, skyColor, colorIntensity);
-    return color;
+    float3 lightDirection = normalize(float3(1, 2, -2));
+    float3 lightColor = float3(1, 1, 1);
+    float3 baseColor = float3(0, 1, 0);
+    float3 normalDirection = normalize(vertexIn.worldNormal);
+    
+    float intensity = saturate(dot(lightDirection, normalDirection));
+    
+    baseColor = lightColor * baseColor * intensity;
+    
+    
+    return float4(baseColor, 1);
 }
