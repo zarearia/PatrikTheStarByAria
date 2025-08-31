@@ -20,9 +20,12 @@ class Renderer: NSObject {
     
     //TODO: I have to make a class called node for these later
     var uniforms = Uniforms()
+    var fragmentUniforms = FragmentUniforms()
     let modelMatrix: matrix_float4x4 = .identity()//matrix_float4x4.init(rotation: [0, 0, Float(45).degreesToRadians])
     
     var camera = ArcballCamera()
+    
+    var lights: [Light] = []
     
 
     init(metalView: MTKView) {
@@ -49,6 +52,12 @@ class Renderer: NSObject {
         metalView.delegate = self
         metalView.clearColor = .init(red: 1, green: 1, blue: 1, alpha: 1)
         
+        var sunLight = Light()
+        sunLight.color = float3(1, 1, 1)
+        sunLight.position = float3(1, 2, -2)
+        sunLight.intensity = 1
+        sunLight.type = SunLight
+        lights.append(sunLight)
         
         makePipelineState()
         makeDepthStencileState()
@@ -114,6 +123,11 @@ extension Renderer: MTKViewDelegate {
         
         uniforms.viewMatrix = camera.viewMatrix
         renderEncoder.setVertexBytes(&uniforms, length: MemoryLayout<Uniforms>.stride, index: 1)
+        
+        fragmentUniforms.lightCount = UInt32(lights.count)
+        renderEncoder.setFragmentBytes(&fragmentUniforms, length: MemoryLayout<FragmentUniforms>.stride, index: 2)
+        
+        renderEncoder.setFragmentBytes(&lights, length: MemoryLayout<Light>.stride * lights.count, index: 3)
         
         for mesh in model.meshes {
             let submeshs = mesh.submeshes

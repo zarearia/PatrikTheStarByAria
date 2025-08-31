@@ -42,16 +42,29 @@ vertex VertexOut vertex_main(const VertexIn vertexIn [[stage_in]],
     return vertexOut;
 }
 
-fragment float4 fragment_main(VertexOut vertexIn [[stage_in]]) {
-    float3 lightDirection = normalize(float3(1, 2, -2));
-    float3 lightColor = float3(1, 1, 1);
+fragment float4 fragment_main(VertexOut vertexIn [[stage_in]],
+                              constant FragmentUniforms &uniforms [[buffer(2)]],
+                              constant Light *lights [[buffer(3)]]) {
+    
+    
     float3 baseColor = float3(0, 1, 0);
-    float3 normalDirection = normalize(vertexIn.worldNormal);
+    float3 diffuseColor;
+    for (uint32_t i = 0; i < uniforms.lightCount; i++) {
+        
+        Light light = lights[i];
+        
+        if (light.type == SunLight) {
+            float3 lightDirection = normalize(light.position);
+            float3 lightColor = light.color;
+            float3 normalDirection = normalize(vertexIn.worldNormal);
+            
+            float diffuseIntensity = saturate(dot(lightDirection, normalDirection));
+            
+            diffuseColor = lightColor * baseColor * diffuseIntensity;
+        }
+    }
     
-    float intensity = saturate(dot(lightDirection, normalDirection));
     
-    baseColor = lightColor * baseColor * intensity;
-    
-    
-    return float4(baseColor, 1);
+    float3 finalColor = diffuseColor;
+    return float4(finalColor, 1);
 }

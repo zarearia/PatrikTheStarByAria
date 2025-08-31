@@ -16,4 +16,20 @@ typedef struct {
     matrix_float4x4 projectionMatrix;
 } Uniforms;
 
+typedef enum {
+    unused = 0,
+    SunLight = 1
+} LightType;
+
+typedef struct {
+    LightType type;
+    vector_float3 position;
+    vector_float3 color;
+    float intensity;
+} Light;
+
+typedef struct {
+    uint32_t lightCount;
+} FragmentUniforms;
+
 #endif /* Header_h */
