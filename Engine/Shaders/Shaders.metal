@@ -48,7 +48,8 @@ fragment float4 fragment_main(VertexOut vertexIn [[stage_in]],
     
     
     float3 baseColor = float3(0, 1, 0);
-    float3 diffuseColor;
+    float3 diffuseColor = 0;
+    float3 ambientColor = 0;
     for (uint32_t i = 0; i < uniforms.lightCount; i++) {
         
         Light light = lights[i];
@@ -60,11 +61,13 @@ fragment float4 fragment_main(VertexOut vertexIn [[stage_in]],
             
             float diffuseIntensity = saturate(dot(lightDirection, normalDirection));
             
-            diffuseColor = lightColor * baseColor * diffuseIntensity;
+            diffuseColor += lightColor * baseColor * diffuseIntensity;
+        } else if (light.type == Ambientlight) {
+            ambientColor += light.color * light.intensity;
         }
     }
     
     
-    float3 finalColor = diffuseColor;
+    float3 finalColor = diffuseColor + ambientColor;
     return float4(finalColor, 1);
 }

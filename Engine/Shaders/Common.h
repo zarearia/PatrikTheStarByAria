@@ -18,7 +18,8 @@ typedef struct {
 
 typedef enum {
     unused = 0,
-    SunLight = 1
+    SunLight = 1,
+    Ambientlight = 2
 } LightType;
 
 typedef struct {

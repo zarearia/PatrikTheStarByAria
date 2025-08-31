@@ -52,12 +52,23 @@ class Renderer: NSObject {
         metalView.delegate = self
         metalView.clearColor = .init(red: 1, green: 1, blue: 1, alpha: 1)
         
+        //MARK: Lights
+        /**************/
         var sunLight = Light()
         sunLight.color = float3(1, 1, 1)
         sunLight.position = float3(1, 2, -2)
         sunLight.intensity = 1
         sunLight.type = SunLight
         lights.append(sunLight)
+        
+        //position is not useful for ambientLight
+        var ambientLight = Light(type: Ambientlight,
+                                 position: [0, 0, 0],
+                                 color: [1, 0, 0],
+                                 intensity: 0.2)
+        lights.append(ambientLight)
+        /***************/
+        
         
         makePipelineState()
         makeDepthStencileState()
