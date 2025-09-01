@@ -59,12 +59,14 @@ class Renderer: NSObject {
         sunLight.position = float3(1, 2, -2)
         sunLight.intensity = 1
         sunLight.type = SunLight
+        sunLight.specularColor = float3(1, 1, 1)
         lights.append(sunLight)
         
         //position is not useful for ambientLight
         var ambientLight = Light(type: Ambientlight,
                                  position: [0, 0, 0],
                                  color: [1, 0, 0],
+                                 specularColor: [0, 0, 0],
                                  intensity: 0.2)
         lights.append(ambientLight)
         /***************/
@@ -136,6 +138,7 @@ extension Renderer: MTKViewDelegate {
         renderEncoder.setVertexBytes(&uniforms, length: MemoryLayout<Uniforms>.stride, index: 1)
         
         fragmentUniforms.lightCount = UInt32(lights.count)
+        fragmentUniforms.cameraPosition = camera.position
         renderEncoder.setFragmentBytes(&fragmentUniforms, length: MemoryLayout<FragmentUniforms>.stride, index: 2)
         
         renderEncoder.setFragmentBytes(&lights, length: MemoryLayout<Light>.stride * lights.count, index: 3)

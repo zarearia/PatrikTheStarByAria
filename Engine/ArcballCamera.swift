@@ -42,6 +42,10 @@ class ArcballCamera: Camera {
         let rotationMatrix = float4x4(rotationYXZ: float3(rotation.x, rotation.y, 0))
 //      TODO: Calclulate the linear algebra on paper for this inverse
         let transformationMatrix = (rotationMatrix * translationMatrix).inverse
+        
+        //TODO: Calculate the math of this again
+        position = rotationMatrix.upperLeft * -transformationMatrix.columns.3.xyz
+        
         _viewMatrix = transformationMatrix
     }
     

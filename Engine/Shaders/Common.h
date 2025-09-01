@@ -26,11 +26,13 @@ typedef struct {
     LightType type;
     vector_float3 position;
     vector_float3 color;
+    vector_float3 specularColor;
     float intensity;
 } Light;
 
 typedef struct {
     uint32_t lightCount;
+    vector_float3 cameraPosition;
 } FragmentUniforms;
 
 #endif /* Header_h */

@@ -42,7 +42,7 @@ vertex VertexOut vertex_main(const VertexIn vertexIn [[stage_in]],
     return vertexOut;
 }
 
-fragment float4 fragment_main(VertexOut vertexIn [[stage_in]],
+fragment float4 fragment_main(VertexOut in [[stage_in]],
                               constant FragmentUniforms &uniforms [[buffer(2)]],
                               constant Light *lights [[buffer(3)]]) {
     
@@ -50,6 +50,10 @@ fragment float4 fragment_main(VertexOut vertexIn [[stage_in]],
     float3 baseColor = float3(0, 1, 0);
     float3 diffuseColor = 0;
     float3 ambientColor = 0;
+    float3 specularColor = 0;
+    float materialShininess = 32;
+    float3 materialSpecularColor = float3(1, 1, 1);
+    
     for (uint32_t i = 0; i < uniforms.lightCount; i++) {
         
         Light light = lights[i];
@@ -57,17 +61,25 @@ fragment float4 fragment_main(VertexOut vertexIn [[stage_in]],
         if (light.type == SunLight) {
             float3 lightDirection = normalize(light.position);
             float3 lightColor = light.color;
-            float3 normalDirection = normalize(vertexIn.worldNormal);
+            float3 normalDirection = normalize(in.worldNormal);
             
             float diffuseIntensity = saturate(dot(lightDirection, normalDirection));
             
             diffuseColor += lightColor * baseColor * diffuseIntensity;
+            
+            if (diffuseIntensity > 0) {
+                float3 reflection = reflect(lightDirection, in.worldNormal);
+                //this is camera direction toward the fragment
+                float3 cameraDirection = normalize(in.worldPosition - uniforms.cameraPosition);
+                float specularIntensity = pow(saturate(dot(reflection, cameraDirection)), materialShininess);
+                specularColor += specularIntensity * materialSpecularColor * light.specularColor;
+            }
         } else if (light.type == Ambientlight) {
             ambientColor += light.color * light.intensity;
         }
     }
     
     
-    float3 finalColor = diffuseColor + ambientColor;
+    float3 finalColor = diffuseColor + ambientColor + specularColor;
     return float4(finalColor, 1);
 }
