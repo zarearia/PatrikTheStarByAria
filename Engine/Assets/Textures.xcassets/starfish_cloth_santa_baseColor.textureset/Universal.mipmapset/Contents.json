@@ -1,0 +1,12 @@
+{
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  },
+  "levels" : [
+    {
+      "filename" : "starfish_cloth_santa_baseColor.jpg",
+      "mipmap-level" : "base"
+    }
+  ]
+}

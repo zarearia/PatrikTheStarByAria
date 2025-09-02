@@ -54,13 +54,13 @@ class Renderer: NSObject {
         
         //MARK: Lights
         /**************/
-//        var sunLight = Light()
-//        sunLight.color = float3(1, 1, 1)
-//        sunLight.position = float3(1, 2, -2)
-//        sunLight.intensity = 1
-//        sunLight.type = SunLight
-//        sunLight.specularColor = float3(1, 1, 1)
-//        lights.append(sunLight)
+        var sunLight = Light()
+        sunLight.color = float3(1, 1, 1)
+        sunLight.position = float3(1, 2, -2)
+        sunLight.intensity = 1
+        sunLight.type = SunLight
+        sunLight.specularColor = float3(1, 1, 1)
+        lights.append(sunLight)
         
         //position is not useful for ambientLight
 //        let ambientLight = Light(type: Ambientlight,
@@ -80,18 +80,18 @@ class Renderer: NSObject {
 //        pointLight.specularColor = float3(1, 1, 1)
 //        lights.append(pointLight)
         
-        var spotLight = Light()
-        spotLight.color = float3(1, 1, 0)
-        spotLight.position = float3(1, 2, 1)
-        spotLight.intensity = 1
-        spotLight.attenuation = [1, 1, 1]
-        spotLight.type = SpotLight
-        spotLight.specularColor = float3(1, 1, 1)
-        
-        spotLight.coneAttenuation = 0.1
-        spotLight.coneAngel = 30
-        spotLight.coneDirection = [1, 1, -1]
-        lights.append(spotLight)
+//        var spotLight = Light()
+//        spotLight.color = float3(1, 1, 0)
+//        spotLight.position = float3(1, 2, 1)
+//        spotLight.intensity = 1
+//        spotLight.attenuation = [1, 1, 1]
+//        spotLight.type = SpotLight
+//        spotLight.specularColor = float3(1, 1, 1)
+//        
+//        spotLight.coneAttenuation = 0.1
+//        spotLight.coneAngel = 30
+//        spotLight.coneDirection = [1, 1, -1]
+//        lights.append(spotLight)
         /***************/
         
         
@@ -158,13 +158,13 @@ extension Renderer: MTKViewDelegate {
         renderEncoder.setDepthStencilState(depthStencilState)
         
         uniforms.viewMatrix = camera.viewMatrix
-        renderEncoder.setVertexBytes(&uniforms, length: MemoryLayout<Uniforms>.stride, index: 1)
+        renderEncoder.setVertexBytes(&uniforms, length: MemoryLayout<Uniforms>.stride, index: Int(UniformsBufferIndex.rawValue))
         
         fragmentUniforms.lightCount = UInt32(lights.count)
         fragmentUniforms.cameraPosition = camera.position
-        renderEncoder.setFragmentBytes(&fragmentUniforms, length: MemoryLayout<FragmentUniforms>.stride, index: 2)
+        renderEncoder.setFragmentBytes(&fragmentUniforms, length: MemoryLayout<FragmentUniforms>.stride, index: Int(FragmentUniformsBufferIndex.rawValue))
         
-        renderEncoder.setFragmentBytes(&lights, length: MemoryLayout<Light>.stride * lights.count, index: 3)
+        renderEncoder.setFragmentBytes(&lights, length: MemoryLayout<Light>.stride * lights.count, index: Int(LightsBufferIndex.rawValue))
         
         for mesh in model.meshes {
             let submeshs = mesh.submeshes
