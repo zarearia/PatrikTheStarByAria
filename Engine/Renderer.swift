@@ -54,21 +54,31 @@ class Renderer: NSObject {
         
         //MARK: Lights
         /**************/
-        var sunLight = Light()
-        sunLight.color = float3(1, 1, 1)
-        sunLight.position = float3(1, 2, -2)
-        sunLight.intensity = 1
-        sunLight.type = SunLight
-        sunLight.specularColor = float3(1, 1, 1)
-        lights.append(sunLight)
+//        var sunLight = Light()
+//        sunLight.color = float3(1, 1, 1)
+//        sunLight.position = float3(1, 2, -2)
+//        sunLight.intensity = 1
+//        sunLight.type = SunLight
+//        sunLight.specularColor = float3(1, 1, 1)
+//        lights.append(sunLight)
         
         //position is not useful for ambientLight
-        var ambientLight = Light(type: Ambientlight,
-                                 position: [0, 0, 0],
-                                 color: [1, 0, 0],
-                                 specularColor: [0, 0, 0],
-                                 intensity: 0.2)
-        lights.append(ambientLight)
+//        let ambientLight = Light(type: Ambientlight,
+//                                 position: [0, 0, 0],
+//                                 color: [1, 0, 0],
+//                                 specularColor: [0, 0, 0],
+//                                 attenuation: [1, 0, 0],
+//                                 intensity: 0.2)
+//        lights.append(ambientLight)
+        
+        var pointLight = Light()
+        pointLight.color = float3(1, 1, 0)
+        pointLight.position = float3(1, 2, 1)
+        pointLight.intensity = 1
+        pointLight.attenuation = [1, 1, 1]
+        pointLight.type = PointLight
+        pointLight.specularColor = float3(1, 1, 1)
+        lights.append(pointLight)
         /***************/
         
         

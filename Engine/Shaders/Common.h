@@ -19,7 +19,8 @@ typedef struct {
 typedef enum {
     unused = 0,
     SunLight = 1,
-    Ambientlight = 2
+    Ambientlight = 2,
+    PointLight = 3
 } LightType;
 
 typedef struct {
@@ -27,6 +28,7 @@ typedef struct {
     vector_float3 position;
     vector_float3 color;
     vector_float3 specularColor;
+    vector_float3 attenuation;
     float intensity;
 } Light;
 

@@ -47,12 +47,14 @@ fragment float4 fragment_main(VertexOut in [[stage_in]],
                               constant Light *lights [[buffer(3)]]) {
     
     
-    float3 baseColor = float3(0, 1, 0);
+    float3 baseColor = float3(1, 1, 1);
     float3 diffuseColor = 0;
     float3 ambientColor = 0;
     float3 specularColor = 0;
     float materialShininess = 32;
     float3 materialSpecularColor = float3(1, 1, 1);
+    
+    float3 normalDirection = normalize(in.worldNormal);
     
     for (uint32_t i = 0; i < uniforms.lightCount; i++) {
         
@@ -61,7 +63,6 @@ fragment float4 fragment_main(VertexOut in [[stage_in]],
         if (light.type == SunLight) {
             float3 lightDirection = normalize(light.position);
             float3 lightColor = light.color;
-            float3 normalDirection = normalize(in.worldNormal);
             
             float diffuseIntensity = saturate(dot(lightDirection, normalDirection));
             
@@ -76,6 +77,18 @@ fragment float4 fragment_main(VertexOut in [[stage_in]],
             }
         } else if (light.type == Ambientlight) {
             ambientColor += light.color * light.intensity;
+        } else if (light.type == PointLight) {
+            float d = distance(light.position, in.worldPosition);
+            float3 lightDirection = normalize(light.position - in.worldPosition);
+            
+            float attenuation = 1.0 / ( light.attenuation.x + light.attenuation.y * d + light.attenuation.z * pow(light.attenuation.z, 2) );
+            
+            float diffuseIntensity = saturate(dot(lightDirection, normalDirection));
+            
+            float3 color = diffuseIntensity * light.color * baseColor;
+            
+            color *= attenuation;
+            diffuseColor += color;
         }
     }
     
