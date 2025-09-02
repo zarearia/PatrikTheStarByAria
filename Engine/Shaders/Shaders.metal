@@ -89,6 +89,25 @@ fragment float4 fragment_main(VertexOut in [[stage_in]],
             
             color *= attenuation;
             diffuseColor += color;
+        } else if (light.type == SpotLight) {
+            float d = distance(light.position, in.worldPosition);
+            float3 lightDirection = normalize(light.position - in.worldPosition);
+            
+            float3 coneDirection = normalize(light.coneDirection);
+            float spotResult = dot(lightDirection, coneDirection);
+            
+            if (spotResult > cos(light.coneAngel)) {
+                float attenuation = 1.0 / ( light.attenuation.x + light.attenuation.y * d + light.attenuation.z * pow(light.attenuation.z, 2) );
+                
+                attenuation *= pow(spotResult, light.coneAttenuation);
+                
+                float diffuseIntensity = saturate(dot(lightDirection, normalDirection));
+                
+                float3 color = diffuseIntensity * light.color * baseColor;
+                
+                color *= attenuation;
+                diffuseColor += color;
+            }
         }
     }
     
