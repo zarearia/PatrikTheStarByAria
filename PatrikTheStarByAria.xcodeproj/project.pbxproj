@@ -17,8 +17,6 @@
 		F76723132E56EFE500143CE1 /* MathHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76723112E56EFE000143CE1 /* MathHelpers.swift */; };
 		F767231A2E58410E00143CE1 /* patrik.usda in Resources */ = {isa = PBXBuildFile; fileRef = F76723192E58410E00143CE1 /* patrik.usda */; };
 		F767231B2E58410E00143CE1 /* patrik.usda in Resources */ = {isa = PBXBuildFile; fileRef = F76723192E58410E00143CE1 /* patrik.usda */; };
-		F767231D2E5B58BB00143CE1 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = F767231C2E5B58B800143CE1 /* Model.swift */; };
-		F767231E2E5B58BB00143CE1 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = F767231C2E5B58B800143CE1 /* Model.swift */; };
 		F76723202E5B646D00143CE1 /* train.obj in Resources */ = {isa = PBXBuildFile; fileRef = F767231F2E5B646D00143CE1 /* train.obj */; };
 		F76723212E5B646D00143CE1 /* train.obj in Resources */ = {isa = PBXBuildFile; fileRef = F767231F2E5B646D00143CE1 /* train.obj */; };
 		F767232E2E5D853400143CE1 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = F767232D2E5D852C00143CE1 /* Node.swift */; };
@@ -29,6 +27,10 @@
 		F76723352E5ECD7B00143CE1 /* ArcballCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76723332E5ECD7100143CE1 /* ArcballCamera.swift */; };
 		F7E44EAE2E66BDC300D44694 /* Textures.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F7E44EAD2E66BDC300D44694 /* Textures.xcassets */; };
 		F7E44EAF2E66BDC300D44694 /* Textures.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F7E44EAD2E66BDC300D44694 /* Textures.xcassets */; };
+		F7E44EC92E680AF800D44694 /* Renderable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E44EC82E680AF300D44694 /* Renderable.swift */; };
+		F7E44ECA2E680AF800D44694 /* Renderable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E44EC82E680AF300D44694 /* Renderable.swift */; };
+		F7E44ED62E69656B00D44694 /* patrik2.usdz in Resources */ = {isa = PBXBuildFile; fileRef = F7E44ED52E69656B00D44694 /* patrik2.usdz */; };
+		F7E44ED72E69656B00D44694 /* patrik2.usdz in Resources */ = {isa = PBXBuildFile; fileRef = F7E44ED52E69656B00D44694 /* patrik2.usdz */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,13 +41,14 @@
 		F767230E2E56EB5C00143CE1 /* VertexDescriptorHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VertexDescriptorHelper.swift; sourceTree = "<group>"; };
 		F76723112E56EFE000143CE1 /* MathHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MathHelpers.swift; sourceTree = "<group>"; };
 		F76723192E58410E00143CE1 /* patrik.usda */ = {isa = PBXFileReference; lastKnownFileType = text; path = patrik.usda; sourceTree = "<group>"; };
-		F767231C2E5B58B800143CE1 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		F767231F2E5B646D00143CE1 /* train.obj */ = {isa = PBXFileReference; lastKnownFileType = text; path = train.obj; sourceTree = "<group>"; };
 		F76723292E5C31DA00143CE1 /* Common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
 		F767232D2E5D852C00143CE1 /* Node.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
 		F76723302E5D86FE00143CE1 /* Camera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
 		F76723332E5ECD7100143CE1 /* ArcballCamera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArcballCamera.swift; sourceTree = "<group>"; };
 		F7E44EAD2E66BDC300D44694 /* Textures.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Textures.xcassets; sourceTree = "<group>"; };
+		F7E44EC82E680AF300D44694 /* Renderable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Renderable.swift; sourceTree = "<group>"; };
+		F7E44ED52E69656B00D44694 /* patrik2.usdz */ = {isa = PBXFileReference; lastKnownFileType = file; path = patrik2.usdz; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -70,6 +73,11 @@
 				F76722E32E54E57500143CE1 /* Exceptions for "PatrikTheStarByAriaiOS" folder in "PatrikTheStarByAriaiOS" target */,
 			);
 			path = PatrikTheStarByAriaiOS;
+			sourceTree = "<group>";
+		};
+		F7E44EC62E68074800D44694 /* Model */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -114,14 +122,14 @@
 		F76722E72E54E66100143CE1 /* Engine */ = {
 			isa = PBXGroup;
 			children = (
+				F7E44EC72E680AD600D44694 /* Renderer */,
+				F7E44EC62E68074800D44694 /* Model */,
 				F76723332E5ECD7100143CE1 /* ArcballCamera.swift */,
 				F76723302E5D86FE00143CE1 /* Camera.swift */,
 				F767232D2E5D852C00143CE1 /* Node.swift */,
 				F76723222E5C319000143CE1 /* Shaders */,
-				F767231C2E5B58B800143CE1 /* Model.swift */,
 				F76723182E583FFE00143CE1 /* Assets */,
 				F76723142E56EFE800143CE1 /* Helpers */,
-				F76722E82E54E67600143CE1 /* Renderer.swift */,
 			);
 			path = Engine;
 			sourceTree = "<group>";
@@ -138,6 +146,7 @@
 		F76723182E583FFE00143CE1 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				F7E44ED52E69656B00D44694 /* patrik2.usdz */,
 				F767231F2E5B646D00143CE1 /* train.obj */,
 				F76723192E58410E00143CE1 /* patrik.usda */,
 				F7E44EAD2E66BDC300D44694 /* Textures.xcassets */,
@@ -152,6 +161,15 @@
 				F76723292E5C31DA00143CE1 /* Common.h */,
 			);
 			path = Shaders;
+			sourceTree = "<group>";
+		};
+		F7E44EC72E680AD600D44694 /* Renderer */ = {
+			isa = PBXGroup;
+			children = (
+				F7E44EC82E680AF300D44694 /* Renderable.swift */,
+				F76722E82E54E67600143CE1 /* Renderer.swift */,
+			);
+			path = Renderer;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -171,6 +189,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				F76722BE2E54E05200143CE1 /* PatrikTheStarByAria */,
+				F7E44EC62E68074800D44694 /* Model */,
 			);
 			name = PatrikTheStarByAria;
 			packageProductDependencies = (
@@ -193,6 +212,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				F76722D32E54E57400143CE1 /* PatrikTheStarByAriaiOS */,
+				F7E44EC62E68074800D44694 /* Model */,
 			);
 			name = PatrikTheStarByAriaiOS;
 			packageProductDependencies = (
@@ -247,6 +267,7 @@
 				F7E44EAF2E66BDC300D44694 /* Textures.xcassets in Resources */,
 				F76723202E5B646D00143CE1 /* train.obj in Resources */,
 				F767231B2E58410E00143CE1 /* patrik.usda in Resources */,
+				F7E44ED62E69656B00D44694 /* patrik2.usdz in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -257,6 +278,7 @@
 				F76723212E5B646D00143CE1 /* train.obj in Resources */,
 				F7E44EAE2E66BDC300D44694 /* Textures.xcassets in Resources */,
 				F767231A2E58410E00143CE1 /* patrik.usda in Resources */,
+				F7E44ED72E69656B00D44694 /* patrik2.usdz in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -267,9 +289,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F767231D2E5B58BB00143CE1 /* Model.swift in Sources */,
 				F76723102E56EB6700143CE1 /* VertexDescriptorHelper.swift in Sources */,
 				F767230C2E56E65500143CE1 /* Shaders.metal in Sources */,
+				F7E44ECA2E680AF800D44694 /* Renderable.swift in Sources */,
 				F767232F2E5D853400143CE1 /* Node.swift in Sources */,
 				F76723352E5ECD7B00143CE1 /* ArcballCamera.swift in Sources */,
 				F76722E92E54E67600143CE1 /* Renderer.swift in Sources */,
@@ -285,11 +307,11 @@
 				F76723342E5ECD7B00143CE1 /* ArcballCamera.swift in Sources */,
 				F76722EA2E54E67600143CE1 /* Renderer.swift in Sources */,
 				F767230F2E56EB6700143CE1 /* VertexDescriptorHelper.swift in Sources */,
+				F7E44EC92E680AF800D44694 /* Renderable.swift in Sources */,
 				F767232E2E5D853400143CE1 /* Node.swift in Sources */,
 				F76723312E5D870100143CE1 /* Camera.swift in Sources */,
 				F767230D2E56E65500143CE1 /* Shaders.metal in Sources */,
 				F76723132E56EFE500143CE1 /* MathHelpers.swift in Sources */,
-				F767231E2E5B58BB00143CE1 /* Model.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

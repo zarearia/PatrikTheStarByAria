@@ -12,12 +12,14 @@ using namespace metal;
 struct VertexIn {
     float4 position [[attribute(0)]];
     float3 normal [[attribute(1)]];
+    float2 uv [[attribute(2)]];
 };
 
 struct VertexOut {
     float4 position [[position]];
     float3 worldPosition;
     float3 worldNormal;
+    float2 uv;
 };
 
 float3x3 extract_top_3x3(float4x4 m)
@@ -37,17 +39,23 @@ vertex VertexOut vertex_main(const VertexIn vertexIn [[stage_in]],
     VertexOut vertexOut = VertexOut {
         .position = uniforms.projectionMatrix * uniforms.viewMatrix * uniforms.modelMatrix * vertexIn.position,
         .worldPosition = (uniforms.modelMatrix * vertexIn.position).xyz,
-        .worldNormal = normalMatrix * vertexIn.normal
+        .worldNormal = normalMatrix * vertexIn.normal,
+        .uv = vertexIn.uv
     };
     return vertexOut;
 }
 
 fragment float4 fragment_main(VertexOut in [[stage_in]],
                               constant FragmentUniforms &uniforms [[buffer(2)]],
-                              constant Light *lights [[buffer(3)]]) {
+                              constant Light *lights [[buffer(3)]],
+                              texture2d<float> baseColorTexture2d [[texture(0)]]) {
     
     
-    float3 baseColor = float3(1, 1, 1);
+    constexpr sampler textureSampler;
+
+    float3 baseColor = baseColorTexture2d.sample(textureSampler, in.uv).rgb;
+    return float4(baseColor, 1);
+    
     float3 diffuseColor = 0;
     float3 ambientColor = 0;
     float3 specularColor = 0;

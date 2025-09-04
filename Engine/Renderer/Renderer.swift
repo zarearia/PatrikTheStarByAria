@@ -16,7 +16,7 @@ class Renderer: NSObject {
     
     var pipelineState: MTLRenderPipelineState?
     var depthStencilState: MTLDepthStencilState?
-    var model: Model
+    var models: [Renderable] = []
     
     //TODO: I have to make a class called node for these later
     var uniforms = Uniforms()
@@ -27,6 +27,7 @@ class Renderer: NSObject {
     
     var lights: [Light] = []
     
+    var texture: MTLTexture
 
     init(metalView: MTKView) {
         guard
@@ -42,15 +43,20 @@ class Renderer: NSObject {
         metalView.device = device
         metalView.depthStencilPixelFormat = .depth32Float
         
+        let textureLoader = MTKTextureLoader(device: device)
+        let textureLoaderOptions: [MTKTextureLoader.Option: Any] = [.origin: MTKTextureLoader.Origin.bottomLeft]
         
+        self.texture = try! textureLoader.newTexture(name: "starfish_cloth_santa_baseColor", scaleFactor: 1.0, bundle: Bundle.main, options: textureLoaderOptions)
         
-        
-        model = Model(resourse: "patrik", extention: "usda")
 
+        
         super.init()
         
         metalView.delegate = self
         metalView.clearColor = .init(red: 1, green: 1, blue: 1, alpha: 1)
+        
+//        models.append(Model(resourse: "patrik", extention: "usda"))
+        models.append(Model(resourse: "patrik2", extention: "usdz"))
         
         //MARK: Lights
         /**************/
@@ -166,23 +172,10 @@ extension Renderer: MTKViewDelegate {
         
         renderEncoder.setFragmentBytes(&lights, length: MemoryLayout<Light>.stride * lights.count, index: Int(LightsBufferIndex.rawValue))
         
-        for mesh in model.meshes {
-            let submeshs = mesh.submeshes
-            
-            for submesh in submeshs {
-                
-                renderEncoder.setVertexBuffer(mesh.vertexBuffers[0].buffer, offset: mesh.vertexBuffers[0].offset, index: 0)
-                
-                renderEncoder.drawIndexedPrimitives(
-                    type: .triangle,
-                    indexCount: submesh.indexCount,
-                    indexType: submesh.indexType,
-                    indexBuffer:
-                        submesh.indexBuffer.buffer,
-                    indexBufferOffset: 0
-                )
-            }
+        for model in self.models {
+            model.render(renderEncoder: renderEncoder, uniforms: uniforms, fragmentUniforms: fragmentUniforms)
         }
+        
         
         renderEncoder.endEncoding()
         guard let drawable = view.currentDrawable else {
