@@ -27,7 +27,12 @@ class Submesh {
            let mdlTexture = sampler.texture {
             
             let textureLoader = MTKTextureLoader(device: Renderer.device)
-            baseColorTexture = try! textureLoader.newTexture(texture: mdlTexture, options: [.origin: MTKTextureLoader.Origin.bottomLeft])
+            let textureLoaderOptions: [MTKTextureLoader.Option: Any] = [
+                .origin: MTKTextureLoader.Origin.bottomLeft,
+                .SRGB: false
+            ]
+
+            baseColorTexture = try! textureLoader.newTexture(texture: mdlTexture, options: textureLoaderOptions)
             
             return
         }
