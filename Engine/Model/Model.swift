@@ -23,6 +23,8 @@ class Model {
         let allocator = MTKMeshBufferAllocator(device: Renderer.device)
         self.asset = MDLAsset(url: assetURL, vertexDescriptor: MDLVertexDescriptor.getDefaultVertexDescriptor(), bufferAllocator: allocator)
         
+        self.asset.loadTextures()
+        
         guard let mdlMeshes = asset.childObjects(of: MDLMesh.self) as? [MDLMesh] else {
             return
         }
@@ -50,6 +52,7 @@ extension Model: Renderable {
             for submeshe in submeshs {
                 
                 //TODO: Add texture submeshes here
+                renderEncoder.setFragmentTexture(submeshe.baseColorTexture, index: 0)
                 
                 let mtkSubmesh = submeshe.mtkSubmesh
                 renderEncoder.drawIndexedPrimitives(

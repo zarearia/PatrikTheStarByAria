@@ -57,7 +57,8 @@ class Renderer: NSObject {
         
 //        models.append(Model(resourse: "patrik", extention: "usda"))
         models.append(Model(resourse: "patrik2", extention: "usdz"))
-        
+//        models.append(Model(resourse: "patrik3", extention: "usdz"))
+
         //MARK: Lights
         /**************/
         var sunLight = Light()
