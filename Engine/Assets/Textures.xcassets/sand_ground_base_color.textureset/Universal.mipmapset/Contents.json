@@ -1,0 +1,12 @@
+{
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  },
+  "levels" : [
+    {
+      "filename" : "coast_sand_01_diff_1k.jpg",
+      "mipmap-level" : "base"
+    }
+  ]
+}

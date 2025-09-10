@@ -48,12 +48,10 @@ vertex VertexOut vertex_main(const VertexIn vertexIn [[stage_in]],
 fragment float4 fragment_main(VertexOut in [[stage_in]],
                               constant FragmentUniforms &uniforms [[buffer(2)]],
                               constant Light *lights [[buffer(3)]],
-                              texture2d<float> baseColorTexture2d [[texture(0)]]) {
+                              texture2d<float> baseColorTexture2d [[texture(0)]],
+                              sampler textureSampler [[sampler(0)]]) {
     
-    
-    constexpr sampler textureSampler;
-
-    float3 baseColor = baseColorTexture2d.sample(textureSampler, in.uv).rgb;
+    float3 baseColor = baseColorTexture2d.sample(textureSampler, in.uv * uniforms.tiling).rgb;
     return float4(baseColor, 1);
     
     float3 diffuseColor = 0;

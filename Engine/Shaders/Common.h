@@ -39,6 +39,7 @@ typedef struct {
 typedef struct {
     uint32_t lightCount;
     vector_float3 cameraPosition;
+    uint32_t tiling;
 } FragmentUniforms;
 
 

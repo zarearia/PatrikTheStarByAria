@@ -22,19 +22,33 @@ class Submesh {
     private func loadTextures(material: MDLMaterial) {
         
         //MARK: Loading BaseColor
-        if let property = material.property(with: MDLMaterialSemantic.baseColor),
-           let sampler = property.textureSamplerValue,
-           let mdlTexture = sampler.texture {
-            
-            let textureLoader = MTKTextureLoader(device: Renderer.device)
-            let textureLoaderOptions: [MTKTextureLoader.Option: Any] = [
-                .origin: MTKTextureLoader.Origin.bottomLeft,
-                .SRGB: false
-            ]
+        /// using usdz, ModelIO will handle the texture for us!
+        guard let property = material.property(with: MDLMaterialSemantic.baseColor) else {
+            print("submesh did not have any baseColors")
+            return
+        }
 
-            baseColorTexture = try! textureLoader.newTexture(texture: mdlTexture, options: textureLoaderOptions)
+        let textureLoader = MTKTextureLoader(device: Renderer.device)
+        let textureLoaderOptions: [MTKTextureLoader.Option: Any] = [
+            .origin: MTKTextureLoader.Origin.bottomLeft,
+            .SRGB: false,
+            .generateMipmaps: true
+        ]
+        
+        if let sampler = property.textureSamplerValue,
+           let mdlTexture = sampler.texture {
+
+            baseColorTexture = try? textureLoader.newTexture(texture: mdlTexture, options: textureLoaderOptions)
             
             return
+        }
+        
+        
+        if let fileName = property.stringValue,
+           property.type == .string {
+            baseColorTexture = try? textureLoader.newTexture(name: fileName,
+                                            scaleFactor: 1.0,
+                                            bundle: Bundle.main, options: nil)
         }
     }
 }

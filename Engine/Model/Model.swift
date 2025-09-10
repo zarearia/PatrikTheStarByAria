@@ -12,7 +12,8 @@ import os
 class Model {
     let asset: MDLAsset
     var meshes: [Mesh] = []
-    let logger = Logger()
+    var tiling: UInt32 = 1
+    var samplerState: MTLSamplerState?
     
     init(resourse: String, extention: String) {
         guard let assetURL = Bundle.main.url(forResource: resourse, withExtension: extention) else
@@ -29,6 +30,8 @@ class Model {
             return
         }
         
+        samplerState = buildSamplerState()
+        
         _ = mdlMeshes.map {
             do {
                 let mesh: Mesh = try Mesh(mtkMesh: MTKMesh(mesh: $0, device: Renderer.device), mdlMesh: $0)
@@ -39,10 +42,30 @@ class Model {
             
         }
     }
+    
+    func buildSamplerState() -> MTLSamplerState? {
+        let descriptor = MTLSamplerDescriptor()
+        //this has a preformance trade off
+        descriptor.maxAnisotropy = 8
+        
+        descriptor.magFilter = .linear
+        descriptor.mipFilter = .linear
+        descriptor.sAddressMode = .repeat
+        descriptor.tAddressMode = .repeat
+        return Renderer.device.makeSamplerState(descriptor: descriptor)
+    }
 }
 
 extension Model: Renderable {
     func render(renderEncoder: any MTLRenderCommandEncoder, uniforms: Uniforms, fragmentUniforms fragment: FragmentUniforms) {
+        
+        var fragmentUniforms = fragment
+        fragmentUniforms.tiling = tiling
+        
+        renderEncoder.setFragmentBytes(&fragmentUniforms, length: MemoryLayout<FragmentUniforms>.stride, index: Int(FragmentUniformsBufferIndex.rawValue))
+        
+        renderEncoder.setFragmentSamplerState(samplerState, index: 0)
+        
         for mesh in self.meshes {
             let mtkMesh = mesh.mtkMesh
             let submeshs = mesh.submeshes

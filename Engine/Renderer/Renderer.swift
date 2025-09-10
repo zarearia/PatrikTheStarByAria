@@ -58,6 +58,10 @@ class Renderer: NSObject {
 //        models.append(Model(resourse: "patrik", extention: "usda"))
         models.append(Model(resourse: "patrik2", extention: "usdz"))
 //        models.append(Model(resourse: "patrik3", extention: "usdz"))
+        
+        var groundModel = Model(resourse: "ground", extention: "obj")
+        groundModel.tiling = 4
+        models.append(groundModel)
 
         //MARK: Lights
         /**************/
@@ -169,7 +173,6 @@ extension Renderer: MTKViewDelegate {
         
         fragmentUniforms.lightCount = UInt32(lights.count)
         fragmentUniforms.cameraPosition = camera.position
-        renderEncoder.setFragmentBytes(&fragmentUniforms, length: MemoryLayout<FragmentUniforms>.stride, index: Int(FragmentUniformsBufferIndex.rawValue))
         
         renderEncoder.setFragmentBytes(&lights, length: MemoryLayout<Light>.stride * lights.count, index: Int(LightsBufferIndex.rawValue))
         
