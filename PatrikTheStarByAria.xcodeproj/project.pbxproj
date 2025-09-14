@@ -25,6 +25,12 @@
 		F76723322E5D870100143CE1 /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76723302E5D86FE00143CE1 /* Camera.swift */; };
 		F76723342E5ECD7B00143CE1 /* ArcballCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76723332E5ECD7100143CE1 /* ArcballCamera.swift */; };
 		F76723352E5ECD7B00143CE1 /* ArcballCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76723332E5ECD7100143CE1 /* ArcballCamera.swift */; };
+		F7D30B042E728D8C00254E80 /* Super_brawl_Universe-Patrick_Star.usdz in Resources */ = {isa = PBXBuildFile; fileRef = F7D30B032E728D8C00254E80 /* Super_brawl_Universe-Patrick_Star.usdz */; };
+		F7D30B052E728D8C00254E80 /* Super_brawl_Universe-Patrick_Star.usdz in Resources */ = {isa = PBXBuildFile; fileRef = F7D30B032E728D8C00254E80 /* Super_brawl_Universe-Patrick_Star.usdz */; };
+		F7D30B072E728DFB00254E80 /* skeletonWave.usda in Resources */ = {isa = PBXBuildFile; fileRef = F7D30B062E728DFB00254E80 /* skeletonWave.usda */; };
+		F7D30B082E728DFB00254E80 /* skeletonWave.usda in Resources */ = {isa = PBXBuildFile; fileRef = F7D30B062E728DFB00254E80 /* skeletonWave.usda */; };
+		F7D30B0B2E73DCE500254E80 /* Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D30B0A2E73DCE500254E80 /* Animation.swift */; };
+		F7D30B0C2E73DCE500254E80 /* Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D30B0A2E73DCE500254E80 /* Animation.swift */; };
 		F7E44EAE2E66BDC300D44694 /* Textures.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F7E44EAD2E66BDC300D44694 /* Textures.xcassets */; };
 		F7E44EAF2E66BDC300D44694 /* Textures.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F7E44EAD2E66BDC300D44694 /* Textures.xcassets */; };
 		F7E44EC92E680AF800D44694 /* Renderable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E44EC82E680AF300D44694 /* Renderable.swift */; };
@@ -52,6 +58,9 @@
 		F767232D2E5D852C00143CE1 /* Node.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
 		F76723302E5D86FE00143CE1 /* Camera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
 		F76723332E5ECD7100143CE1 /* ArcballCamera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArcballCamera.swift; sourceTree = "<group>"; };
+		F7D30B032E728D8C00254E80 /* Super_brawl_Universe-Patrick_Star.usdz */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Super_brawl_Universe-Patrick_Star.usdz"; sourceTree = "<group>"; };
+		F7D30B062E728DFB00254E80 /* skeletonWave.usda */ = {isa = PBXFileReference; lastKnownFileType = text; path = skeletonWave.usda; sourceTree = "<group>"; };
+		F7D30B0A2E73DCE500254E80 /* Animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animation.swift; sourceTree = "<group>"; };
 		F7E44EAD2E66BDC300D44694 /* Textures.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Textures.xcassets; sourceTree = "<group>"; };
 		F7E44EC82E680AF300D44694 /* Renderable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Renderable.swift; sourceTree = "<group>"; };
 		F7E44ED52E69656B00D44694 /* patrik2.usdz */ = {isa = PBXFileReference; lastKnownFileType = file; path = patrik2.usdz; sourceTree = "<group>"; };
@@ -131,6 +140,7 @@
 		F76722E72E54E66100143CE1 /* Engine */ = {
 			isa = PBXGroup;
 			children = (
+				F7D30B092E73DCD200254E80 /* Animation */,
 				F7E44EC72E680AD600D44694 /* Renderer */,
 				F7E44EC62E68074800D44694 /* Model */,
 				F76723332E5ECD7100143CE1 /* ArcballCamera.swift */,
@@ -155,8 +165,10 @@
 		F76723182E583FFE00143CE1 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				F7D30B062E728DFB00254E80 /* skeletonWave.usda */,
 				F7EEFE8A2E6DAAD2009587D0 /* Ground */,
 				F7E44EDB2E6AAE4100D44694 /* patrik3.usdz */,
+				F7D30B032E728D8C00254E80 /* Super_brawl_Universe-Patrick_Star.usdz */,
 				F7E44ED52E69656B00D44694 /* patrik2.usdz */,
 				F767231F2E5B646D00143CE1 /* train.obj */,
 				F76723192E58410E00143CE1 /* patrik.usda */,
@@ -172,6 +184,14 @@
 				F76723292E5C31DA00143CE1 /* Common.h */,
 			);
 			path = Shaders;
+			sourceTree = "<group>";
+		};
+		F7D30B092E73DCD200254E80 /* Animation */ = {
+			isa = PBXGroup;
+			children = (
+				F7D30B0A2E73DCE500254E80 /* Animation.swift */,
+			);
+			path = Animation;
 			sourceTree = "<group>";
 		};
 		F7E44EC72E680AD600D44694 /* Renderer */ = {
@@ -284,12 +304,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F7D30B042E728D8C00254E80 /* Super_brawl_Universe-Patrick_Star.usdz in Resources */,
 				F7E44EDD2E6AAE4100D44694 /* patrik3.usdz in Resources */,
 				F7EEFE892E6DAAB9009587D0 /* ground.obj in Resources */,
 				F7E44EAF2E66BDC300D44694 /* Textures.xcassets in Resources */,
 				F76723202E5B646D00143CE1 /* train.obj in Resources */,
 				F7EEFE8C2E6DAADF009587D0 /* ground.mtl in Resources */,
 				F767231B2E58410E00143CE1 /* patrik.usda in Resources */,
+				F7D30B082E728DFB00254E80 /* skeletonWave.usda in Resources */,
 				F7E44ED62E69656B00D44694 /* patrik2.usdz in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -298,8 +320,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F7D30B072E728DFB00254E80 /* skeletonWave.usda in Resources */,
 				F7E44EDC2E6AAE4100D44694 /* patrik3.usdz in Resources */,
 				F76723212E5B646D00143CE1 /* train.obj in Resources */,
+				F7D30B052E728D8C00254E80 /* Super_brawl_Universe-Patrick_Star.usdz in Resources */,
 				F7EEFE882E6DAAB9009587D0 /* ground.obj in Resources */,
 				F7E44EAE2E66BDC300D44694 /* Textures.xcassets in Resources */,
 				F7EEFE8D2E6DAADF009587D0 /* ground.mtl in Resources */,
@@ -322,6 +346,7 @@
 				F76723352E5ECD7B00143CE1 /* ArcballCamera.swift in Sources */,
 				F76722E92E54E67600143CE1 /* Renderer.swift in Sources */,
 				F76723122E56EFE500143CE1 /* MathHelpers.swift in Sources */,
+				F7D30B0C2E73DCE500254E80 /* Animation.swift in Sources */,
 				F76723322E5D870100143CE1 /* Camera.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -337,6 +362,7 @@
 				F767232E2E5D853400143CE1 /* Node.swift in Sources */,
 				F76723312E5D870100143CE1 /* Camera.swift in Sources */,
 				F767230D2E56E65500143CE1 /* Shaders.metal in Sources */,
+				F7D30B0B2E73DCE500254E80 /* Animation.swift in Sources */,
 				F76723132E56EFE500143CE1 /* MathHelpers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

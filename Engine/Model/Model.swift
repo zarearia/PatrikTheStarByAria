@@ -9,7 +9,7 @@ import MetalKit
 import ModelIO
 import os
 
-class Model {
+class Model: Node {
     let asset: MDLAsset
     var meshes: [Mesh] = []
     var tiling: UInt32 = 1
@@ -24,7 +24,36 @@ class Model {
         let allocator = MTKMeshBufferAllocator(device: Renderer.device)
         self.asset = MDLAsset(url: assetURL, vertexDescriptor: MDLVertexDescriptor.getDefaultVertexDescriptor(), bufferAllocator: allocator)
         
+        
+        
+        
+        
+        let animations = self.asset.animations.objects.compactMap { animationObject in
+            animationObject as? MDLPackedJointAnimation
+        }
+        
+        print(animations)
+        let animation = animations.first
+        print(animation?.translations.float3Array.count)
+        
+        if let animation = animation {
+            
+            print(animation.translations.times.count)
+            print(animation.translations.float3Array)
+            
+            for (joinedIndex, joinedPath) in animation.jointPaths.enumerated() {
+                print(joinedIndex)
+                print(joinedPath)
+            }
+        }
+        
+        
+        
+        
+        
         self.asset.loadTextures()
+        
+        super.init()
         
         guard let mdlMeshes = asset.childObjects(of: MDLMesh.self) as? [MDLMesh] else {
             return
@@ -61,6 +90,11 @@ extension Model: Renderable {
         
         var fragmentUniforms = fragment
         fragmentUniforms.tiling = tiling
+        
+        var modelUniforms = uniforms
+        
+        modelUniforms.modelMatrix = self.modelMatrix
+        renderEncoder.setVertexBytes(&modelUniforms, length: MemoryLayout<Uniforms>.stride, index: Int(UniformsBufferIndex.rawValue))
         
         renderEncoder.setFragmentBytes(&fragmentUniforms, length: MemoryLayout<FragmentUniforms>.stride, index: Int(FragmentUniformsBufferIndex.rawValue))
         

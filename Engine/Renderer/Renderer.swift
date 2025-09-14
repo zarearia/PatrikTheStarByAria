@@ -28,6 +28,15 @@ class Renderer: NSObject {
     var lights: [Light] = []
     
     var texture: MTLTexture
+    
+    var time: Float = 0
+    let skeleton: Model!
+    var animationWithKeyFrames = generateTranslations()
+    func update() {
+        animationWithKeyFrames.repeatAnimation = true
+        skeleton.position = animationWithKeyFrames.getAnimation(at: time) ?? float3(0, 0, 0)
+//        skeleton.position.x += 1/60
+    }
 
     init(metalView: MTKView) {
         guard
@@ -49,15 +58,21 @@ class Renderer: NSObject {
         self.texture = try! textureLoader.newTexture(name: "starfish_cloth_santa_baseColor", scaleFactor: 1.0, bundle: Bundle.main, options: textureLoaderOptions)
         
 
-        
+        skeleton = Model(resourse: "skeletonWave", extention: "usda")
+
         super.init()
         
         metalView.delegate = self
         metalView.clearColor = .init(red: 1, green: 1, blue: 1, alpha: 1)
         
 //        models.append(Model(resourse: "patrik", extention: "usda"))
-        models.append(Model(resourse: "patrik2", extention: "usdz"))
+//        models.append(Model(resourse: "patrik2", extention: "usdz"))
 //        models.append(Model(resourse: "patrik3", extention: "usdz"))
+        
+        skeleton.scale = [100, 100, 100]
+        skeleton.rotation = [-.pi/2, 0, 0]
+        models.append(skeleton)
+        
         
         var groundModel = Model(resourse: "ground", extention: "obj")
         groundModel.tiling = 4
@@ -168,8 +183,12 @@ extension Renderer: MTKViewDelegate {
         renderEncoder.setRenderPipelineState(pipelineState)
         renderEncoder.setDepthStencilState(depthStencilState)
         
+//        let deltaTime = Float(1 / view.preferredFramesPerSecond)
+        time += 1 / Float(view.preferredFramesPerSecond)
+        update()
+        
         uniforms.viewMatrix = camera.viewMatrix
-        renderEncoder.setVertexBytes(&uniforms, length: MemoryLayout<Uniforms>.stride, index: Int(UniformsBufferIndex.rawValue))
+//        renderEncoder.setVertexBytes(&uniforms, length: MemoryLayout<Uniforms>.stride, index: Int(UniformsBufferIndex.rawValue))
         
         fragmentUniforms.lightCount = UInt32(lights.count)
         fragmentUniforms.cameraPosition = camera.position
