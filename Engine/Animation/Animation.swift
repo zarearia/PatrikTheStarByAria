@@ -7,6 +7,7 @@
 
 //This should be refactored to other files
 import Foundation
+import ModelIO
 
 struct KeyFrame {
     var time: Float = 0
@@ -21,7 +22,7 @@ struct KeyFrame {
 }
 
 struct AnimationWithKeyFrames {
-    var keyFrames: [KeyFrame]
+    var keyFrames: [KeyFrame] = []
     var repeatAnimation: Bool = false
     
     func getAnimation(at inputTime: Float) -> float3? {
@@ -73,4 +74,33 @@ func generateTranslations() -> AnimationWithKeyFrames {
         KeyFrame(time: 2,    translation: [-1, 0, 0])
     ]
     return AnimationWithKeyFrames(keyFrames: keyFrames)
+}
+
+
+struct SkeletonAnimation {
+    var name: String = ""
+    var jointsAnimationAtKeyFrame: [String: AnimationWithKeyFrames] = [:]
+}
+
+struct AnimationHelpers {
+    static func loadAnimation(packedAnimation: MDLPackedJointAnimation) -> SkeletonAnimation {
+        var skeletonAnimation = SkeletonAnimation()
+        skeletonAnimation.name = URL(string: packedAnimation.name)?.lastPathComponent ?? "Untitled"
+        
+        for (joinedIndex, joinedPath) in packedAnimation.jointPaths.enumerated() {
+            print(joinedIndex)
+            var jointAnimation = AnimationWithKeyFrames()
+            
+            let translationTimes = packedAnimation.translations.times
+            for i in 0..<packedAnimation.translations.times.count {
+                print(i * packedAnimation.jointPaths.count + joinedIndex)
+                jointAnimation.keyFrames.append(KeyFrame(time: Float(translationTimes[i]), translation: packedAnimation.translations.float3Array[i * packedAnimation.jointPaths.count + joinedIndex]))
+            }
+            
+            skeletonAnimation.jointsAnimationAtKeyFrame[joinedPath] = jointAnimation
+        }
+        
+        print(skeletonAnimation.jointsAnimationAtKeyFrame)
+        return skeletonAnimation
+    }
 }

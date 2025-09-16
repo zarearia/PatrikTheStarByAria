@@ -15,6 +15,8 @@ class Model: Node {
     var tiling: UInt32 = 1
     var samplerState: MTLSamplerState?
     
+    var animations: [String: SkeletonAnimation]
+    
     init(resourse: String, extention: String) {
         guard let assetURL = Bundle.main.url(forResource: resourse, withExtension: extention) else
         {
@@ -27,25 +29,19 @@ class Model: Node {
         
         
         
-        
-        let animations = self.asset.animations.objects.compactMap { animationObject in
+        //Animation tests
+        ////////////////////////////////////animations
+        let packedJointAnimations = self.asset.animations.objects.compactMap { animationObject in
             animationObject as? MDLPackedJointAnimation
         }
         
-        print(animations)
-        let animation = animations.first
-        print(animation?.translations.float3Array.count)
-        
-        if let animation = animation {
-            
-            print(animation.translations.times.count)
-            print(animation.translations.float3Array)
-            
-            for (joinedIndex, joinedPath) in animation.jointPaths.enumerated() {
-                print(joinedIndex)
-                print(joinedPath)
-            }
+        var animations: [String: SkeletonAnimation] = [:]
+        for item in packedJointAnimations {
+            animations[item.name] = AnimationHelpers.loadAnimation(packedAnimation: item)
         }
+        
+        self.animations = animations
+        ////////////////////////////////////
         
         
         
