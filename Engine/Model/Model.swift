@@ -41,6 +41,10 @@ class Model: Node {
         }
         
         self.animations = animations
+        
+        for animation in animations {
+            print("animation: \(animation.key)")
+        }
         ////////////////////////////////////
         
         

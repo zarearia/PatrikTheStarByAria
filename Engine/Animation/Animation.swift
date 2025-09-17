@@ -13,11 +13,10 @@ struct KeyFrame {
     var time: Float = 0
     var translation: float3 = [0, 0, 0]
     //TODO: Change rotation to quaternion
-    var rotation: float3 = [0, 0, 0]
-//    var rotation: simd_quatf = simd_quatf()
+    var rotationQuatf: simd_quatf = simd_quatf()
     var scale: float3 = [0, 0, 0]
     var transformation: float4x4 {
-        float4x4(translation: translation) * float4x4(rotation: rotation) * float4x4(scaling: scale)
+        float4x4(translation: translation) * float4x4(rotationQuatf) * float4x4(scaling: scale)
     }
 }
 
@@ -25,21 +24,21 @@ struct AnimationWithKeyFrames {
     var keyFrames: [KeyFrame] = []
     var repeatAnimation: Bool = false
     
-    func getAnimation(at inputTime: Float) -> float3? {
+    func getTransformation(at inputTime: Float) -> (translation: float3?, rotationQuatf: simd_quatf?, scale: float3?) {
         guard let lastKeyFrame = keyFrames.last else {
             print("Last key frame was nil")
-            return nil
+            return (translation: nil, rotationQuatf: nil, scale: nil)
         }
         
         var time = inputTime
         if let firstKeyFrame = keyFrames.first,
             time <= firstKeyFrame.time {
-            return firstKeyFrame.translation
+            return (translation: firstKeyFrame.translation, rotationQuatf: firstKeyFrame.rotationQuatf, scale: firstKeyFrame.scale)
         }
         
         if time >= lastKeyFrame.time,
            !repeatAnimation {
-            return lastKeyFrame.translation
+            return (translation: lastKeyFrame.translation, rotationQuatf: lastKeyFrame.rotationQuatf, scale: lastKeyFrame.scale)
         }
         
         time = fmod(time, lastKeyFrame.time)
@@ -51,14 +50,24 @@ struct AnimationWithKeyFrames {
             time < $0.next.time
         }) else {
             print("couldn't find any appropriate key paird")
-            return nil
+            return (translation: nil, rotationQuatf: nil, scale: nil)
         }
         
         let interpolant = (time - previousKey.time) / (nextKey.time - previousKey.time)
         
-        return simd_mix(previousKey.translation,
-                        nextKey.translation,
-                        float3(repeating: interpolant))
+        let translation = simd_mix(previousKey.translation,
+                                   nextKey.translation,
+                                   float3(repeating: interpolant))
+        
+        let rotationQuatf = simd_slerp(previousKey.rotationQuatf,
+                                       nextKey.rotationQuatf,
+                                       interpolant)
+        
+        let scale = simd_mix(previousKey.scale,
+                             nextKey.scale,
+                             float3(repeating: interpolant))
+        
+        return (translation: translation, rotationQuatf: rotationQuatf, scale: scale)
     }
 }
 
@@ -80,6 +89,8 @@ func generateTranslations() -> AnimationWithKeyFrames {
 struct SkeletonAnimation {
     var name: String = ""
     var jointsAnimationAtKeyFrame: [String: AnimationWithKeyFrames] = [:]
+    
+    
 }
 
 struct AnimationHelpers {
@@ -88,19 +99,21 @@ struct AnimationHelpers {
         skeletonAnimation.name = URL(string: packedAnimation.name)?.lastPathComponent ?? "Untitled"
         
         for (joinedIndex, joinedPath) in packedAnimation.jointPaths.enumerated() {
-            print(joinedIndex)
             var jointAnimation = AnimationWithKeyFrames()
             
             let translationTimes = packedAnimation.translations.times
             for i in 0..<packedAnimation.translations.times.count {
-                print(i * packedAnimation.jointPaths.count + joinedIndex)
-                jointAnimation.keyFrames.append(KeyFrame(time: Float(translationTimes[i]), translation: packedAnimation.translations.float3Array[i * packedAnimation.jointPaths.count + joinedIndex]))
+                let time = Float(translationTimes[i])
+                let animationArrayPosition = i * packedAnimation.jointPaths.count + joinedIndex
+                jointAnimation.keyFrames.append(
+                    KeyFrame(time: time, translation: packedAnimation.translations.float3Array[animationArrayPosition], rotationQuatf: packedAnimation.rotations.floatQuaternionArray[animationArrayPosition], scale:packedAnimation.scales.float3Array[animationArrayPosition]))
             }
             
             skeletonAnimation.jointsAnimationAtKeyFrame[joinedPath] = jointAnimation
         }
         
-        print(skeletonAnimation.jointsAnimationAtKeyFrame)
         return skeletonAnimation
     }
 }
+
+
