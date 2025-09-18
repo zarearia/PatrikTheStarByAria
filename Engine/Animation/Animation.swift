@@ -115,5 +115,3 @@ struct AnimationHelpers {
         return skeletonAnimation
     }
 }
-
-
