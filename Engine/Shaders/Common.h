@@ -46,7 +46,9 @@ typedef struct {
 typedef enum {
     Position = 0,
     Normal = 1,
-    UV = 2
+    UV = 2,
+    Joints = 3,
+    Weights = 4
 } Attributes;
 
 typedef enum {

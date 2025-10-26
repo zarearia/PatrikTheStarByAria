@@ -10,9 +10,11 @@
 using namespace metal;
 
 struct VertexIn {
-    float4 position [[attribute(0)]];
-    float3 normal [[attribute(1)]];
-    float2 uv [[attribute(2)]];
+    float4 position [[attribute(Position)]];
+    float3 normal [[attribute(Normal)]];
+    float2 uv [[attribute(UV)]];
+    ushort4 joints [[attribute(Joints)]];
+    float4 weights [[attribute(Weights)]];
 };
 
 struct VertexOut {
@@ -32,14 +34,33 @@ float3x3 extract_top_3x3(float4x4 m)
 }
 
 vertex VertexOut vertex_main(const VertexIn vertexIn [[stage_in]],
+                             constant float4x4 *jointMatrices [[buffer(22)]],
                              constant Uniforms &uniforms [[buffer(1)]]) {
+    
+    float4 position = vertexIn.position;
+    float4 normal = float4(vertexIn.normal, 0);
+    
+    
+    float4 weights = vertexIn.weights;
+    ushort4 joints = vertexIn.joints;
+    position =
+        weights.x * (jointMatrices[joints.x] * position) +
+        weights.y * (jointMatrices[joints.y] * position) +
+        weights.z * (jointMatrices[joints.z] * position) +
+        weights.w * (jointMatrices[joints.w] * position);
+    normal =
+        weights.x * (jointMatrices[joints.x] * normal) +
+        weights.y * (jointMatrices[joints.y] * normal) +
+        weights.z * (jointMatrices[joints.z] * normal) +
+        weights.w * (jointMatrices[joints.w] * normal);
+    
     
     matrix_float3x3 normalMatrix = extract_top_3x3(uniforms.modelMatrix);
     
     VertexOut vertexOut = VertexOut {
-        .position = uniforms.projectionMatrix * uniforms.viewMatrix * uniforms.modelMatrix * vertexIn.position,
+        .position = uniforms.projectionMatrix * uniforms.viewMatrix * uniforms.modelMatrix * position,
         .worldPosition = (uniforms.modelMatrix * vertexIn.position).xyz,
-        .worldNormal = normalMatrix * vertexIn.normal,
+        .worldNormal = normalMatrix * normal.xyz,
         .uv = vertexIn.uv
     };
     return vertexOut;

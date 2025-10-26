@@ -14,6 +14,7 @@ class Model: Node {
     var meshes: [Mesh] = []
     var tiling: UInt32 = 1
     var samplerState: MTLSamplerState?
+    var time: Float = 0
     
     var animations: [String: SkeletonAnimation]
     
@@ -83,6 +84,14 @@ class Model: Node {
         descriptor.tAddressMode = .repeat
         return Renderer.device.makeSamplerState(descriptor: descriptor)
     }
+    
+    func update(deltaTime: Float) {
+        for mesh in meshes {
+            if let skeletonAnimation = animations.first?.value {
+                mesh.skeleton?.updatePose(at: deltaTime, animation: skeletonAnimation)
+            }
+        }
+    }
 }
 
 extension Model: Renderable {
@@ -100,7 +109,14 @@ extension Model: Renderable {
         
         renderEncoder.setFragmentSamplerState(samplerState, index: 0)
         
+        //60 frames per second
+        time += 1 / Float(60)
+        update(deltaTime: time)
+        
         for mesh in self.meshes {
+            if let paletteBuffer = mesh.skeleton?.jointPaletteBuffer {
+                renderEncoder.setVertexBuffer(paletteBuffer, offset: 0, index: 22)
+            }
             let mtkMesh = mesh.mtkMesh
             let submeshs = mesh.submeshes
             

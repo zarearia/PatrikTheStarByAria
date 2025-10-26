@@ -39,4 +39,32 @@ struct Skeleton {
         
         return parentIndices
     }
+    
+    func updatePose(at time: Float, animation: SkeletonAnimation) {
+        guard let paletteBuffer = jointPaletteBuffer else {
+            return
+        }
+        
+        var palettePointer = paletteBuffer.contents().bindMemory(to: float4x4.self, capacity: jointPaths.count)
+        palettePointer.initialize(repeating: .identity(), count: jointPaths.count)
+        
+        var poses = [float4x4](repeatElement(.identity(), count: jointPaths.count))
+        
+        for (index, path) in jointPaths.enumerated() {
+            //Note: there was a speed that I am not putting here.
+            let pose = animation.jointsAnimationAtKeyFrame[path]?.getTransformation(at: time)
+            
+            var parentPose: float4x4 = .identity()
+            if let parentIndex = parentIndices[index] {
+                parentPose = poses[parentIndex]
+            }
+            
+            let poseMatrix = float4x4(translation: pose?.translation ?? float3.zero) * float4x4(rotation: float3.zero) * float4x4(rotation: pose?.scale ?? float3.one)
+            poses[index] = parentPose * poseMatrix
+            
+            palettePointer.pointee = poses[index] * bindTransform[index].inverse
+            palettePointer = palettePointer.advanced(by: 1)
+        }
+        
+    }
 }
