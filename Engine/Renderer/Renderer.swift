@@ -14,7 +14,6 @@ class Renderer: NSObject {
     static var library: MTLLibrary!
     static var colorPixelFormat: MTLPixelFormat!
     
-    var pipelineState: MTLRenderPipelineState?
     var depthStencilState: MTLDepthStencilState?
     var models: [Renderable] = []
     
@@ -123,7 +122,6 @@ class Renderer: NSObject {
         /***************/
         
         
-        makePipelineState()
         makeDepthStencileState()
         
         metalView.depthStencilPixelFormat = .depth32Float
@@ -137,25 +135,6 @@ class Renderer: NSObject {
         
     }
     
-    func makePipelineState() {
-        let vertexFunction = Renderer.library.makeFunction(name: "vertex_main")
-        let fragmentFunction = Renderer.library.makeFunction(name: "fragment_main")
-        
-        let descriptor = MTLRenderPipelineDescriptor()
-        descriptor.vertexFunction = vertexFunction
-        descriptor.fragmentFunction = fragmentFunction
-        descriptor.depthAttachmentPixelFormat = .depth32Float
-        descriptor.colorAttachments[0].pixelFormat = Renderer.colorPixelFormat
-        
-        
-        descriptor.vertexDescriptor = MTKMetalVertexDescriptorFromModelIO(MDLVertexDescriptor.getDefaultVertexDescriptor())
-        
-        do {
-            try pipelineState = Renderer.device.makeRenderPipelineState(descriptor: descriptor)
-        } catch(let error) {
-            fatalError(error.localizedDescription)
-        }
-    }
     
     func makeDepthStencileState() {
         let descriptor = MTLDepthStencilDescriptor()
@@ -177,12 +156,10 @@ extension Renderer: MTKViewDelegate {
     func draw(in view: MTKView) {
         guard let descriptor = view.currentRenderPassDescriptor,
               let commandBuffer = Renderer.commandQueue.makeCommandBuffer(),
-              let renderEncoder = commandBuffer.makeRenderCommandEncoder(descriptor: descriptor),
-              let pipelineState = self.pipelineState else {
+              let renderEncoder = commandBuffer.makeRenderCommandEncoder(descriptor: descriptor) else {
             return
         }
         
-        renderEncoder.setRenderPipelineState(pipelineState)
         renderEncoder.setDepthStencilState(depthStencilState)
         
 //        let deltaTime = Float(1 / view.preferredFramesPerSecond)

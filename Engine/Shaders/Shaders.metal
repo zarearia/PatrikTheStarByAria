@@ -9,6 +9,8 @@
 #include "Common.h"
 using namespace metal;
 
+constant bool hasSkeleton [[function_constant(0)]];
+
 struct VertexIn {
     float4 position [[attribute(Position)]];
     float3 normal [[attribute(Normal)]];
@@ -43,16 +45,17 @@ vertex VertexOut vertex_main(const VertexIn vertexIn [[stage_in]],
     
     float4 weights = vertexIn.weights;
     ushort4 joints = vertexIn.joints;
-    position =
-        weights.x * (jointMatrices[joints.x] * position) +
-        weights.y * (jointMatrices[joints.y] * position) +
-        weights.z * (jointMatrices[joints.z] * position) +
-        weights.w * (jointMatrices[joints.w] * position);
-    normal =
-        weights.x * (jointMatrices[joints.x] * normal) +
-        weights.y * (jointMatrices[joints.y] * normal) +
-        weights.z * (jointMatrices[joints.z] * normal) +
-        weights.w * (jointMatrices[joints.w] * normal);
+    if (hasSkeleton) {
+        position = weights.x * (jointMatrices[joints.x] * position) +
+            weights.y * (jointMatrices[joints.y] * position) +
+            weights.z * (jointMatrices[joints.z] * position) +
+            weights.w * (jointMatrices[joints.w] * position);
+        normal =
+            weights.x * (jointMatrices[joints.x] * normal) +
+            weights.y * (jointMatrices[joints.y] * normal) +
+            weights.z * (jointMatrices[joints.z] * normal) +
+            weights.w * (jointMatrices[joints.w] * normal);
+    }
     
     
     matrix_float3x3 normalMatrix = extract_top_3x3(uniforms.modelMatrix);
