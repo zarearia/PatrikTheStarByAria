@@ -36,7 +36,7 @@ class Renderer: NSObject {
 //        skeleton.position = animationWithKeyFrames.getTranslation(at: time) ?? float3(0, 0, 0)
 //        skeleton.position.x += 1/60
         
-        skeleton.quaternion = skeleton.animations["/skeletonWave/Animations/wave"]?.jointsAnimationAtKeyFrame["/body/upperarm_L/forearm_L"]?.getTransformation(at: time).rotationQuatf ?? simd_quatf()
+//        skeleton.quaternion = skeleton.animations["/skeletonWave/Animations/wave"]?.jointsAnimationAtKeyFrame["/body/upperarm_L/forearm_L"]?.getTransformation(at: time).rotationQuatf ?? simd_quatf()
     }
 
     init(metalView: MTKView) {
