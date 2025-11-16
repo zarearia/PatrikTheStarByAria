@@ -131,6 +131,8 @@ class Renderer: NSObject {
         let aspect: Float = Float(metalView.frame.width / metalView.frame.height)
         camera.aspect = aspect
         camera.zoom(delta: -30)
+        camera.rotate(delta: [180, -5])
+        camera.target = [0, 1, 0]
         uniforms.projectionMatrix = camera.projectionMatrix
         
     }
