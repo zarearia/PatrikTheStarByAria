@@ -22,7 +22,7 @@ struct KeyFrame {
 
 struct AnimationWithKeyFrames {
     var keyFrames: [KeyFrame] = []
-    var repeatAnimation: Bool = false
+    var repeatAnimation: Bool = true
     
     func getTransformation(at inputTime: Float) -> (translation: float3?, rotationQuatf: simd_quatf?, scale: float3?) {
         guard let lastKeyFrame = keyFrames.last else {

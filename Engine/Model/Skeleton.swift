@@ -59,7 +59,12 @@ struct Skeleton {
                 parentPose = poses[parentIndex]
             }
             
-            let poseMatrix = float4x4(translation: pose?.translation ?? float3.zero) * float4x4(rotation: float3.zero) * float4x4(rotation: pose?.scale ?? float3.one)
+            
+            let rotationPose = float4x4(pose?.rotationQuatf ?? simd_quatf())
+            let translationPose = float4x4(translation: pose?.translation ?? float3.zero)
+            let scalePose = float4x4(scaling: float3.one)
+            
+            let poseMatrix = translationPose * rotationPose * scalePose
             poses[index] = parentPose * poseMatrix
             
             palettePointer.pointee = poses[index] * bindTransform[index].inverse

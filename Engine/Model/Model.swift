@@ -15,11 +15,14 @@ class Model: Node {
     var tiling: UInt32 = 1
     var samplerState: MTLSamplerState?
     var time: Float = 0
+    var name: String
     
     var animations: [String: SkeletonAnimation]
     var pipelineState: MTLRenderPipelineState!
     
-    init(resourse: String, extention: String) {
+    init(name: String, resourse: String, extention: String) {
+        self.name = name
+        
         guard let assetURL = Bundle.main.url(forResource: resourse, withExtension: extention) else
         {
             fatalError()

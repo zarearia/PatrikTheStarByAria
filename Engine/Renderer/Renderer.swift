@@ -59,7 +59,7 @@ class Renderer: NSObject {
         self.texture = try! textureLoader.newTexture(name: "starfish_cloth_santa_baseColor", scaleFactor: 1.0, bundle: Bundle.main, options: textureLoaderOptions)
         
 
-        skeleton = Model(resourse: "skeletonWave", extention: "usda")
+        skeleton = Model(name: "skeletonWave", resourse: "skeletonWave", extention: "usda")
 
         super.init()
         
@@ -75,7 +75,7 @@ class Renderer: NSObject {
         models.append(skeleton)
         
         
-        var groundModel = Model(resourse: "ground", extention: "obj")
+        var groundModel = Model(name: "ground", resourse: "ground", extention: "obj")
         groundModel.tiling = 4
         models.append(groundModel)
 
@@ -177,7 +177,9 @@ extension Renderer: MTKViewDelegate {
         renderEncoder.setFragmentBytes(&lights, length: MemoryLayout<Light>.stride * lights.count, index: Int(LightsBufferIndex.rawValue))
         
         for model in self.models {
+            renderEncoder.pushDebugGroup(model.name)
             model.render(renderEncoder: renderEncoder, uniforms: uniforms, fragmentUniforms: fragmentUniforms)
+            renderEncoder.popDebugGroup()
         }
         
         

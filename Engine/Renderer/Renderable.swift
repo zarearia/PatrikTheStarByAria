@@ -8,5 +8,6 @@
 import Metal
 
 protocol Renderable {
+    var name: String { get set }
   func render(renderEncoder: MTLRenderCommandEncoder, uniforms: Uniforms, fragmentUniforms fragment: FragmentUniforms)
 }
