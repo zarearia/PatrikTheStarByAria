@@ -52,7 +52,10 @@ struct Skeleton {
         
         for (index, path) in jointPaths.enumerated() {
             //Note: there was a speed that I am not putting here.
-            let pose = animation.jointsAnimationAtKeyFrame[path]?.getTransformation(at: time)
+
+            let rotation = animation.jointsAnimationAtKeyFrame[path]?.getRotation(at: time)
+            let translation = animation.jointsAnimationAtKeyFrame[path]?.getTranslation(at: time)
+            let scale = animation.jointsAnimationAtKeyFrame[path]?.getScale(at: time)
             
             var parentPose: float4x4 = .identity()
             if let parentIndex = parentIndices[index] {
@@ -60,9 +63,10 @@ struct Skeleton {
             }
             
             
-            let rotationPose = float4x4(pose?.rotationQuatf ?? simd_quatf())
-            let translationPose = float4x4(translation: pose?.translation ?? float3.zero)
-            let scalePose = float4x4(scaling: float3.one)
+            let rotationPose = float4x4(rotation ?? simd_quatf())
+            let translationPose = float4x4(translation: translation ?? float3.zero)
+            let scalePose = float4x4(scaling: scale ?? float3.one)
+
             
             let poseMatrix = translationPose * rotationPose * scalePose
             poses[index] = parentPose * poseMatrix

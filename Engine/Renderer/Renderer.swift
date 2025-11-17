@@ -29,10 +29,10 @@ class Renderer: NSObject {
     var texture: MTLTexture
     
     var time: Float = 0
-    let skeleton: Model!
-    var animationWithKeyFrames = generateTranslations()
+//    let skeleton: Model!
+//    var animationWithKeyFrames = generateTranslations()
     func update() {
-        animationWithKeyFrames.repeatAnimation = true
+//        animationWithKeyFrames.repeatAnimation = true
 //        skeleton.position = animationWithKeyFrames.getTranslation(at: time) ?? float3(0, 0, 0)
 //        skeleton.position.x += 1/60
         
@@ -59,20 +59,20 @@ class Renderer: NSObject {
         self.texture = try! textureLoader.newTexture(name: "starfish_cloth_santa_baseColor", scaleFactor: 1.0, bundle: Bundle.main, options: textureLoaderOptions)
         
 
-        skeleton = Model(name: "skeletonWave", resourse: "skeletonWave", extention: "usda")
+//        skeleton = Model(name: "skeletonWave", resourse: "skeletonWave", extention: "usda")
 
         super.init()
         
         metalView.delegate = self
         metalView.clearColor = .init(red: 1, green: 1, blue: 1, alpha: 1)
         
-//        models.append(Model(resourse: "patrik", extention: "usda"))
-//        models.append(Model(resourse: "patrik2", extention: "usdz"))
-//        models.append(Model(resourse: "patrik3", extention: "usdz"))
+//        models.append(Model(name: "patrik", resourse: "patrik", extention: "usda"))
+        models.append(Model(name: "patrik2", resourse: "patrik2", extention: "usdz"))
+//        models.append(Model(name: "patrik3", resourse: "patrik3", extention: "usdz"))
         
-        skeleton.scale = [100, 100, 100]
-        skeleton.rotation = [-.pi/2, 0, 0]
-        models.append(skeleton)
+//        skeleton.scale = [100, 100, 100]
+//        skeleton.rotation = [-.pi/2, 0, 0]
+//        models.append(skeleton)
         
         
         var groundModel = Model(name: "ground", resourse: "ground", extention: "obj")
