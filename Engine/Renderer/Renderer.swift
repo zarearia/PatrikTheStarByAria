@@ -66,8 +66,8 @@ class Renderer: NSObject {
         metalView.delegate = self
         metalView.clearColor = .init(red: 1, green: 1, blue: 1, alpha: 1)
         
-//        models.append(Model(name: "patrik", resourse: "patrik", extention: "usda"))
-        models.append(Model(name: "patrik2", resourse: "patrik2", extention: "usdz"))
+        models.append(Model(name: "patrik", resourse: "patrik", extention: "usda"))
+//        models.append(Model(name: "patrik2", resourse: "patrik2", extention: "usdz"))
 //        models.append(Model(name: "patrik3", resourse: "patrik3", extention: "usdz"))
         
 //        skeleton.scale = [100, 100, 100]

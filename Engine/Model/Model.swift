@@ -18,7 +18,6 @@ class Model: Node {
     var name: String
     
     var animations: [String: SkeletonAnimation]
-    var pipelineState: MTLRenderPipelineState!
     
     init(name: String, resourse: String, extention: String) {
         self.name = name
@@ -76,7 +75,6 @@ class Model: Node {
             
         }
         
-        makePipelineState(hasSkeleton: !animations.isEmpty)
     }
     
     func buildSamplerState() -> MTLSamplerState? {
@@ -100,32 +98,7 @@ class Model: Node {
     }
     
     // send this to submesh later to be able to add texture constants
-    func makePipelineState(hasSkeleton: Bool) {
-        let vertexFunction: MTLFunction?
-        let functionConstant = MTLFunctionConstantValues()
-        
-        var hasSkeleton = hasSkeleton
-        functionConstant.setConstantValue(&hasSkeleton, type: .bool, index: 0)
-        
-        
-        vertexFunction = try! Renderer.library.makeFunction(name: "vertex_main", constantValues: functionConstant)
-        let fragmentFunction = Renderer.library.makeFunction(name: "fragment_main")
-        
-        let descriptor = MTLRenderPipelineDescriptor()
-        descriptor.vertexFunction = vertexFunction
-        descriptor.fragmentFunction = fragmentFunction
-        descriptor.depthAttachmentPixelFormat = .depth32Float
-        descriptor.colorAttachments[0].pixelFormat = Renderer.colorPixelFormat
-        
-        
-        descriptor.vertexDescriptor = MTKMetalVertexDescriptorFromModelIO(MDLVertexDescriptor.getDefaultVertexDescriptor())
-        
-        do {
-            try pipelineState = Renderer.device.makeRenderPipelineState(descriptor: descriptor)
-        } catch(let error) {
-            fatalError(error.localizedDescription)
-        }
-    }
+
 }
 
 extension Model: Renderable {
@@ -154,7 +127,7 @@ extension Model: Renderable {
             let mtkMesh = mesh.mtkMesh
             let submeshs = mesh.submeshes
             
-            renderEncoder.setRenderPipelineState(pipelineState)
+            renderEncoder.setRenderPipelineState(mesh.pipelineState!)
             
             renderEncoder.setVertexBuffer(mtkMesh.vertexBuffers[0].buffer, offset: mtkMesh.vertexBuffers[0].offset, index: 0)
             
