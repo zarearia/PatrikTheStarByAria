@@ -25,6 +25,8 @@
 		F76723322E5D870100143CE1 /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76723302E5D86FE00143CE1 /* Camera.swift */; };
 		F76723342E5ECD7B00143CE1 /* ArcballCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76723332E5ECD7100143CE1 /* ArcballCamera.swift */; };
 		F76723352E5ECD7B00143CE1 /* ArcballCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76723332E5ECD7100143CE1 /* ArcballCamera.swift */; };
+		F7D08A6D2ECD9AFC0093D32C /* patrikTest.usda in Resources */ = {isa = PBXBuildFile; fileRef = F7D08A6C2ECD9AFC0093D32C /* patrikTest.usda */; };
+		F7D08A6E2ECD9AFC0093D32C /* patrikTest.usda in Resources */ = {isa = PBXBuildFile; fileRef = F7D08A6C2ECD9AFC0093D32C /* patrikTest.usda */; };
 		F7D30B042E728D8C00254E80 /* Super_brawl_Universe-Patrick_Star.usdz in Resources */ = {isa = PBXBuildFile; fileRef = F7D30B032E728D8C00254E80 /* Super_brawl_Universe-Patrick_Star.usdz */; };
 		F7D30B052E728D8C00254E80 /* Super_brawl_Universe-Patrick_Star.usdz in Resources */ = {isa = PBXBuildFile; fileRef = F7D30B032E728D8C00254E80 /* Super_brawl_Universe-Patrick_Star.usdz */; };
 		F7D30B072E728DFB00254E80 /* skeletonWave.usda in Resources */ = {isa = PBXBuildFile; fileRef = F7D30B062E728DFB00254E80 /* skeletonWave.usda */; };
@@ -58,6 +60,7 @@
 		F767232D2E5D852C00143CE1 /* Node.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
 		F76723302E5D86FE00143CE1 /* Camera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
 		F76723332E5ECD7100143CE1 /* ArcballCamera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArcballCamera.swift; sourceTree = "<group>"; };
+		F7D08A6C2ECD9AFC0093D32C /* patrikTest.usda */ = {isa = PBXFileReference; lastKnownFileType = text; path = patrikTest.usda; sourceTree = "<group>"; };
 		F7D30B032E728D8C00254E80 /* Super_brawl_Universe-Patrick_Star.usdz */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Super_brawl_Universe-Patrick_Star.usdz"; sourceTree = "<group>"; };
 		F7D30B062E728DFB00254E80 /* skeletonWave.usda */ = {isa = PBXFileReference; lastKnownFileType = text; path = skeletonWave.usda; sourceTree = "<group>"; };
 		F7D30B0A2E73DCE500254E80 /* Animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animation.swift; sourceTree = "<group>"; };
@@ -165,6 +168,7 @@
 		F76723182E583FFE00143CE1 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				F7D08A6C2ECD9AFC0093D32C /* patrikTest.usda */,
 				F7D30B062E728DFB00254E80 /* skeletonWave.usda */,
 				F7EEFE8A2E6DAAD2009587D0 /* Ground */,
 				F7E44EDB2E6AAE4100D44694 /* patrik3.usdz */,
@@ -309,6 +313,7 @@
 				F7EEFE892E6DAAB9009587D0 /* ground.obj in Resources */,
 				F7E44EAF2E66BDC300D44694 /* Textures.xcassets in Resources */,
 				F76723202E5B646D00143CE1 /* train.obj in Resources */,
+				F7D08A6D2ECD9AFC0093D32C /* patrikTest.usda in Resources */,
 				F7EEFE8C2E6DAADF009587D0 /* ground.mtl in Resources */,
 				F767231B2E58410E00143CE1 /* patrik.usda in Resources */,
 				F7D30B082E728DFB00254E80 /* skeletonWave.usda in Resources */,
@@ -328,6 +333,7 @@
 				F7E44EAE2E66BDC300D44694 /* Textures.xcassets in Resources */,
 				F7EEFE8D2E6DAADF009587D0 /* ground.mtl in Resources */,
 				F767231A2E58410E00143CE1 /* patrik.usda in Resources */,
+				F7D08A6E2ECD9AFC0093D32C /* patrikTest.usda in Resources */,
 				F7E44ED72E69656B00D44694 /* patrik2.usdz in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
