@@ -98,7 +98,7 @@ class Scene {
             parent.removeChild(child: node)
         }
         
-        //TODO: checl to see if we won't have memory leak here
+        //TODO: check to see if we won't have memory leak here
         for child in node.children {
             child.parent = nil
         }

@@ -27,3 +27,37 @@ class MainScene: Scene {
         
     }
 }
+
+
+//NOTE: Some Lights for the future:
+//position is not useful for ambientLight
+//        let ambientLight = Light(type: Ambientlight,
+//                                 position: [0, 0, 0],
+//                                 color: [1, 0, 0],
+//                                 specularColor: [0, 0, 0],
+//                                 attenuation: [1, 0, 0],
+//                                 intensity: 0.2)
+//        lights.append(ambientLight)
+
+//        var pointLight = Light()
+//        pointLight.color = float3(1, 1, 0)
+//        pointLight.position = float3(1, 2, 1)
+//        pointLight.intensity = 1
+//        pointLight.attenuation = [1, 1, 1]
+//        pointLight.type = PointLight
+//        pointLight.specularColor = float3(1, 1, 1)
+//        lights.append(pointLight)
+
+//        var spotLight = Light()
+//        spotLight.color = float3(1, 1, 0)
+//        spotLight.position = float3(1, 2, 1)
+//        spotLight.intensity = 1
+//        spotLight.attenuation = [1, 1, 1]
+//        spotLight.type = SpotLight
+//        spotLight.specularColor = float3(1, 1, 1)
+//
+//        spotLight.coneAttenuation = 0.1
+//        spotLight.coneAngel = 30
+//        spotLight.coneDirection = [1, 1, -1]
+//        lights.append(spotLight)
+/***************/
