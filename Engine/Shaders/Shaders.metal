@@ -76,9 +76,9 @@ fragment float4 fragment_main(VertexOut in [[stage_in]],
                               sampler textureSampler [[sampler(0)]]) {
     
     //This is bad code for testing, needs to be replaced
-    if (uniforms.tiling == 1) {
-        return float4(0.7, 0.7, 0.7, 1);
-    }
+//    if (uniforms.tiling == 1) {
+//        return float4(baseColor, 1);
+//    }
     float3 baseColor = baseColorTexture2d.sample(textureSampler, in.uv * uniforms.tiling).rgb;
     return float4(baseColor, 1);
     

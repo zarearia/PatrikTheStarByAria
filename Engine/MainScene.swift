@@ -8,7 +8,7 @@
 class MainScene: Scene {
     
     var groundModel = Model(name: "ground", resourse: "ground", extention: "obj")
-    var patrik = Model(name: "patrik", resourse: "patrik", extention: "usda")
+    var patrik = Model(name: "patrik3", resourse: "patrik2", extention: "usdz")
     var arcballCamera = ArcballCamera()
     
     override func setupScene() {
