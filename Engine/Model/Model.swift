@@ -90,9 +90,10 @@ class Model: Node {
     }
     
     override func update(deltaTime: Float) {
+        time += deltaTime
         for mesh in meshes {
             if let skeletonAnimation = animations.first?.value {
-                mesh.skeleton?.updatePose(at: deltaTime, animation: skeletonAnimation)
+                mesh.skeleton?.updatePose(at: time, animation: skeletonAnimation)
             }
         }
     }

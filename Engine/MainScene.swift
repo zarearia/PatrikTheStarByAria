@@ -8,6 +8,7 @@
 class MainScene: Scene {
     
     var groundModel = Model(name: "ground", resourse: "ground", extention: "obj")
+    var patrik = Model(name: "patrik", resourse: "patrik", extention: "usda")
     var arcballCamera = ArcballCamera()
     
     override func setupScene() {
@@ -22,6 +23,7 @@ class MainScene: Scene {
         groundModel.tiling = 4
         
         add(node: groundModel)
+        add(node: patrik)
         
     }
 }
