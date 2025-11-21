@@ -50,4 +50,8 @@ class Node {
         //if a child is removed from parent, the grandchildren will not be associated with grand parent(they will stay with parent), to be seen if in the future it would seem problematic or not
         self.children.removeAll { $0 === child }
     }
+    
+    func update(deltaTime: Float) {
+        //override this
+    }
 }

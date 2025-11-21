@@ -14,17 +14,19 @@ class Renderer: NSObject {
     static var library: MTLLibrary!
     static var colorPixelFormat: MTLPixelFormat!
     
+    var scene: Scene?
+    
     var depthStencilState: MTLDepthStencilState?
-    var models: [Renderable] = []
+//    var models: [Renderable] = []
     
     //TODO: I have to make a class called node for these later
-    var uniforms = Uniforms()
-    var fragmentUniforms = FragmentUniforms()
-    let modelMatrix: matrix_float4x4 = .identity()//matrix_float4x4.init(rotation: [0, 0, Float(45).degreesToRadians])
+//    var uniforms = Uniforms()
+//    var fragmentUniforms = FragmentUniforms()
+//    let modelMatrix: matrix_float4x4 = .identity()//matrix_float4x4.init(rotation: [0, 0, Float(45).degreesToRadians])
+//    
+//    var camera = ArcballCamera()
     
-    var camera = ArcballCamera()
-    
-    var lights: [Light] = []
+//    var lights: [Light] = []
     
     var texture: MTLTexture
     
@@ -66,7 +68,7 @@ class Renderer: NSObject {
         metalView.delegate = self
         metalView.clearColor = .init(red: 1, green: 1, blue: 1, alpha: 1)
         
-        models.append(Model(name: "patrik", resourse: "patrik", extention: "usda"))
+//        models.append(Model(name: "patrik", resourse: "patrik", extention: "usda"))
 //        models.append(Model(name: "patrik2", resourse: "patrik2", extention: "usdz"))
 //        models.append(Model(name: "patrik3", resourse: "patrik3", extention: "usdz"))
         
@@ -75,19 +77,19 @@ class Renderer: NSObject {
 //        models.append(skeleton)
         
         
-        var groundModel = Model(name: "ground", resourse: "ground", extention: "obj")
-        groundModel.tiling = 4
-        models.append(groundModel)
+//        var groundModel = Model(name: "ground", resourse: "ground", extention: "obj")
+//        groundModel.tiling = 4
+//        models.append(groundModel)
 
         //MARK: Lights
         /**************/
-        var sunLight = Light()
-        sunLight.color = float3(1, 1, 1)
-        sunLight.position = float3(1, 2, -2)
-        sunLight.intensity = 1
-        sunLight.type = SunLight
-        sunLight.specularColor = float3(1, 1, 1)
-        lights.append(sunLight)
+//        var sunLight = Light()
+//        sunLight.color = float3(1, 1, 1)
+//        sunLight.position = float3(1, 2, -2)
+//        sunLight.intensity = 1
+//        sunLight.type = SunLight
+//        sunLight.specularColor = float3(1, 1, 1)
+//        lights.append(sunLight)
         
         //position is not useful for ambientLight
 //        let ambientLight = Light(type: Ambientlight,
@@ -126,14 +128,14 @@ class Renderer: NSObject {
         
         metalView.depthStencilPixelFormat = .depth32Float
         
-        uniforms.modelMatrix = modelMatrix
+//        uniforms.modelMatrix = modelMatrix
         
         let aspect: Float = Float(metalView.frame.width / metalView.frame.height)
-        camera.aspect = aspect
-        camera.zoom(delta: -30)
-        camera.rotate(delta: [180, -5])
-        camera.target = [0, 1, 0]
-        uniforms.projectionMatrix = camera.projectionMatrix
+//        camera.aspect = aspect
+//        camera.zoom(delta: -30)
+//        camera.rotate(delta: [180, -5])
+//        camera.target = [0, 1, 0]
+//        uniforms.projectionMatrix = camera.projectionMatrix
         
     }
     
@@ -150,9 +152,7 @@ class Renderer: NSObject {
 
 extension Renderer: MTKViewDelegate {
     func mtkView(_ view: MTKView, drawableSizeWillChange size: CGSize) {
-        let aspect: Float = Float(view.frame.width / view.frame.height)
-        camera.aspect = aspect
-        uniforms.projectionMatrix = camera.projectionMatrix
+        scene?.sceneSizeWillChange(newSize: size)
     }
     
     func draw(in view: MTKView) {
@@ -164,24 +164,26 @@ extension Renderer: MTKViewDelegate {
         
         renderEncoder.setDepthStencilState(depthStencilState)
         
-//        let deltaTime = Float(1 / view.preferredFramesPerSecond)
-        time += 1 / Float(view.preferredFramesPerSecond)
-        update()
+        let deltaTime = 1 / Float(60)
         
-        uniforms.viewMatrix = camera.viewMatrix
+//        uniforms.viewMatrix = camera.viewMatrix
 //        renderEncoder.setVertexBytes(&uniforms, length: MemoryLayout<Uniforms>.stride, index: Int(UniformsBufferIndex.rawValue))
         
-        fragmentUniforms.lightCount = UInt32(lights.count)
-        fragmentUniforms.cameraPosition = camera.position
-        
-        renderEncoder.setFragmentBytes(&lights, length: MemoryLayout<Light>.stride * lights.count, index: Int(LightsBufferIndex.rawValue))
-        
-        for model in self.models {
-            renderEncoder.pushDebugGroup(model.name)
-            model.render(renderEncoder: renderEncoder, uniforms: uniforms, fragmentUniforms: fragmentUniforms)
-            renderEncoder.popDebugGroup()
+        guard let scene = scene else {
+            fatalError("No scene")
         }
         
+        scene.update(deltaTime: deltaTime)
+        
+        scene.fragmentUniforms.lightCount = UInt32(scene.lights.count)
+        
+        renderEncoder.setFragmentBytes(&scene.lights, length: MemoryLayout<Light>.stride * scene.lights.count, index: Int(LightsBufferIndex.rawValue))
+        
+        for renderable in scene.renderables {
+            renderEncoder.pushDebugGroup(renderable.name)
+            renderable.render(renderEncoder: renderEncoder, uniforms: scene.uniforms, fragmentUniforms: scene.fragmentUniforms)
+            renderEncoder.popDebugGroup()
+        }
         
         renderEncoder.endEncoding()
         guard let drawable = view.currentDrawable else {

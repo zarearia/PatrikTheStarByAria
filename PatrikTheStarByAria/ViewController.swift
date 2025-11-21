@@ -11,12 +11,15 @@ import MetalKit
 class ViewController: NSViewController {
 
     var renderer: Renderer?
+    var scene: Scene?
     @IBOutlet var metalView: MTKView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         renderer = Renderer(metalView: metalView)
+        scene = MainScene(size: metalView.frame.size)
+        renderer?.scene = scene
         addGestureRecognizers(to: metalView)
         
 
@@ -38,13 +41,16 @@ class ViewController: NSViewController {
         let translation = gesture.translation(in: gesture.view)
         let delta = float2(Float(translation.x),
                            Float(translation.y))
-        
-        renderer?.camera.rotate(delta: delta)
-        gesture.setTranslation(.zero, in: gesture.view)
+        if let camera = renderer?.scene?.camera as? ArcballCamera {
+            camera.rotate(delta: delta)
+            gesture.setTranslation(.zero, in: gesture.view)
+        }
     }
     
     override func scrollWheel(with event: NSEvent) {
-        renderer?.camera.zoom(delta: Float(event.deltaY))
+        if let camera = renderer?.scene?.camera as? ArcballCamera {
+            camera.zoom(delta: Float(event.deltaY))
+        }
     }
 }
 

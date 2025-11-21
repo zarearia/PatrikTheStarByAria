@@ -89,7 +89,7 @@ class Model: Node {
         return Renderer.device.makeSamplerState(descriptor: descriptor)
     }
     
-    func update(deltaTime: Float) {
+    override func update(deltaTime: Float) {
         for mesh in meshes {
             if let skeletonAnimation = animations.first?.value {
                 mesh.skeleton?.updatePose(at: deltaTime, animation: skeletonAnimation)
@@ -117,8 +117,8 @@ extension Model: Renderable {
         renderEncoder.setFragmentSamplerState(samplerState, index: 0)
         
         //60 frames per second
-        time += 1 / Float(60)
-        update(deltaTime: time)
+        let deltaTime = 1 / Float(60)
+        update(deltaTime: deltaTime)
         
         for mesh in self.meshes {
             if let paletteBuffer = mesh.skeleton?.jointPaletteBuffer {
