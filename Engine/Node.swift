@@ -40,6 +40,13 @@ class Node {
         return transalationMatrix * rotationMatrix * scaleMatrix
     }
     
+    var worldLocation: float4x4 {
+        if let parent {
+            return modelMatrix * parent.modelMatrix
+        }
+        return modelMatrix
+    }
+    
     func addChild(node: Node) {
         children.append(node)
         node.parent = self

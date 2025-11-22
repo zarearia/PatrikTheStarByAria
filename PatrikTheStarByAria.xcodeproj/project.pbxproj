@@ -31,6 +31,8 @@
 		F7D08A742ECEEB400093D32C /* Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D08A722ECEEB2D0093D32C /* Scene.swift */; };
 		F7D08A762ED036980093D32C /* MainScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D08A752ED0368D0093D32C /* MainScene.swift */; };
 		F7D08A772ED036980093D32C /* MainScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D08A752ED0368D0093D32C /* MainScene.swift */; };
+		F7D08A792ED2113E0093D32C /* patrik_house.usdz in Resources */ = {isa = PBXBuildFile; fileRef = F7D08A782ED2113E0093D32C /* patrik_house.usdz */; };
+		F7D08A7A2ED2113E0093D32C /* patrik_house.usdz in Resources */ = {isa = PBXBuildFile; fileRef = F7D08A782ED2113E0093D32C /* patrik_house.usdz */; };
 		F7D30B042E728D8C00254E80 /* Super_brawl_Universe-Patrick_Star.usdz in Resources */ = {isa = PBXBuildFile; fileRef = F7D30B032E728D8C00254E80 /* Super_brawl_Universe-Patrick_Star.usdz */; };
 		F7D30B052E728D8C00254E80 /* Super_brawl_Universe-Patrick_Star.usdz in Resources */ = {isa = PBXBuildFile; fileRef = F7D30B032E728D8C00254E80 /* Super_brawl_Universe-Patrick_Star.usdz */; };
 		F7D30B072E728DFB00254E80 /* skeletonWave.usda in Resources */ = {isa = PBXBuildFile; fileRef = F7D30B062E728DFB00254E80 /* skeletonWave.usda */; };
@@ -67,6 +69,7 @@
 		F7D08A6C2ECD9AFC0093D32C /* patrikTest.usda */ = {isa = PBXFileReference; lastKnownFileType = text; path = patrikTest.usda; sourceTree = "<group>"; };
 		F7D08A722ECEEB2D0093D32C /* Scene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scene.swift; sourceTree = "<group>"; };
 		F7D08A752ED0368D0093D32C /* MainScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScene.swift; sourceTree = "<group>"; };
+		F7D08A782ED2113E0093D32C /* patrik_house.usdz */ = {isa = PBXFileReference; lastKnownFileType = file; path = patrik_house.usdz; sourceTree = "<group>"; };
 		F7D30B032E728D8C00254E80 /* Super_brawl_Universe-Patrick_Star.usdz */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Super_brawl_Universe-Patrick_Star.usdz"; sourceTree = "<group>"; };
 		F7D30B062E728DFB00254E80 /* skeletonWave.usda */ = {isa = PBXFileReference; lastKnownFileType = text; path = skeletonWave.usda; sourceTree = "<group>"; };
 		F7D30B0A2E73DCE500254E80 /* Animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animation.swift; sourceTree = "<group>"; };
@@ -176,6 +179,7 @@
 		F76723182E583FFE00143CE1 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				F7D08A782ED2113E0093D32C /* patrik_house.usdz */,
 				F7D08A6C2ECD9AFC0093D32C /* patrikTest.usda */,
 				F7D30B062E728DFB00254E80 /* skeletonWave.usda */,
 				F7EEFE8A2E6DAAD2009587D0 /* Ground */,
@@ -326,6 +330,7 @@
 				F767231B2E58410E00143CE1 /* patrik.usda in Resources */,
 				F7D30B082E728DFB00254E80 /* skeletonWave.usda in Resources */,
 				F7E44ED62E69656B00D44694 /* patrik2.usdz in Resources */,
+				F7D08A792ED2113E0093D32C /* patrik_house.usdz in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -338,6 +343,7 @@
 				F76723212E5B646D00143CE1 /* train.obj in Resources */,
 				F7D30B052E728D8C00254E80 /* Super_brawl_Universe-Patrick_Star.usdz in Resources */,
 				F7EEFE882E6DAAB9009587D0 /* ground.obj in Resources */,
+				F7D08A7A2ED2113E0093D32C /* patrik_house.usdz in Resources */,
 				F7E44EAE2E66BDC300D44694 /* Textures.xcassets in Resources */,
 				F7EEFE8D2E6DAADF009587D0 /* ground.mtl in Resources */,
 				F767231A2E58410E00143CE1 /* patrik.usda in Resources */,

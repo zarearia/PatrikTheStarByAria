@@ -110,7 +110,7 @@ extension Model: Renderable {
         
         var modelUniforms = uniforms
         
-        modelUniforms.modelMatrix = self.modelMatrix
+        modelUniforms.modelMatrix = self.worldLocation
         renderEncoder.setVertexBytes(&modelUniforms, length: MemoryLayout<Uniforms>.stride, index: Int(UniformsBufferIndex.rawValue))
         
         renderEncoder.setFragmentBytes(&fragmentUniforms, length: MemoryLayout<FragmentUniforms>.stride, index: Int(FragmentUniformsBufferIndex.rawValue))

@@ -9,6 +9,7 @@ class MainScene: Scene {
     
     var groundModel = Model(name: "ground", resourse: "ground", extention: "obj")
     var patrik = Model(name: "patrik3", resourse: "patrik2", extention: "usdz")
+    var train = Model(name: "train", resourse: "train", extention: "obj")
     var arcballCamera = ArcballCamera()
     
     override func setupScene() {
@@ -23,8 +24,15 @@ class MainScene: Scene {
         groundModel.tiling = 4
         
         add(node: groundModel)
-        add(node: patrik)
+        add(node: patrik, parent: train)
+        add(node: train)
         
+        train.position = [0, 1, 0]
+        
+    }
+    
+    override func updateScene(deltaTime: Float) {
+        train.position.x += deltaTime
     }
 }
 
