@@ -28,6 +28,7 @@ class MainScene: Scene {
         add(node: train)
         
         train.position = [0, 1, 0]
+        patrik.rotation = [0, 180, 0]
         
     }
     

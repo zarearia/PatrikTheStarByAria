@@ -42,7 +42,8 @@ class Node {
     
     var worldLocation: float4x4 {
         if let parent {
-            return modelMatrix * parent.modelMatrix
+            //NOTE: if we write it like parent.modelMatrix * modelMatrix, it will of course, mess up things
+            return parent.modelMatrix * modelMatrix
         }
         return modelMatrix
     }
