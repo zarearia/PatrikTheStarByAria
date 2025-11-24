@@ -55,7 +55,8 @@ typedef enum {
     VerticesBufferIndex = 0,
     UniformsBufferIndex = 1,
     FragmentUniformsBufferIndex = 2,
-    LightsBufferIndex = 3
+    LightsBufferIndex = 3,
+    SolidColorBufferIndex = 4,
 } BufferIndices;
 
 #endif /* Header_h */

@@ -10,6 +10,8 @@
 using namespace metal;
 
 constant bool hasSkeleton [[function_constant(0)]];
+constant bool hasBaseColorTexture [[function_constant(1)]];
+constant bool hasBaseColorSolidColor [[function_constant(2)]];
 
 struct VertexIn {
     float4 position [[attribute(Position)]];
@@ -73,13 +75,17 @@ fragment float4 fragment_main(VertexOut in [[stage_in]],
                               constant FragmentUniforms &uniforms [[buffer(2)]],
                               constant Light *lights [[buffer(3)]],
                               texture2d<float> baseColorTexture2d [[texture(0)]],
-                              sampler textureSampler [[sampler(0)]]) {
+                              sampler textureSampler [[sampler(0)]],
+                              constant float3 &solidColor [[buffer(SolidColorBufferIndex)]]) {
     
-    //This is bad code for testing, needs to be replaced
-//    if (uniforms.tiling == 1) {
+    float3 baseColor;
+    if (hasBaseColorTexture) {
+        baseColor = baseColorTexture2d.sample(textureSampler, in.uv * uniforms.tiling).rgb;
+    } else if (hasBaseColorSolidColor) {
+        baseColor = solidColor;
 //        return float4(baseColor, 1);
-//    }
-    float3 baseColor = baseColorTexture2d.sample(textureSampler, in.uv * uniforms.tiling).rgb;
+    }
+
     return float4(baseColor, 1);
     
     float3 diffuseColor = 0;

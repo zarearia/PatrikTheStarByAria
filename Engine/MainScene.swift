@@ -8,8 +8,8 @@
 class MainScene: Scene {
     
     var groundModel = Model(name: "ground", resourse: "ground", extention: "obj")
-    var patrik = Model(name: "patrik3", resourse: "patrik2", extention: "usdz")
-    var train = Model(name: "train", resourse: "train", extention: "obj")
+    var patrik = Model(name: "skeletonWave", resourse: "skeletonWave", extention: "usda")
+//    var train = Model(name: "train", resourse: "train", extention: "obj")
     var arcballCamera = ArcballCamera()
     
     override func setupScene() {
@@ -24,16 +24,18 @@ class MainScene: Scene {
         groundModel.tiling = 4
         
         add(node: groundModel)
-        add(node: patrik, parent: train)
-        add(node: train)
+        add(node: patrik)
+        patrik.scale = [100, 100, 100]
+//        add(node: patrik, parent: train)
+//        add(node: train)
         
-        train.position = [0, 1, 0]
+//        train.position = [0, 1, 0]
         patrik.rotation = [0, 180, 0]
         
     }
     
     override func updateScene(deltaTime: Float) {
-        train.position.x += deltaTime
+//        train.position.x += deltaTime
     }
 }
 

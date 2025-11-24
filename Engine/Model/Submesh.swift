@@ -11,12 +11,19 @@ class Submesh {
     var mtkSubmesh: MTKSubmesh
     //Texture logic can be abstracted away later if needed
     var baseColorTexture: MTLTexture?
+    var baseColorSolidColor: float3?
     
-    init(mtkSubmesh: MTKSubmesh, mdlSubmesh: MDLSubmesh) {
+    var pipelineState: MTLRenderPipelineState!
+    var hasSkeleton: Bool
+
+    init(mtkSubmesh: MTKSubmesh, mdlSubmesh: MDLSubmesh, hasSkeleton: Bool) {
         self.mtkSubmesh = mtkSubmesh
+        self.hasSkeleton = hasSkeleton
         if let material = mdlSubmesh.material {
             loadTextures(material: material)
         }
+        
+        makePipelineState()
     }
     
     private func loadTextures(material: MDLMaterial) {
@@ -27,7 +34,12 @@ class Submesh {
             print("submesh did not have any baseColors")
             return
         }
+        
+//        if property.type == .float  {
+            baseColorSolidColor = property.float3Value
+//        }
 
+        // maybe move this down, we don't want a whole loading stuff to ram if we are just dealing with float
         let textureLoader = MTKTextureLoader(device: Renderer.device)
         let textureLoaderOptions: [MTKTextureLoader.Option: Any] = [
             .origin: MTKTextureLoader.Origin.bottomLeft,
@@ -49,6 +61,42 @@ class Submesh {
             baseColorTexture = try? textureLoader.newTexture(name: fileName,
                                             scaleFactor: 1.0,
                                             bundle: Bundle.main, options: nil)
+            
+            return
+        }
+        
+    }
+    
+    
+    func makePipelineState() {
+        let vertexFunction: MTLFunction?
+        let functionConstant = MTLFunctionConstantValues()
+        
+        //functionConstants
+        var hasSkeleton = hasSkeleton
+        functionConstant.setConstantValue(&hasSkeleton, type: .bool, index: 0)
+        var hasBaseColorTexture = baseColorTexture != nil
+        functionConstant.setConstantValue(&hasBaseColorTexture, type: .bool, index: 1)
+        var hasBaseColorSolidColor = baseColorSolidColor != nil
+        functionConstant.setConstantValue(&hasBaseColorSolidColor, type: .bool, index: 2)
+        
+        
+        vertexFunction = try! Renderer.library.makeFunction(name: "vertex_main", constantValues: functionConstant)
+        let fragmentFunction = try! Renderer.library.makeFunction(name: "fragment_main", constantValues: functionConstant)
+        
+        let descriptor = MTLRenderPipelineDescriptor()
+        descriptor.vertexFunction = vertexFunction
+        descriptor.fragmentFunction = fragmentFunction
+        descriptor.depthAttachmentPixelFormat = .depth32Float
+        descriptor.colorAttachments[0].pixelFormat = Renderer.colorPixelFormat
+        
+        
+        descriptor.vertexDescriptor = MTKMetalVertexDescriptorFromModelIO(MDLVertexDescriptor.getDefaultVertexDescriptor())
+        
+        do {
+            try pipelineState = Renderer.device.makeRenderPipelineState(descriptor: descriptor)
+        } catch(let error) {
+            fatalError(error.localizedDescription)
         }
     }
 }

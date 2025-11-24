@@ -128,14 +128,17 @@ extension Model: Renderable {
             let mtkMesh = mesh.mtkMesh
             let submeshs = mesh.submeshes
             
-            renderEncoder.setRenderPipelineState(mesh.pipelineState!)
             
             renderEncoder.setVertexBuffer(mtkMesh.vertexBuffers[0].buffer, offset: mtkMesh.vertexBuffers[0].offset, index: 0)
             
             for submeshe in submeshs {
                 
+                renderEncoder.setRenderPipelineState(submeshe.pipelineState!)
+                
                 //TODO: Add texture submeshes here
                 renderEncoder.setFragmentTexture(submeshe.baseColorTexture, index: 0)
+
+                renderEncoder.setFragmentBytes(&submeshe.baseColorSolidColor, length: MemoryLayout<float3>.stride, index: Int(SolidColorBufferIndex.rawValue))
                 
                 let mtkSubmesh = submeshe.mtkSubmesh
                 renderEncoder.drawIndexedPrimitives(
