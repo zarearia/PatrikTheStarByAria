@@ -19,6 +19,7 @@ struct VertexIn {
     float2 uv [[attribute(UV)]];
     ushort4 joints [[attribute(Joints)]];
     float4 weights [[attribute(Weights)]];
+    float3 color [[attribute(Color)]];
 };
 
 struct VertexOut {
@@ -26,6 +27,7 @@ struct VertexOut {
     float3 worldPosition;
     float3 worldNormal;
     float2 uv;
+    float3 color;
 };
 
 float3x3 extract_top_3x3(float4x4 m)
@@ -66,7 +68,8 @@ vertex VertexOut vertex_main(const VertexIn vertexIn [[stage_in]],
         .position = uniforms.projectionMatrix * uniforms.viewMatrix * uniforms.modelMatrix * position,
         .worldPosition = (uniforms.modelMatrix * vertexIn.position).xyz,
         .worldNormal = normalMatrix * normal.xyz,
-        .uv = vertexIn.uv
+        .uv = vertexIn.uv,
+        .color = vertexIn.color
     };
     return vertexOut;
 }

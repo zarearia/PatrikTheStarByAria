@@ -28,6 +28,9 @@ extension MDLVertexDescriptor {
 
         vertexDescriptor.attributes[Int(Weights.rawValue)] = MDLVertexAttribute(name: MDLVertexAttributeJointWeights, format: .float4, offset: offset, bufferIndex: Int(VerticesBufferIndex.rawValue))
         offset += MemoryLayout<float4>.stride
+        
+        vertexDescriptor.attributes[Int(Color.rawValue)] = MDLVertexAttribute(name: MDLVertexAttributeColor, format: .float3, offset: offset, bufferIndex: Int(VerticesBufferIndex.rawValue))
+        offset += MemoryLayout<float3>.stride
 
         vertexDescriptor.layouts[0] = MDLVertexBufferLayout(stride: offset)
         

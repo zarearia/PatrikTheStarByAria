@@ -48,7 +48,8 @@ typedef enum {
     Normal = 1,
     UV = 2,
     Joints = 3,
-    Weights = 4
+    Weights = 4,
+    Color = 5
 } Attributes;
 
 typedef enum {

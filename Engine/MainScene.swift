@@ -8,7 +8,7 @@
 class MainScene: Scene {
     
     var groundModel = Model(name: "ground", resourse: "ground", extention: "obj")
-    var patrik = Model(name: "skeletonWave", resourse: "skeletonWave", extention: "usda")
+    var patrik = Model(name: "patrik3", resourse: "patrik3", extention: "usdz")
 //    var train = Model(name: "train", resourse: "train", extention: "obj")
     var arcballCamera = ArcballCamera()
     
@@ -25,7 +25,6 @@ class MainScene: Scene {
         
         add(node: groundModel)
         add(node: patrik)
-        patrik.scale = [100, 100, 100]
 //        add(node: patrik, parent: train)
 //        add(node: train)
         
