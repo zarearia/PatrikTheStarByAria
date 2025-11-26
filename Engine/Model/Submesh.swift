@@ -90,6 +90,12 @@ class Submesh {
         descriptor.depthAttachmentPixelFormat = .depth32Float
         descriptor.colorAttachments[0].pixelFormat = Renderer.colorPixelFormat
         
+        guard let attachment = descriptor.colorAttachments[0] else { return }
+        attachment.isBlendingEnabled = true
+        attachment.rgbBlendOperation = .add
+        attachment.sourceRGBBlendFactor = .sourceAlpha
+        attachment.destinationRGBBlendFactor = .oneMinusSourceAlpha
+        
         
         descriptor.vertexDescriptor = MTKMetalVertexDescriptorFromModelIO(MDLVertexDescriptor.getDefaultVertexDescriptor())
         

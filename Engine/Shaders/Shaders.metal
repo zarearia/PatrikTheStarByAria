@@ -81,80 +81,80 @@ fragment float4 fragment_main(VertexOut in [[stage_in]],
                               sampler textureSampler [[sampler(0)]],
                               constant float3 &solidColor [[buffer(SolidColorBufferIndex)]]) {
     
-    float3 baseColor;
+    float4 baseColor;
     if (hasBaseColorTexture) {
-        baseColor = baseColorTexture2d.sample(textureSampler, in.uv * uniforms.tiling).rgb;
+        baseColor = baseColorTexture2d.sample(textureSampler, in.uv * uniforms.tiling).rgba;
     } else if (hasBaseColorSolidColor) {
-        baseColor = solidColor;
-//        return float4(baseColor, 1);
-    }
-
-    return float4(baseColor, 1);
-    
-    float3 diffuseColor = 0;
-    float3 ambientColor = 0;
-    float3 specularColor = 0;
-    float materialShininess = 32;
-    float3 materialSpecularColor = float3(1, 1, 1);
-    
-    float3 normalDirection = normalize(in.worldNormal);
-    
-    for (uint32_t i = 0; i < uniforms.lightCount; i++) {
-        
-        Light light = lights[i];
-        
-        if (light.type == SunLight) {
-            float3 lightDirection = normalize(light.position);
-            float3 lightColor = light.color;
-            
-            float diffuseIntensity = saturate(dot(lightDirection, normalDirection));
-            
-            diffuseColor += lightColor * baseColor * diffuseIntensity;
-            
-            if (diffuseIntensity > 0) {
-                float3 reflection = reflect(lightDirection, in.worldNormal);
-                //this is camera direction toward the fragment
-                float3 cameraDirection = normalize(in.worldPosition - uniforms.cameraPosition);
-                float specularIntensity = pow(saturate(dot(reflection, cameraDirection)), materialShininess);
-                specularColor += specularIntensity * materialSpecularColor * light.specularColor;
-            }
-        } else if (light.type == Ambientlight) {
-            ambientColor += light.color * light.intensity;
-        } else if (light.type == PointLight) {
-            float d = distance(light.position, in.worldPosition);
-            float3 lightDirection = normalize(light.position - in.worldPosition);
-            
-            float attenuation = 1.0 / ( light.attenuation.x + light.attenuation.y * d + light.attenuation.z * pow(light.attenuation.z, 2) );
-            
-            float diffuseIntensity = saturate(dot(lightDirection, normalDirection));
-            
-            float3 color = diffuseIntensity * light.color * baseColor;
-            
-            color *= attenuation;
-            diffuseColor += color;
-        } else if (light.type == SpotLight) {
-            float d = distance(light.position, in.worldPosition);
-            float3 lightDirection = normalize(light.position - in.worldPosition);
-            
-            float3 coneDirection = normalize(light.coneDirection);
-            float spotResult = dot(lightDirection, coneDirection);
-            
-            if (spotResult > cos(light.coneAngel)) {
-                float attenuation = 1.0 / ( light.attenuation.x + light.attenuation.y * d + light.attenuation.z * pow(light.attenuation.z, 2) );
-                
-                attenuation *= pow(spotResult, light.coneAttenuation);
-                
-                float diffuseIntensity = saturate(dot(lightDirection, normalDirection));
-                
-                float3 color = diffuseIntensity * light.color * baseColor;
-                
-                color *= attenuation;
-                diffuseColor += color;
-            }
-        }
+        baseColor = float4(solidColor, 1);
     }
     
+    return baseColor;
     
-    float3 finalColor = diffuseColor + ambientColor + specularColor;
-    return float4(finalColor, 1);
+    //This is important code, don't remove it
+//    float3 diffuseColor = 0;
+//    float3 ambientColor = 0;
+//    float3 specularColor = 0;
+//    float materialShininess = 32;
+//    float3 materialSpecularColor = float3(1, 1, 1);
+//    
+//    float3 normalDirection = normalize(in.worldNormal);
+//    
+//    for (uint32_t i = 0; i < uniforms.lightCount; i++) {
+//        
+//        Light light = lights[i];
+//        
+//        if (light.type == SunLight) {
+//            float3 lightDirection = normalize(light.position);
+//            float3 lightColor = light.color;
+//            
+//            float diffuseIntensity = saturate(dot(lightDirection, normalDirection));
+//            
+//            diffuseColor += lightColor * baseColor * diffuseIntensity;
+//            
+//            if (diffuseIntensity > 0) {
+//                float3 reflection = reflect(lightDirection, in.worldNormal);
+//                //this is camera direction toward the fragment
+//                float3 cameraDirection = normalize(in.worldPosition - uniforms.cameraPosition);
+//                float specularIntensity = pow(saturate(dot(reflection, cameraDirection)), materialShininess);
+//                specularColor += specularIntensity * materialSpecularColor * light.specularColor;
+//            }
+//        } else if (light.type == Ambientlight) {
+//            ambientColor += light.color * light.intensity;
+//        } else if (light.type == PointLight) {
+//            float d = distance(light.position, in.worldPosition);
+//            float3 lightDirection = normalize(light.position - in.worldPosition);
+//            
+//            float attenuation = 1.0 / ( light.attenuation.x + light.attenuation.y * d + light.attenuation.z * pow(light.attenuation.z, 2) );
+//            
+//            float diffuseIntensity = saturate(dot(lightDirection, normalDirection));
+//            
+//            float3 color = diffuseIntensity * light.color * baseColor;
+//            
+//            color *= attenuation;
+//            diffuseColor += color;
+//        } else if (light.type == SpotLight) {
+//            float d = distance(light.position, in.worldPosition);
+//            float3 lightDirection = normalize(light.position - in.worldPosition);
+//            
+//            float3 coneDirection = normalize(light.coneDirection);
+//            float spotResult = dot(lightDirection, coneDirection);
+//            
+//            if (spotResult > cos(light.coneAngel)) {
+//                float attenuation = 1.0 / ( light.attenuation.x + light.attenuation.y * d + light.attenuation.z * pow(light.attenuation.z, 2) );
+//                
+//                attenuation *= pow(spotResult, light.coneAttenuation);
+//                
+//                float diffuseIntensity = saturate(dot(lightDirection, normalDirection));
+//                
+//                float3 color = diffuseIntensity * light.color * baseColor;
+//                
+//                color *= attenuation;
+//                diffuseColor += color;
+//            }
+//        }
+//    }
+//    
+//    
+//    float3 finalColor = diffuseColor + ambientColor + specularColor;
+//    return float4(finalColor, 1);
 }
