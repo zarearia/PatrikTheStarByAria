@@ -133,6 +133,7 @@
 		F76722B32E54E05200143CE1 = {
 			isa = PBXGroup;
 			children = (
+				F7A9C04A2ED771680045820E /* Game */,
 				F76722E72E54E66100143CE1 /* Engine */,
 				F76722BE2E54E05200143CE1 /* PatrikTheStarByAria */,
 				F76722D32E54E57400143CE1 /* PatrikTheStarByAriaiOS */,
@@ -152,7 +153,6 @@
 		F76722E72E54E66100143CE1 /* Engine */ = {
 			isa = PBXGroup;
 			children = (
-				F7D08A752ED0368D0093D32C /* MainScene.swift */,
 				F7D08A722ECEEB2D0093D32C /* Scene.swift */,
 				F7D30B092E73DCD200254E80 /* Animation */,
 				F7E44EC72E680AD600D44694 /* Renderer */,
@@ -200,6 +200,14 @@
 				F76723292E5C31DA00143CE1 /* Common.h */,
 			);
 			path = Shaders;
+			sourceTree = "<group>";
+		};
+		F7A9C04A2ED771680045820E /* Game */ = {
+			isa = PBXGroup;
+			children = (
+				F7D08A752ED0368D0093D32C /* MainScene.swift */,
+			);
+			path = Game;
 			sourceTree = "<group>";
 		};
 		F7D30B092E73DCD200254E80 /* Animation */ = {
