@@ -48,9 +48,9 @@ class Node {
     }
     
     var rightVector: float3 {
-        simd_normalize([sin(rotation.y - (.pi / 2)),
+        simd_normalize([cos(rotation.y - (.pi / 2)),
          0,
-         cos(rotation.y - (.pi / 2))
+         sin(rotation.y - (.pi / 2))
         ])
     }
     
