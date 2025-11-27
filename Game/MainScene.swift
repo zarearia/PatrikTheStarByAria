@@ -34,6 +34,7 @@ class MainScene: Scene {
     }
     
     override func updateScene(deltaTime: Float) {
+        patrik.position += (patrik.forwardVector/10)
 //        train.position.x += deltaTime
     }
 }

@@ -40,6 +40,20 @@ class Node {
         return transalationMatrix * rotationMatrix * scaleMatrix
     }
     
+    var forwardVector: float3 {
+        simd_normalize([cos(rotation.x) * sin(rotation.y),
+         sin(rotation.x),
+         cos(rotation.x) * cos(rotation.y)
+        ])
+    }
+    
+    var rightVector: float3 {
+        simd_normalize([sin(rotation.y - (.pi / 2)),
+         0,
+         cos(rotation.y - (.pi / 2))
+        ])
+    }
+    
     var worldLocation: float4x4 {
         if let parent {
             //NOTE: if we write it like parent.modelMatrix * modelMatrix, it will of course, mess up things
