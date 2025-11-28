@@ -25,6 +25,8 @@
 		F76723322E5D870100143CE1 /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76723302E5D86FE00143CE1 /* Camera.swift */; };
 		F76723342E5ECD7B00143CE1 /* ArcballCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76723332E5ECD7100143CE1 /* ArcballCamera.swift */; };
 		F76723352E5ECD7B00143CE1 /* ArcballCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76723332E5ECD7100143CE1 /* ArcballCamera.swift */; };
+		F7A9C04C2ED82ADB0045820E /* KeyCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A9C04B2ED82ADB0045820E /* KeyCode.swift */; };
+		F7A9C04D2ED82ADB0045820E /* KeyCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A9C04B2ED82ADB0045820E /* KeyCode.swift */; };
 		F7D08A732ECEEB400093D32C /* Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D08A722ECEEB2D0093D32C /* Scene.swift */; };
 		F7D08A742ECEEB400093D32C /* Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D08A722ECEEB2D0093D32C /* Scene.swift */; };
 		F7D08A762ED036980093D32C /* MainScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D08A752ED0368D0093D32C /* MainScene.swift */; };
@@ -66,6 +68,7 @@
 		F767232D2E5D852C00143CE1 /* Node.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
 		F76723302E5D86FE00143CE1 /* Camera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
 		F76723332E5ECD7100143CE1 /* ArcballCamera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArcballCamera.swift; sourceTree = "<group>"; };
+		F7A9C04B2ED82ADB0045820E /* KeyCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyCode.swift; sourceTree = "<group>"; };
 		F7D08A722ECEEB2D0093D32C /* Scene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scene.swift; sourceTree = "<group>"; };
 		F7D08A752ED0368D0093D32C /* MainScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScene.swift; sourceTree = "<group>"; };
 		F7D08A952ED38E7C0093D32C /* patrik_house.usdz */ = {isa = PBXFileReference; lastKnownFileType = file; path = patrik_house.usdz; sourceTree = "<group>"; };
@@ -89,11 +92,21 @@
 			);
 			target = F76722D12E54E57400143CE1 /* PatrikTheStarByAriaiOS */;
 		};
+		F7A9C0512ED82EF50045820E /* Exceptions for "PatrikTheStarByAria" folder in "PatrikTheStarByAriaiOS" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				MainView.swift,
+			);
+			target = F76722D12E54E57400143CE1 /* PatrikTheStarByAriaiOS */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		F76722BE2E54E05200143CE1 /* PatrikTheStarByAria */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				F7A9C0512ED82EF50045820E /* Exceptions for "PatrikTheStarByAria" folder in "PatrikTheStarByAriaiOS" target */,
+			);
 			path = PatrikTheStarByAria;
 			sourceTree = "<group>";
 		};
@@ -172,6 +185,7 @@
 			children = (
 				F76723112E56EFE000143CE1 /* MathHelpers.swift */,
 				F767230E2E56EB5C00143CE1 /* VertexDescriptorHelper.swift */,
+				F7A9C04B2ED82ADB0045820E /* KeyCode.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -367,6 +381,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F7A9C04D2ED82ADB0045820E /* KeyCode.swift in Sources */,
 				F76723102E56EB6700143CE1 /* VertexDescriptorHelper.swift in Sources */,
 				F767230C2E56E65500143CE1 /* Shaders.metal in Sources */,
 				F7E44ECA2E680AF800D44694 /* Renderable.swift in Sources */,
@@ -390,6 +405,7 @@
 				F767230F2E56EB6700143CE1 /* VertexDescriptorHelper.swift in Sources */,
 				F7E44EC92E680AF800D44694 /* Renderable.swift in Sources */,
 				F767232E2E5D853400143CE1 /* Node.swift in Sources */,
+				F7A9C04C2ED82ADB0045820E /* KeyCode.swift in Sources */,
 				F76723312E5D870100143CE1 /* Camera.swift in Sources */,
 				F7D08A732ECEEB400093D32C /* Scene.swift in Sources */,
 				F767230D2E56E65500143CE1 /* Shaders.metal in Sources */,

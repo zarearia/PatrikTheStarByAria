@@ -41,17 +41,11 @@ class Node {
     }
     
     var forwardVector: float3 {
-        simd_normalize([cos(rotation.x) * sin(rotation.y),
-         sin(rotation.x),
-         cos(rotation.x) * cos(rotation.y)
-        ])
+        simd_normalize([sin(rotation.y), 0, cos(rotation.y)])
     }
     
     var rightVector: float3 {
-        simd_normalize([cos(rotation.y - (.pi / 2)),
-         0,
-         sin(rotation.y - (.pi / 2))
-        ])
+        return [forwardVector.z, forwardVector.y, -forwardVector.x]
     }
     
     var worldLocation: float4x4 {

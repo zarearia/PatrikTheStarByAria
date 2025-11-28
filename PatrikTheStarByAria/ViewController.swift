@@ -10,9 +10,10 @@ import MetalKit
 
 class ViewController: NSViewController {
 
+    
     var renderer: Renderer?
     var scene: Scene?
-    @IBOutlet var metalView: MTKView!
+    @IBOutlet var metalView: MainView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,15 +23,27 @@ class ViewController: NSViewController {
         renderer?.scene = scene
         addGestureRecognizers(to: metalView)
         
+        metalView.controleDelegate = scene
+        
+//        self.view.window?.makeFirstResponder(self.view)
+        
 
         // Do any additional setup after loading the view.
     }
+    
+//    override func viewWillAppear() {
+//        super.viewWillAppear()
+//        
+//        self.view.window?.makeFirstResponder(self.view)
+//    }
 
     override var representedObject: Any? {
         didSet {
         // Update the view, if already loaded.
         }
     }
+    
+
     
     func addGestureRecognizers(to view: NSView) {
         let pan = NSPanGestureRecognizer(target: self, action: #selector(handlePan(gesture:)))

@@ -7,7 +7,7 @@
 
 import MetalKit
 
-class Scene {
+class Scene: ControleDelegate {
     var size: CGSize
     
     var cameras: [Camera] = [Camera()]
@@ -103,5 +103,13 @@ class Scene {
             child.parent = nil
         }
         node.children = []
+    }
+    
+    func keyUp(keyCode: KeyCode) {
+        //override this
+    }
+    
+    func keyDown(keyCode: KeyCode) {
+        //override this
     }
 }
