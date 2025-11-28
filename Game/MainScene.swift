@@ -27,6 +27,7 @@ class MainScene: Scene {
     var normalCamera = Camera()
     
     var cameraDirection: float3 = .zero
+    var cameraRotation: float3 = .zero
     
     override func setupScene() {
         
@@ -56,11 +57,14 @@ class MainScene: Scene {
     
     override func updateScene(deltaTime: Float) {
 //        if patrikMovingForward {
-            patrik.position += (patrik.forwardVector/10)
+//            patrik.position += (patrik.forwardVector/10)
 //        }
         
-        normalCamera.position += (cameraDirection.z * normalCamera.forwardVector
-                                  + cameraDirection.x * normalCamera.rightVector)
+        let camera1 = cameraDirection.z * (normalCamera.forwardVector / 10)
+        let camera2 = cameraDirection.x * (normalCamera.rightVector / 10)
+        let camera3 = cameraDirection.y * (normalCamera.upVector / 10)
+        normalCamera.position += (camera1 + camera2 + camera3)
+        normalCamera.rotation += (cameraRotation / 10)
 
 //        arcballCamera.position = patrik.position
 //        arcballCamera.target = patrik.position
@@ -119,6 +123,18 @@ class MainScene: Scene {
         case .d:
             cameraDirection.x += 1
 //            camera.position += (camera.rightVector/10)
+        case .z:
+            cameraDirection.y += 1
+        case .x:
+            cameraDirection.y += -1
+        case .e:
+            cameraRotation.y += 1
+        case .q:
+            cameraRotation.y += -1
+        case .f:
+            cameraRotation.x += 1
+        case .g:
+            cameraRotation.x += -1
         default:
             break
         }
@@ -139,6 +155,18 @@ class MainScene: Scene {
         case .d:
             cameraDirection.x -= 1
 //            camera.position += (camera.rightVector/10)
+        case .z:
+            cameraDirection.y -= 1
+        case .x:
+            cameraDirection.y -= -1
+        case .e:
+            cameraRotation.y -= 1
+        case .q:
+            cameraRotation.y -= -1
+        case .f:
+            cameraRotation.x -= 1
+        case .g:
+            cameraRotation.x -= -1
         default:
             break
         }

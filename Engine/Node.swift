@@ -48,6 +48,10 @@ class Node {
         return [forwardVector.z, forwardVector.y, -forwardVector.x]
     }
     
+    var upVector: float3 {
+        return [0, 1, 0]
+    }
+    
     var worldLocation: float4x4 {
         if let parent {
             //NOTE: if we write it like parent.modelMatrix * modelMatrix, it will of course, mess up things
