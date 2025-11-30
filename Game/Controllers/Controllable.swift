@@ -13,6 +13,9 @@ protocol Controllable {
     var direction: float3 { get }
     var rotation: float3 { get }
     
+    var directionSpeed: Float { get set }
+    var rotationSpeed: Float { get set }
+    
     func updateControled(deltaTime: Float)
     
     func keyUp(keyCode: KeyCode)

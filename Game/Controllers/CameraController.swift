@@ -13,15 +13,18 @@ class CameraController: Controllable {
     var direction: float3 = .zero
     var rotation: float3 = .zero
     
+    var directionSpeed: Float = 1
+    var rotationSpeed: Float = 1
+
     func updateControled(deltaTime: Float) {
         guard let controlled else {
             fatalError("no controlled set")
         }
-        let zUpdate = direction.z * (controlled.forwardVector / 10)
-        let xUpdate = direction.x * (controlled.rightVector / 10)
-        let yUpdate = direction.y * (controlled.upVector / 10)
+        let zUpdate = direction.z * (controlled.forwardVector * directionSpeed)
+        let xUpdate = direction.x * (controlled.rightVector * directionSpeed)
+        let yUpdate = direction.y * (controlled.upVector * directionSpeed)
         controlled.position += (xUpdate + zUpdate + yUpdate)
-        controlled.rotation += (rotation / 10)
+        controlled.rotation += (rotation * rotationSpeed)
     }
     
     func keyUp(keyCode: KeyCode) {

@@ -31,6 +31,8 @@ class MainScene: Scene {
     override func setupScene() {
         
         cameraController.controlled = normalCamera
+        cameraController.rotationSpeed = 0.1
+        cameraController.directionSpeed = 0.1
         
         arcballCamera.zoom(delta: -30)
         arcballCamera.rotate(delta: [180, -5])
