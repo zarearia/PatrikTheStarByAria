@@ -16,6 +16,8 @@ class MainScene: Scene {
     var groundModel = Model(name: "ground", resourse: "ground", extention: "obj")
     var patrik = Model(name: "patrik3", resourse: "patrik3", extention: "usdz")
     
+    var cameraController: Controllable = CameraController()
+    
     // true is camera, false is patrik focus
     var focusOnCamera: Bool = true
     
@@ -26,16 +28,14 @@ class MainScene: Scene {
     var arcballCamera = ArcballCamera()
     var normalCamera = Camera()
     
-    var cameraDirection: float3 = .zero
-    var cameraRotation: float3 = .zero
-    
     override func setupScene() {
+        
+        cameraController.controlled = normalCamera
         
         arcballCamera.zoom(delta: -30)
         arcballCamera.rotate(delta: [180, -5])
         arcballCamera.target = [0, 1, 0]
         
-//        normalCamera.zoom(delta: -30)
         normalCamera.rotation = [0, 0, 0]
         normalCamera.position = [0, 1, -1]
         
@@ -47,38 +47,17 @@ class MainScene: Scene {
         
         add(node: groundModel)
         add(node: patrik)
-//        add(node: patrik, parent: train)
-//        add(node: train)
-        
-//        train.position = [0, 1, 0]
         patrik.rotation = [0, 0, 0]
         
     }
     
     override func updateScene(deltaTime: Float) {
-//        if patrikMovingForward {
-//            patrik.position += (patrik.forwardVector/10)
-//        }
-        
-        let camera1 = cameraDirection.z * (normalCamera.forwardVector / 10)
-        let camera2 = cameraDirection.x * (normalCamera.rightVector / 10)
-        let camera3 = cameraDirection.y * (normalCamera.upVector / 10)
-        normalCamera.position += (camera1 + camera2 + camera3)
-        normalCamera.rotation += (cameraRotation / 10)
-
-//        arcballCamera.position = patrik.position
-//        arcballCamera.target = patrik.position
-//        normalCamera.position = patrik.position
-//        normalCamera.position.z -= 1
-//        normalCamera.position.y = 1
-//        camera.position.z += 1
-//        train.position.x += deltaTime
+        cameraController.updateControled(deltaTime: deltaTime)
     }
     
     override func keyDown(keyCode: KeyCode) {
         if focusOnCamera {
-//            updateCamera(keyCode: keyCode)
-            updateCameraKeyDown(keyCode: keyCode)
+            cameraController.keyDown(keyCode: keyCode)
             return
         }
         
@@ -92,8 +71,7 @@ class MainScene: Scene {
     
     override func keyUp(keyCode: KeyCode) {
         if focusOnCamera {
-//            updateCamera(keyCode: keyCode)
-            updateCameraKeyUp(keyCode: keyCode)
+            cameraController.keyUp(keyCode: keyCode)
             return
         }
         
@@ -102,71 +80,6 @@ class MainScene: Scene {
             patrikMovingForward = false
         case .c:
             focusOnCamera.toggle()
-        default:
-            break
-        }
-    }
-    
-    func updateCameraKeyDown(keyCode: KeyCode) {
-        
-        switch keyCode {
-        case .w:
-            cameraDirection.z += 1
-//            camera.position += (camera.rightVector/10)
-//            print(camera.position)
-        case .a:
-            cameraDirection.x += -1
-//            camera.position -= (camera.rightVector/10)
-        case .s:
-            cameraDirection.z += -1
-//            camera.position -= (camera.rightVector/10)
-        case .d:
-            cameraDirection.x += 1
-//            camera.position += (camera.rightVector/10)
-        case .z:
-            cameraDirection.y += 1
-        case .x:
-            cameraDirection.y += -1
-        case .e:
-            cameraRotation.y += 1
-        case .q:
-            cameraRotation.y += -1
-        case .f:
-            cameraRotation.x += 1
-        case .g:
-            cameraRotation.x += -1
-        default:
-            break
-        }
-    }
-    
-    func updateCameraKeyUp(keyCode: KeyCode) {
-        switch keyCode {
-        case .w:
-            cameraDirection.z -= 1
-//            camera.position += (camera.rightVector/10)
-//            print(camera.position)
-        case .a:
-            cameraDirection.x -= -1
-//            camera.position -= (camera.rightVector/10)
-        case .s:
-            cameraDirection.z -= -1
-//            camera.position -= (camera.rightVector/10)
-        case .d:
-            cameraDirection.x -= 1
-//            camera.position += (camera.rightVector/10)
-        case .z:
-            cameraDirection.y -= 1
-        case .x:
-            cameraDirection.y -= -1
-        case .e:
-            cameraRotation.y -= 1
-        case .q:
-            cameraRotation.y -= -1
-        case .f:
-            cameraRotation.x -= 1
-        case .g:
-            cameraRotation.x -= -1
         default:
             break
         }
