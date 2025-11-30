@@ -8,6 +8,9 @@
 
 
 class CameraController: Controllable {
+    
+    var isMoving: Bool = false
+    
     var controlled: Node?
     
     var direction: float3 = .zero
@@ -28,6 +31,8 @@ class CameraController: Controllable {
     }
     
     func keyUp(keyCode: KeyCode) {
+        if !isMoving { return }
+        
         switch keyCode {
         case .w:
             direction.z -= 1
@@ -55,6 +60,8 @@ class CameraController: Controllable {
     }
     
     func keyDown(keyCode: KeyCode) {
+        if !isMoving { return }
+        
         switch keyCode {
         case .w:
             direction.z += 1

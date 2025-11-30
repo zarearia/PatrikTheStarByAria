@@ -16,75 +16,86 @@ class MainScene: Scene {
     var groundModel = Model(name: "ground", resourse: "ground", extention: "obj")
     var patrik = Model(name: "patrik3", resourse: "patrik3", extention: "usdz")
     
-    var cameraController: Controllable = CameraController()
+    var freeCameraController: Controllable = CameraController()
+    var thirdPersonCameraController: Controllable = CameraController()
     
     // true is camera, false is patrik focus
-    var focusOnCamera: Bool = true
+    var freeCameraOn: Bool = true
     
     //TODO: back architecture decision replace this
     var patrikMovingForward: Bool = false
     
 //    var train = Model(name: "train", resourse: "train", extention: "obj")
     var arcballCamera = ArcballCamera()
-    var normalCamera = Camera()
+    var freeCamera = Camera()
+    var thirdPersonCamera = Camera()
     
     override func setupScene() {
         
-        cameraController.controlled = normalCamera
-        cameraController.rotationSpeed = 0.1
-        cameraController.directionSpeed = 0.1
+        freeCameraController.controlled = freeCamera
+        freeCameraController.rotationSpeed = 0.1
+        freeCameraController.directionSpeed = 0.1
+        freeCameraController.isMoving = false
         
+        thirdPersonCameraController.controlled = thirdPersonCamera
+        thirdPersonCameraController.rotationSpeed = 0.1
+        thirdPersonCameraController.directionSpeed = 0.1
+        thirdPersonCameraController.isMoving = true
+
         arcballCamera.zoom(delta: -30)
         arcballCamera.rotate(delta: [180, -5])
         arcballCamera.target = [0, 1, 0]
         
-        normalCamera.rotation = [0, 0, 0]
-        normalCamera.position = [0, 1, -1]
+        freeCamera.rotation = [0, 0, 0]
+        freeCamera.position = [0, 1, -1]
         
         cameras.append(arcballCamera)
-        cameras.append(normalCamera)
-        currentCameraIndex = 2
+        cameras.append(freeCamera)
+        cameras.append(thirdPersonCamera)
+        currentCameraIndex = 3
         
         groundModel.tiling = 4
         
         add(node: groundModel)
-        add(node: patrik)
-        patrik.rotation = [0, 0, 0]
         
+        thirdPersonCamera.position = patrik.position
+        thirdPersonCamera.position.y += 2
+        
+        add(node: patrik, parent: thirdPersonCamera)
+        
+        patrik.position.z += 3
+        patrik.position.y -= 1.5
     }
     
     override func updateScene(deltaTime: Float) {
-        cameraController.updateControled(deltaTime: deltaTime)
+        freeCameraController.updateControled(deltaTime: deltaTime)
+        thirdPersonCameraController.updateControled(deltaTime: deltaTime)
     }
     
     override func keyDown(keyCode: KeyCode) {
-        if focusOnCamera {
-            cameraController.keyDown(keyCode: keyCode)
-            return
-        }
+        
         
         switch keyCode {
-        case .w:
-            patrikMovingForward = true
         default:
             break
         }
+        
+        freeCameraController.keyDown(keyCode: keyCode)
+        thirdPersonCameraController.keyDown(keyCode: keyCode)
     }
     
     override func keyUp(keyCode: KeyCode) {
-        if focusOnCamera {
-            cameraController.keyUp(keyCode: keyCode)
-            return
-        }
         
         switch keyCode {
-        case .w:
-            patrikMovingForward = false
         case .c:
-            focusOnCamera.toggle()
+            freeCameraController.isMoving.toggle()
+            thirdPersonCameraController.isMoving.toggle()
         default:
             break
         }
+        
+        freeCameraController.keyUp(keyCode: keyCode)
+        thirdPersonCameraController.keyUp(keyCode: keyCode)
     }
 }
 

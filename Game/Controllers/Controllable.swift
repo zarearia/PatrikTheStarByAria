@@ -8,6 +8,7 @@
 import Foundation
 
 protocol Controllable {
+    var isMoving: Bool { get set }
     var controlled: Node? { get set }
     
     var direction: float3 { get }
