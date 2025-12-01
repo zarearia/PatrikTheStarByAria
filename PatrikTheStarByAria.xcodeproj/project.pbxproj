@@ -29,6 +29,8 @@
 		F7693FF52EDC73AA00CF7FCC /* CameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7693FF32EDC73A700CF7FCC /* CameraController.swift */; };
 		F7693FF82EDC7BDF00CF7FCC /* Controllable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7693FF72EDC7BDF00CF7FCC /* Controllable.swift */; };
 		F7693FF92EDC7BDF00CF7FCC /* Controllable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7693FF72EDC7BDF00CF7FCC /* Controllable.swift */; };
+		F7693FFB2EDC885D00CF7FCC /* ThirdPersonCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7693FFA2EDC882D00CF7FCC /* ThirdPersonCamera.swift */; };
+		F7693FFC2EDC885D00CF7FCC /* ThirdPersonCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7693FFA2EDC882D00CF7FCC /* ThirdPersonCamera.swift */; };
 		F7A9C04C2ED82ADB0045820E /* KeyCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A9C04B2ED82ADB0045820E /* KeyCode.swift */; };
 		F7A9C04D2ED82ADB0045820E /* KeyCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A9C04B2ED82ADB0045820E /* KeyCode.swift */; };
 		F7D08A732ECEEB400093D32C /* Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D08A722ECEEB2D0093D32C /* Scene.swift */; };
@@ -74,6 +76,7 @@
 		F76723332E5ECD7100143CE1 /* ArcballCamera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArcballCamera.swift; sourceTree = "<group>"; };
 		F7693FF32EDC73A700CF7FCC /* CameraController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraController.swift; sourceTree = "<group>"; };
 		F7693FF72EDC7BDF00CF7FCC /* Controllable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Controllable.swift; sourceTree = "<group>"; };
+		F7693FFA2EDC882D00CF7FCC /* ThirdPersonCamera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdPersonCamera.swift; sourceTree = "<group>"; };
 		F7A9C04B2ED82ADB0045820E /* KeyCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyCode.swift; sourceTree = "<group>"; };
 		F7D08A722ECEEB2D0093D32C /* Scene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scene.swift; sourceTree = "<group>"; };
 		F7D08A752ED0368D0093D32C /* MainScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScene.swift; sourceTree = "<group>"; };
@@ -172,6 +175,7 @@
 		F76722E72E54E66100143CE1 /* Engine */ = {
 			isa = PBXGroup;
 			children = (
+				F7693FFA2EDC882D00CF7FCC /* ThirdPersonCamera.swift */,
 				F7D08A722ECEEB2D0093D32C /* Scene.swift */,
 				F7D30B092E73DCD200254E80 /* Animation */,
 				F7E44EC72E680AD600D44694 /* Renderer */,
@@ -411,6 +415,7 @@
 				F76723122E56EFE500143CE1 /* MathHelpers.swift in Sources */,
 				F7D30B0C2E73DCE500254E80 /* Animation.swift in Sources */,
 				F76723322E5D870100143CE1 /* Camera.swift in Sources */,
+				F7693FFC2EDC885D00CF7FCC /* ThirdPersonCamera.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -422,6 +427,7 @@
 				F76722EA2E54E67600143CE1 /* Renderer.swift in Sources */,
 				F7693FF42EDC73AA00CF7FCC /* CameraController.swift in Sources */,
 				F767230F2E56EB6700143CE1 /* VertexDescriptorHelper.swift in Sources */,
+				F7693FFB2EDC885D00CF7FCC /* ThirdPersonCamera.swift in Sources */,
 				F7E44EC92E680AF800D44694 /* Renderable.swift in Sources */,
 				F7693FF82EDC7BDF00CF7FCC /* Controllable.swift in Sources */,
 				F767232E2E5D853400143CE1 /* Node.swift in Sources */,

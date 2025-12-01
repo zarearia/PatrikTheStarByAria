@@ -28,7 +28,7 @@ class MainScene: Scene {
 //    var train = Model(name: "train", resourse: "train", extention: "obj")
     var arcballCamera = ArcballCamera()
     var freeCamera = Camera()
-    var thirdPersonCamera = Camera()
+    var thirdPersonCamera: Camera?
     
     override func setupScene() {
         
@@ -37,7 +37,8 @@ class MainScene: Scene {
         freeCameraController.directionSpeed = 0.1
         freeCameraController.isMoving = false
         
-        thirdPersonCameraController.controlled = thirdPersonCamera
+        thirdPersonCamera = ThirdPersonCamera(focus: patrik)
+        thirdPersonCameraController.controlled = patrik
         thirdPersonCameraController.rotationSpeed = 0.1
         thirdPersonCameraController.directionSpeed = 0.1
         thirdPersonCameraController.isMoving = true
@@ -51,20 +52,23 @@ class MainScene: Scene {
         
         cameras.append(arcballCamera)
         cameras.append(freeCamera)
-        cameras.append(thirdPersonCamera)
+        if let thirdPersonCamera {
+            cameras.append(thirdPersonCamera)
+        }
         currentCameraIndex = 3
         
         groundModel.tiling = 4
         
         add(node: groundModel)
         
-        thirdPersonCamera.position = patrik.position
-        thirdPersonCamera.position.y += 2
+//        thirdPersonCamera.position = patrik.position
+//        thirdPersonCamera.position.y += 2
         
-        add(node: patrik, parent: thirdPersonCamera)
+        patrik.rotation = [0, 0, 0]
+        add(node: patrik)
         
-        patrik.position.z += 3
-        patrik.position.y -= 1.5
+//        patrik.position.z += 3
+//        patrik.position.y -= 1.5
     }
     
     override func updateScene(deltaTime: Float) {
@@ -82,6 +86,9 @@ class MainScene: Scene {
         
         freeCameraController.keyDown(keyCode: keyCode)
         thirdPersonCameraController.keyDown(keyCode: keyCode)
+        if thirdPersonCameraController.isMoving {
+            patrik.isAnimating = true
+        }
     }
     
     override func keyUp(keyCode: KeyCode) {
@@ -90,11 +97,19 @@ class MainScene: Scene {
         case .c:
             freeCameraController.isMoving.toggle()
             thirdPersonCameraController.isMoving.toggle()
+            
+            if freeCameraController.isMoving {
+                currentCameraIndex = 2
+            } else if thirdPersonCameraController.isMoving {
+                currentCameraIndex = 3
+            }
+            
         default:
             break
         }
         
         freeCameraController.keyUp(keyCode: keyCode)
+        patrik.isAnimating = false
         thirdPersonCameraController.keyUp(keyCode: keyCode)
     }
 }

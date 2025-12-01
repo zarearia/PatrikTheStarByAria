@@ -17,6 +17,8 @@ class Model: Node {
     var time: Float = 0
     var name: String
     
+    var isAnimating: Bool = false
+    
     var animations: [String: SkeletonAnimation]
     
     init(name: String, resourse: String, extention: String) {
@@ -90,7 +92,9 @@ class Model: Node {
     }
     
     override func update(deltaTime: Float) {
-        time += deltaTime
+        if isAnimating {
+            time += deltaTime
+        }
         for mesh in meshes {
             if let skeletonAnimation = animations.first?.value {
                 mesh.skeleton?.updatePose(at: time, animation: skeletonAnimation)
