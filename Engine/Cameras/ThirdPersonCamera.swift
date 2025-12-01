@@ -16,7 +16,7 @@ class ThirdPersonCamera: Camera {
         super.init()
     }
     
-    //TODO: verify the math
+    //TODO: verify the math(I veridied it, consider doing more linear algebra)
     override var viewMatrix: float4x4 {
         position = focus.position - focusDistance
         * focus.forwardVector

@@ -175,13 +175,11 @@
 		F76722E72E54E66100143CE1 /* Engine */ = {
 			isa = PBXGroup;
 			children = (
-				F7693FFA2EDC882D00CF7FCC /* ThirdPersonCamera.swift */,
+				F7693FFD2EDD675300CF7FCC /* Cameras */,
 				F7D08A722ECEEB2D0093D32C /* Scene.swift */,
 				F7D30B092E73DCD200254E80 /* Animation */,
 				F7E44EC72E680AD600D44694 /* Renderer */,
 				F7E44EC62E68074800D44694 /* Model */,
-				F76723332E5ECD7100143CE1 /* ArcballCamera.swift */,
-				F76723302E5D86FE00143CE1 /* Camera.swift */,
 				F767232D2E5D852C00143CE1 /* Node.swift */,
 				F76723222E5C319000143CE1 /* Shaders */,
 				F76723182E583FFE00143CE1 /* Assets */,
@@ -233,6 +231,16 @@
 				F7693FF72EDC7BDF00CF7FCC /* Controllable.swift */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		F7693FFD2EDD675300CF7FCC /* Cameras */ = {
+			isa = PBXGroup;
+			children = (
+				F7693FFA2EDC882D00CF7FCC /* ThirdPersonCamera.swift */,
+				F76723332E5ECD7100143CE1 /* ArcballCamera.swift */,
+				F76723302E5D86FE00143CE1 /* Camera.swift */,
+			);
+			path = Cameras;
 			sourceTree = "<group>";
 		};
 		F7A9C04A2ED771680045820E /* Game */ = {
