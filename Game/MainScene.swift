@@ -63,6 +63,7 @@ class MainScene: Scene {
         
         add(node: groundModel)
         
+        //This is how we add a costume render for a model
         patrik.costumeRender = { [weak self] renderer in
             guard let self else {
                 return
