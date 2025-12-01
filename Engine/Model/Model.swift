@@ -21,6 +21,8 @@ class Model: Node {
     
     var animations: [String: SkeletonAnimation]
     
+    var costumeRender: ((MTLRenderCommandEncoder) -> Void)?
+    
     init(name: String, resourse: String, extention: String) {
         self.name = name
         
@@ -120,6 +122,10 @@ extension Model: Renderable {
         renderEncoder.setFragmentBytes(&fragmentUniforms, length: MemoryLayout<FragmentUniforms>.stride, index: Int(FragmentUniformsBufferIndex.rawValue))
         
         renderEncoder.setFragmentSamplerState(samplerState, index: 0)
+        
+        if let costumeRender {
+            costumeRender(renderEncoder)
+        }
         
         //60 frames per second
         let deltaTime = 1 / Float(60)

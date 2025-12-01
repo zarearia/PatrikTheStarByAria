@@ -5,6 +5,8 @@
 //  Created by Aria Zare on 21/11/2025.
 //
 
+import MetalKit
+
 protocol ControleDelegate {
     func keyDown(keyCode: KeyCode)
     func keyUp(keyCode: KeyCode)
@@ -60,6 +62,13 @@ class MainScene: Scene {
         groundModel.tiling = 4
         
         add(node: groundModel)
+        
+        patrik.costumeRender = { [weak self] renderer in
+            guard let self else {
+                return
+            }
+            renderer.setScissorRect(MTLScissorRect(x: 150, y: 150, width: 800, height: 200))
+        }
         
 //        thirdPersonCamera.position = patrik.position
 //        thirdPersonCamera.position.y += 2
