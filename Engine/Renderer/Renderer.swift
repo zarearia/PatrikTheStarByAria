@@ -49,6 +49,8 @@ class Renderer: NSObject {
         
         metalView.depthStencilPixelFormat = .depth32Float
         
+        metalView.sampleCount = 4
+        
     }
     
     

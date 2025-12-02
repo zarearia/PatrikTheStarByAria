@@ -99,6 +99,8 @@ class Submesh {
         
         descriptor.vertexDescriptor = MTKMetalVertexDescriptorFromModelIO(MDLVertexDescriptor.getDefaultVertexDescriptor())
         
+        descriptor.sampleCount = 4
+        
         do {
             try pipelineState = Renderer.device.makeRenderPipelineState(descriptor: descriptor)
         } catch(let error) {
@@ -106,3 +108,4 @@ class Submesh {
         }
     }
 }
+
