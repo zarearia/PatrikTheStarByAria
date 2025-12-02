@@ -84,6 +84,9 @@ fragment float4 fragment_main(VertexOut in [[stage_in]],
     float4 baseColor;
     if (hasBaseColorTexture) {
         baseColor = baseColorTexture2d.sample(textureSampler, in.uv * uniforms.tiling).rgba;
+        if (baseColor.a <= 0.1) {
+            discard_fragment();
+        }
     } else if (hasBaseColorSolidColor) {
         baseColor = float4(solidColor, 1);
     }

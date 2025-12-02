@@ -64,12 +64,12 @@ class MainScene: Scene {
         add(node: groundModel)
         
         //This is how we add a costume render for a model
-        patrik.costumeRender = { [weak self] renderer in
-            guard let self else {
-                return
-            }
-            renderer.setScissorRect(MTLScissorRect(x: 150, y: 150, width: 800, height: 200))
-        }
+//        patrik.costumeRender = { [weak self] renderer in
+//            guard let self else {
+//                return
+//            }
+//            renderer.setScissorRect(MTLScissorRect(x: 150, y: 150, width: 800, height: 200))
+//        }
         
 //        thirdPersonCamera.position = patrik.position
 //        thirdPersonCamera.position.y += 2
@@ -90,6 +90,13 @@ class MainScene: Scene {
         
         
         switch keyCode {
+        case .one:
+            currentCameraIndex = 1
+        case .two:
+            currentCameraIndex = 2
+        case .three:
+            currentCameraIndex = 3
+
         default:
             break
         }
