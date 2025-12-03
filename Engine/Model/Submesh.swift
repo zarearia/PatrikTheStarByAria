@@ -79,6 +79,8 @@ class Submesh {
         functionConstant.setConstantValue(&hasBaseColorTexture, type: .bool, index: 1)
         var hasBaseColorSolidColor = baseColorSolidColor != nil
         functionConstant.setConstantValue(&hasBaseColorSolidColor, type: .bool, index: 2)
+        var hasFog = Renderer.hasFog
+        functionConstant.setConstantValue(&hasFog, type: .bool, index: 3)
         
         
         vertexFunction = try! Renderer.library.makeFunction(name: "vertex_main", constantValues: functionConstant)

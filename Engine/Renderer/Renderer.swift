@@ -13,6 +13,7 @@ class Renderer: NSObject {
     static var commandQueue: MTLCommandQueue!
     static var library: MTLLibrary!
     static var colorPixelFormat: MTLPixelFormat!
+    static var hasFog = false
     
     var scene: Scene?
     

@@ -12,6 +12,7 @@ using namespace metal;
 constant bool hasSkeleton [[function_constant(0)]];
 constant bool hasBaseColorTexture [[function_constant(1)]];
 constant bool hasBaseColorSolidColor [[function_constant(2)]];
+constant bool hasFog [[function_constant(3)]];
 
 struct VertexIn {
     float4 position [[attribute(Position)]];
@@ -37,6 +38,14 @@ float3x3 extract_top_3x3(float4x4 m)
         m.columns[1].xyz,
         m.columns[2].xyz
     );
+}
+
+float4 getFogColor(float4 color, float4 position, float density) {
+    float distance = position.z / position.w;
+    float4 fogColor = float4(1.0);
+    float fogFactor = 1 - clamp(exp(-density * distance), 0.0, 1.0);
+    float4 finalColor = mix(color, fogColor, fogFactor);
+    return finalColor;
 }
 
 vertex VertexOut vertex_main(const VertexIn vertexIn [[stage_in]],
@@ -89,6 +98,10 @@ fragment float4 fragment_main(VertexOut in [[stage_in]],
         }
     } else if (hasBaseColorSolidColor) {
         baseColor = float4(solidColor, 1);
+    }
+    
+    if (hasFog) {
+        baseColor = getFogColor(baseColor, in.position, 0.1);
     }
     
     return baseColor;
