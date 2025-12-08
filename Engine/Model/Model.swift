@@ -23,6 +23,9 @@ class Model: Node {
     
     var costumeRender: ((MTLRenderCommandEncoder) -> Void)?
     
+    /// at first will be inited with the first animation available
+    var currentAnimation: String?
+    
     init(name: String, resourse: String, extention: String) {
         self.name = name
         
@@ -53,6 +56,9 @@ class Model: Node {
         for animation in animations {
             print("animation: \(animation.key)")
         }
+        
+        currentAnimation = animations.first?.key
+        
         ////////////////////////////////////
         
         
@@ -97,8 +103,17 @@ class Model: Node {
         if isAnimating {
             time += deltaTime
         }
+        
+        let currentAnimation = animations.first(where: {
+            self.currentAnimation == $0.key
+        })
+        
+        if currentAnimation == nil {
+            print("Animation was not found")
+        }
+        
         for mesh in meshes {
-            if let skeletonAnimation = animations.first?.value {
+            if let skeletonAnimation = currentAnimation?.value {
                 mesh.skeleton?.updatePose(at: time, animation: skeletonAnimation)
             }
         }
