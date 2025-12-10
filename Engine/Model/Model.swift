@@ -161,9 +161,12 @@ extension Model: Renderable {
                 renderEncoder.setRenderPipelineState(submeshe.pipelineState!)
                 
                 //TODO: Add texture submeshes here
-                renderEncoder.setFragmentTexture(submeshe.baseColorTexture, index: 0)
+                renderEncoder.setFragmentTexture(submeshe.baseColorTexture, index: Int(BaseColorTextureIndex.rawValue))
 
-                renderEncoder.setFragmentBytes(&submeshe.baseColorSolidColor, length: MemoryLayout<float3>.stride, index: Int(SolidColorBufferIndex.rawValue))
+                renderEncoder.setFragmentBytes(&submeshe.baseColorSolidColor, length: MemoryLayout<float3>.stride, index: Int(BaseSolidColorBufferIndex.rawValue))
+                
+                renderEncoder.setFragmentTexture(submeshe.normalTexture, index: Int(NormalColorTextureIndex.rawValue))
+                renderEncoder.setFragmentBytes(&submeshe.normalSolidColor, length: MemoryLayout<float3>.stride, index: Int(NormalSolidColorBufferIndex.rawValue))
                 
                 let mtkSubmesh = submeshe.mtkSubmesh
                 renderEncoder.drawIndexedPrimitives(

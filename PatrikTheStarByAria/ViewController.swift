@@ -18,7 +18,7 @@ class ViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        Renderer.hasFog = true
+        Renderer.hasFog = false
         renderer = Renderer(metalView: metalView)
         scene = MainScene(size: metalView.frame.size)
         renderer?.scene = scene

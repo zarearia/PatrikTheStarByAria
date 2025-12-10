@@ -15,8 +15,6 @@
 		F76723102E56EB6700143CE1 /* VertexDescriptorHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F767230E2E56EB5C00143CE1 /* VertexDescriptorHelper.swift */; };
 		F76723122E56EFE500143CE1 /* MathHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76723112E56EFE000143CE1 /* MathHelpers.swift */; };
 		F76723132E56EFE500143CE1 /* MathHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76723112E56EFE000143CE1 /* MathHelpers.swift */; };
-		F767231A2E58410E00143CE1 /* patrik.usda in Resources */ = {isa = PBXBuildFile; fileRef = F76723192E58410E00143CE1 /* patrik.usda */; };
-		F767231B2E58410E00143CE1 /* patrik.usda in Resources */ = {isa = PBXBuildFile; fileRef = F76723192E58410E00143CE1 /* patrik.usda */; };
 		F76723202E5B646D00143CE1 /* train.obj in Resources */ = {isa = PBXBuildFile; fileRef = F767231F2E5B646D00143CE1 /* train.obj */; };
 		F76723212E5B646D00143CE1 /* train.obj in Resources */ = {isa = PBXBuildFile; fileRef = F767231F2E5B646D00143CE1 /* train.obj */; };
 		F767232E2E5D853400143CE1 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = F767232D2E5D852C00143CE1 /* Node.swift */; };
@@ -31,6 +29,12 @@
 		F7693FF92EDC7BDF00CF7FCC /* Controllable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7693FF72EDC7BDF00CF7FCC /* Controllable.swift */; };
 		F7693FFB2EDC885D00CF7FCC /* ThirdPersonCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7693FFA2EDC882D00CF7FCC /* ThirdPersonCamera.swift */; };
 		F7693FFC2EDC885D00CF7FCC /* ThirdPersonCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7693FFA2EDC882D00CF7FCC /* ThirdPersonCamera.swift */; };
+		F769404D2EE6A1B200CF7FCC /* skeleton.usda in Resources */ = {isa = PBXBuildFile; fileRef = F769404C2EE6A1B200CF7FCC /* skeleton.usda */; };
+		F769404E2EE6A1B200CF7FCC /* skeleton.usda in Resources */ = {isa = PBXBuildFile; fileRef = F769404C2EE6A1B200CF7FCC /* skeleton.usda */; };
+		F76940512EE6A85D00CF7FCC /* cube.mtl in Resources */ = {isa = PBXBuildFile; fileRef = F769404F2EE6A85D00CF7FCC /* cube.mtl */; };
+		F76940522EE6A85D00CF7FCC /* cube.obj in Resources */ = {isa = PBXBuildFile; fileRef = F76940502EE6A85D00CF7FCC /* cube.obj */; };
+		F76940532EE6A85D00CF7FCC /* cube.mtl in Resources */ = {isa = PBXBuildFile; fileRef = F769404F2EE6A85D00CF7FCC /* cube.mtl */; };
+		F76940542EE6A85D00CF7FCC /* cube.obj in Resources */ = {isa = PBXBuildFile; fileRef = F76940502EE6A85D00CF7FCC /* cube.obj */; };
 		F7A9C04C2ED82ADB0045820E /* KeyCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A9C04B2ED82ADB0045820E /* KeyCode.swift */; };
 		F7A9C04D2ED82ADB0045820E /* KeyCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A9C04B2ED82ADB0045820E /* KeyCode.swift */; };
 		F7D08A732ECEEB400093D32C /* Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D08A722ECEEB2D0093D32C /* Scene.swift */; };
@@ -38,17 +42,11 @@
 		F7D08A762ED036980093D32C /* MainScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D08A752ED0368D0093D32C /* MainScene.swift */; };
 		F7D08A772ED036980093D32C /* MainScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D08A752ED0368D0093D32C /* MainScene.swift */; };
 		F7D08A9A2ED38E7C0093D32C /* patrik2.usdz in Resources */ = {isa = PBXBuildFile; fileRef = F7D08A962ED38E7C0093D32C /* patrik2.usdz */; };
-		F7D08A9B2ED38E7C0093D32C /* patrikTest.usda in Resources */ = {isa = PBXBuildFile; fileRef = F7D08A982ED38E7C0093D32C /* patrikTest.usda */; };
 		F7D08A9C2ED38E7C0093D32C /* patrik_house.usdz in Resources */ = {isa = PBXBuildFile; fileRef = F7D08A952ED38E7C0093D32C /* patrik_house.usdz */; };
-		F7D08A9D2ED38E7C0093D32C /* Super_brawl_Universe-Patrick_Star.usdz in Resources */ = {isa = PBXBuildFile; fileRef = F7D08A992ED38E7C0093D32C /* Super_brawl_Universe-Patrick_Star.usdz */; };
 		F7D08A9E2ED38E7C0093D32C /* patrik3.usdz in Resources */ = {isa = PBXBuildFile; fileRef = F7D08A972ED38E7C0093D32C /* patrik3.usdz */; };
 		F7D08A9F2ED38E7C0093D32C /* patrik2.usdz in Resources */ = {isa = PBXBuildFile; fileRef = F7D08A962ED38E7C0093D32C /* patrik2.usdz */; };
-		F7D08AA02ED38E7C0093D32C /* patrikTest.usda in Resources */ = {isa = PBXBuildFile; fileRef = F7D08A982ED38E7C0093D32C /* patrikTest.usda */; };
 		F7D08AA12ED38E7C0093D32C /* patrik_house.usdz in Resources */ = {isa = PBXBuildFile; fileRef = F7D08A952ED38E7C0093D32C /* patrik_house.usdz */; };
-		F7D08AA22ED38E7C0093D32C /* Super_brawl_Universe-Patrick_Star.usdz in Resources */ = {isa = PBXBuildFile; fileRef = F7D08A992ED38E7C0093D32C /* Super_brawl_Universe-Patrick_Star.usdz */; };
 		F7D08AA32ED38E7C0093D32C /* patrik3.usdz in Resources */ = {isa = PBXBuildFile; fileRef = F7D08A972ED38E7C0093D32C /* patrik3.usdz */; };
-		F7D30B072E728DFB00254E80 /* skeletonWave.usda in Resources */ = {isa = PBXBuildFile; fileRef = F7D30B062E728DFB00254E80 /* skeletonWave.usda */; };
-		F7D30B082E728DFB00254E80 /* skeletonWave.usda in Resources */ = {isa = PBXBuildFile; fileRef = F7D30B062E728DFB00254E80 /* skeletonWave.usda */; };
 		F7D30B0B2E73DCE500254E80 /* Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D30B0A2E73DCE500254E80 /* Animation.swift */; };
 		F7D30B0C2E73DCE500254E80 /* Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D30B0A2E73DCE500254E80 /* Animation.swift */; };
 		F7E44EAE2E66BDC300D44694 /* Textures.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F7E44EAD2E66BDC300D44694 /* Textures.xcassets */; };
@@ -68,7 +66,6 @@
 		F767230B2E56E65500143CE1 /* Shaders.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Shaders.metal; sourceTree = "<group>"; };
 		F767230E2E56EB5C00143CE1 /* VertexDescriptorHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VertexDescriptorHelper.swift; sourceTree = "<group>"; };
 		F76723112E56EFE000143CE1 /* MathHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MathHelpers.swift; sourceTree = "<group>"; };
-		F76723192E58410E00143CE1 /* patrik.usda */ = {isa = PBXFileReference; lastKnownFileType = text; path = patrik.usda; sourceTree = "<group>"; };
 		F767231F2E5B646D00143CE1 /* train.obj */ = {isa = PBXFileReference; lastKnownFileType = text; path = train.obj; sourceTree = "<group>"; };
 		F76723292E5C31DA00143CE1 /* Common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
 		F767232D2E5D852C00143CE1 /* Node.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
@@ -77,15 +74,15 @@
 		F7693FF32EDC73A700CF7FCC /* CameraController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraController.swift; sourceTree = "<group>"; };
 		F7693FF72EDC7BDF00CF7FCC /* Controllable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Controllable.swift; sourceTree = "<group>"; };
 		F7693FFA2EDC882D00CF7FCC /* ThirdPersonCamera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdPersonCamera.swift; sourceTree = "<group>"; };
+		F769404C2EE6A1B200CF7FCC /* skeleton.usda */ = {isa = PBXFileReference; lastKnownFileType = text; path = skeleton.usda; sourceTree = "<group>"; };
+		F769404F2EE6A85D00CF7FCC /* cube.mtl */ = {isa = PBXFileReference; lastKnownFileType = text; path = cube.mtl; sourceTree = "<group>"; };
+		F76940502EE6A85D00CF7FCC /* cube.obj */ = {isa = PBXFileReference; lastKnownFileType = text; path = cube.obj; sourceTree = "<group>"; };
 		F7A9C04B2ED82ADB0045820E /* KeyCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyCode.swift; sourceTree = "<group>"; };
 		F7D08A722ECEEB2D0093D32C /* Scene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scene.swift; sourceTree = "<group>"; };
 		F7D08A752ED0368D0093D32C /* MainScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScene.swift; sourceTree = "<group>"; };
 		F7D08A952ED38E7C0093D32C /* patrik_house.usdz */ = {isa = PBXFileReference; lastKnownFileType = file; path = patrik_house.usdz; sourceTree = "<group>"; };
 		F7D08A962ED38E7C0093D32C /* patrik2.usdz */ = {isa = PBXFileReference; lastKnownFileType = file; path = patrik2.usdz; sourceTree = "<group>"; };
 		F7D08A972ED38E7C0093D32C /* patrik3.usdz */ = {isa = PBXFileReference; lastKnownFileType = file; path = patrik3.usdz; sourceTree = "<group>"; };
-		F7D08A982ED38E7C0093D32C /* patrikTest.usda */ = {isa = PBXFileReference; lastKnownFileType = text; path = patrikTest.usda; sourceTree = "<group>"; };
-		F7D08A992ED38E7C0093D32C /* Super_brawl_Universe-Patrick_Star.usdz */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Super_brawl_Universe-Patrick_Star.usdz"; sourceTree = "<group>"; };
-		F7D30B062E728DFB00254E80 /* skeletonWave.usda */ = {isa = PBXFileReference; lastKnownFileType = text; path = skeletonWave.usda; sourceTree = "<group>"; };
 		F7D30B0A2E73DCE500254E80 /* Animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animation.swift; sourceTree = "<group>"; };
 		F7E44EAD2E66BDC300D44694 /* Textures.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Textures.xcassets; sourceTree = "<group>"; };
 		F7E44EC82E680AF300D44694 /* Renderable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Renderable.swift; sourceTree = "<group>"; };
@@ -201,15 +198,14 @@
 		F76723182E583FFE00143CE1 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				F769404F2EE6A85D00CF7FCC /* cube.mtl */,
+				F76940502EE6A85D00CF7FCC /* cube.obj */,
+				F769404C2EE6A1B200CF7FCC /* skeleton.usda */,
 				F7D08A952ED38E7C0093D32C /* patrik_house.usdz */,
 				F7D08A962ED38E7C0093D32C /* patrik2.usdz */,
 				F7D08A972ED38E7C0093D32C /* patrik3.usdz */,
-				F7D08A982ED38E7C0093D32C /* patrikTest.usda */,
-				F7D08A992ED38E7C0093D32C /* Super_brawl_Universe-Patrick_Star.usdz */,
-				F7D30B062E728DFB00254E80 /* skeletonWave.usda */,
 				F7EEFE8A2E6DAAD2009587D0 /* Ground */,
 				F767231F2E5B646D00143CE1 /* train.obj */,
-				F76723192E58410E00143CE1 /* patrik.usda */,
 				F7E44EAD2E66BDC300D44694 /* Textures.xcassets */,
 			);
 			path = Assets;
@@ -373,13 +369,12 @@
 				F7EEFE892E6DAAB9009587D0 /* ground.obj in Resources */,
 				F7E44EAF2E66BDC300D44694 /* Textures.xcassets in Resources */,
 				F76723202E5B646D00143CE1 /* train.obj in Resources */,
+				F76940512EE6A85D00CF7FCC /* cube.mtl in Resources */,
+				F76940522EE6A85D00CF7FCC /* cube.obj in Resources */,
 				F7EEFE8C2E6DAADF009587D0 /* ground.mtl in Resources */,
-				F767231B2E58410E00143CE1 /* patrik.usda in Resources */,
-				F7D30B082E728DFB00254E80 /* skeletonWave.usda in Resources */,
+				F769404D2EE6A1B200CF7FCC /* skeleton.usda in Resources */,
 				F7D08A9A2ED38E7C0093D32C /* patrik2.usdz in Resources */,
-				F7D08A9B2ED38E7C0093D32C /* patrikTest.usda in Resources */,
 				F7D08A9C2ED38E7C0093D32C /* patrik_house.usdz in Resources */,
-				F7D08A9D2ED38E7C0093D32C /* Super_brawl_Universe-Patrick_Star.usdz in Resources */,
 				F7D08A9E2ED38E7C0093D32C /* patrik3.usdz in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -388,17 +383,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F7D30B072E728DFB00254E80 /* skeletonWave.usda in Resources */,
 				F7D08A9F2ED38E7C0093D32C /* patrik2.usdz in Resources */,
-				F7D08AA02ED38E7C0093D32C /* patrikTest.usda in Resources */,
 				F7D08AA12ED38E7C0093D32C /* patrik_house.usdz in Resources */,
-				F7D08AA22ED38E7C0093D32C /* Super_brawl_Universe-Patrick_Star.usdz in Resources */,
 				F7D08AA32ED38E7C0093D32C /* patrik3.usdz in Resources */,
 				F76723212E5B646D00143CE1 /* train.obj in Resources */,
+				F76940532EE6A85D00CF7FCC /* cube.mtl in Resources */,
+				F76940542EE6A85D00CF7FCC /* cube.obj in Resources */,
 				F7EEFE882E6DAAB9009587D0 /* ground.obj in Resources */,
 				F7E44EAE2E66BDC300D44694 /* Textures.xcassets in Resources */,
 				F7EEFE8D2E6DAADF009587D0 /* ground.mtl in Resources */,
-				F767231A2E58410E00143CE1 /* patrik.usda in Resources */,
+				F769404E2EE6A1B200CF7FCC /* skeleton.usda in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

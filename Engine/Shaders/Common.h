@@ -57,7 +57,22 @@ typedef enum {
     UniformsBufferIndex = 1,
     FragmentUniformsBufferIndex = 2,
     LightsBufferIndex = 3,
-    SolidColorBufferIndex = 4,
+    BaseSolidColorBufferIndex = 4,
+    NormalSolidColorBufferIndex = 5,
 } BufferIndices;
+
+typedef enum {
+    BaseColorTextureIndex = 0,
+    NormalColorTextureIndex = 1
+} TextureIndices;
+
+typedef enum {
+    HasSkeletonIndex = 0,
+    HasBaseColorTextureIndex = 1,
+    HasBaseColorSolidColorIndex = 2,
+    HasFogIndex = 3,
+    HasNormalTextureIndex = 4,
+    HasNormalSolidColorIndex = 5
+} ConstantFunctionIndices;
 
 #endif /* Header_h */

@@ -13,6 +13,9 @@ class Submesh {
     var baseColorTexture: MTLTexture?
     var baseColorSolidColor: float3?
     
+    var normalSolidColor: float3?
+    var normalTexture: MTLTexture?
+    
     var pipelineState: MTLRenderPipelineState!
     var hasSkeleton: Bool
 
@@ -30,15 +33,29 @@ class Submesh {
         
         //MARK: Loading BaseColor
         /// using usdz, ModelIO will handle the texture for us!
-        guard let property = material.property(with: MDLMaterialSemantic.baseColor) else {
-            print("submesh did not have any baseColors")
-            return
+        if let property = material.property(with: MDLMaterialSemantic.baseColor) {
+            baseColorTexture = loadTexture(property: property)
+            if baseColorTexture == nil {
+                baseColorSolidColor = property.float3Value
+            }
+        } else {
+            print("[Submesh] submesh did not have any baseColor")
         }
         
-//        if property.type == .float  {
-            baseColorSolidColor = property.float3Value
-//        }
-
+        if let property = material.property(with: MDLMaterialSemantic.tangentSpaceNormal) {
+            normalTexture = loadTexture(property: property)
+            if normalTexture == nil {
+                normalSolidColor = property.float3Value
+            }
+        } else {
+            print("[Submesh] submesh did not have any normalColor")
+        }
+        
+    }
+    
+    private func loadTexture(property: MDLMaterialProperty) -> (any MTLTexture)? {
+         //MARK: Loading BaseColor
+        
         // maybe move this down, we don't want a whole loading stuff to ram if we are just dealing with float
         let textureLoader = MTKTextureLoader(device: Renderer.device)
         let textureLoaderOptions: [MTKTextureLoader.Option: Any] = [
@@ -50,21 +67,23 @@ class Submesh {
         if let sampler = property.textureSamplerValue,
            let mdlTexture = sampler.texture {
 
-            baseColorTexture = try? textureLoader.newTexture(texture: mdlTexture, options: textureLoaderOptions)
+            let texture = try? textureLoader.newTexture(texture: mdlTexture, options: textureLoaderOptions)
             
-            return
+            return texture
         }
         
         
         if let fileName = property.stringValue,
            property.type == .string {
-            baseColorTexture = try? textureLoader.newTexture(name: fileName,
-                                            scaleFactor: 1.0,
-                                            bundle: Bundle.main, options: nil)
+            let texture = try? textureLoader.newTexture(name: fileName,
+                                                        scaleFactor: 1.0,
+                                                        bundle: Bundle.main, options: nil)
             
-            return
+            return texture
         }
         
+        print("[Submesh] No texture for this property.")
+        return nil
     }
     
     
@@ -79,10 +98,15 @@ class Submesh {
         functionConstant.setConstantValue(&hasBaseColorTexture, type: .bool, index: 1)
         var hasBaseColorSolidColor = baseColorSolidColor != nil
         functionConstant.setConstantValue(&hasBaseColorSolidColor, type: .bool, index: 2)
+        
         var hasFog = Renderer.hasFog
         functionConstant.setConstantValue(&hasFog, type: .bool, index: 3)
         
-        
+        var hasNormalTexture = normalTexture != nil
+        functionConstant.setConstantValue(&hasNormalTexture, type: .bool, index: 4)
+        var hasNormalSolidColor = normalSolidColor != nil
+        functionConstant.setConstantValue(&hasNormalSolidColor, type: .bool, index: 5)
+
         vertexFunction = try! Renderer.library.makeFunction(name: "vertex_main", constantValues: functionConstant)
         let fragmentFunction = try! Renderer.library.makeFunction(name: "fragment_main", constantValues: functionConstant)
         

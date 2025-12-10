@@ -17,7 +17,8 @@ class MainScene: Scene {
     
     var groundModel = Model(name: "ground", resourse: "ground", extention: "obj")
 //    var patrik = Model(name: "skeleton", resourse: "skeleton", extention: "usda")
-    var patrik = Model(name: "patrik3", resourse: "patrik3", extention: "usdz")
+//    var patrik = Model(name: "patrik3", resourse: "patrik3", extention: "usdz")
+    var patrik = Model(name: "cube", resourse: "cube", extention: "obj")
     
     var freeCameraController: Controllable = CameraController()
     var thirdPersonCameraController: Controllable = CameraController()
@@ -76,6 +77,7 @@ class MainScene: Scene {
 //        thirdPersonCamera.position.y += 2
         
         patrik.rotation = [0, 0, 0]
+        patrik.position += [0, 1, 0]
 //        patrik.currentAnimation = "/Skelly/Animations/walk"
 //        patrik.currentAnimation = "/Skelly/Animations/wave"
         add(node: patrik)

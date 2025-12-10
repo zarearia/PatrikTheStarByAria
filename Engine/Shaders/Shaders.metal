@@ -9,10 +9,12 @@
 #include "Common.h"
 using namespace metal;
 
-constant bool hasSkeleton [[function_constant(0)]];
-constant bool hasBaseColorTexture [[function_constant(1)]];
-constant bool hasBaseColorSolidColor [[function_constant(2)]];
-constant bool hasFog [[function_constant(3)]];
+constant bool hasSkeleton [[function_constant(HasSkeletonIndex)]];
+constant bool hasBaseColorTexture [[function_constant(HasBaseColorTextureIndex)]];
+constant bool hasBaseColorSolidColor [[function_constant(HasBaseColorSolidColorIndex)]];
+constant bool hasFog [[function_constant(HasFogIndex)]];
+constant bool hasNormalTexture [[function_constant(HasNormalTextureIndex)]];
+constant bool hasNormalSolidColor [[function_constant(HasNormalSolidColorIndex)]];
 
 struct VertexIn {
     float4 position [[attribute(Position)]];
@@ -86,24 +88,28 @@ vertex VertexOut vertex_main(const VertexIn vertexIn [[stage_in]],
 fragment float4 fragment_main(VertexOut in [[stage_in]],
                               constant FragmentUniforms &uniforms [[buffer(2)]],
                               constant Light *lights [[buffer(3)]],
-                              texture2d<float> baseColorTexture2d [[texture(0)]],
+                              texture2d<float> baseColorTexture2d [[texture(BaseColorTextureIndex), function_constant(hasBaseColorTexture)]],
+                              texture2d<float> normalColorTexture2d [[texture(NormalColorTextureIndex), function_constant(hasNormalTexture)]],
                               sampler textureSampler [[sampler(0)]],
-                              constant float3 &solidColor [[buffer(SolidColorBufferIndex)]]) {
+                              constant float3 &baseSolidColor [[buffer(BaseSolidColorBufferIndex), function_constant(hasBaseColorSolidColor)]],
+                              constant float3 &normalSolidColor [[buffer(NormalSolidColorBufferIndex), function_constant(hasNormalSolidColor)]]) {
     
     float4 baseColor;
     if (hasBaseColorTexture) {
         baseColor = baseColorTexture2d.sample(textureSampler, in.uv * uniforms.tiling).rgba;
+        //TODO: This one is not optimized with function constants, I have to fix it
         if (baseColor.a <= 0.1) {
             discard_fragment();
         }
     } else if (hasBaseColorSolidColor) {
-        baseColor = float4(solidColor, 1);
+        baseColor = float4(baseSolidColor, 1);
     }
     
     if (hasFog) {
         baseColor = getFogColor(baseColor, in.position, 0.1);
     }
     
+    baseColor = normalColorTexture2d.sample(textureSampler, in.uv * uniforms.tiling).rgba;
     return baseColor;
     
     //This is important code, don't remove it
