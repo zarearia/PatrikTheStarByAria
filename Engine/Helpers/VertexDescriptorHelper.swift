@@ -23,6 +23,12 @@ extension MDLVertexDescriptor {
         vertexDescriptor.attributes[Int(UV.rawValue)] = MDLVertexAttribute(name: MDLVertexAttributeTextureCoordinate, format: .float2, offset: offset, bufferIndex: Int(VerticesBufferIndex.rawValue))
         offset += MemoryLayout<float2>.stride
         
+        vertexDescriptor.attributes[Int(Tangent.rawValue)] = MDLVertexAttribute(name: MDLVertexAttributeTangent, format: .float3, offset: offset, bufferIndex: Int(VerticesBufferIndex.rawValue))
+        offset += MemoryLayout<float3>.stride
+        
+        vertexDescriptor.attributes[Int(Bitangent.rawValue)] = MDLVertexAttribute(name: MDLVertexAttributeBitangent, format: .float3, offset: offset, bufferIndex: Int(VerticesBufferIndex.rawValue))
+        offset += MemoryLayout<float3>.stride
+        
         vertexDescriptor.attributes[Int(Joints.rawValue)] = MDLVertexAttribute(name: MDLVertexAttributeJointIndices, format: .uShort4, offset: offset, bufferIndex: Int(VerticesBufferIndex.rawValue))
         offset += MemoryLayout<simd_ushort4>.stride
 

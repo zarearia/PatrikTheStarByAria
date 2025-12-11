@@ -123,7 +123,7 @@ class Submesh {
         attachment.destinationRGBBlendFactor = .oneMinusSourceAlpha
         
         
-        descriptor.vertexDescriptor = MTKMetalVertexDescriptorFromModelIO(MDLVertexDescriptor.getDefaultVertexDescriptor())
+        descriptor.vertexDescriptor = MTKMetalVertexDescriptorFromModelIO(Model.vertexDescriptor)
         
         descriptor.sampleCount = 4
         

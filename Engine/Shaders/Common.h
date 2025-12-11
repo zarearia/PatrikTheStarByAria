@@ -47,18 +47,23 @@ typedef enum {
     Position = 0,
     Normal = 1,
     UV = 2,
-    Joints = 3,
-    Weights = 4,
-    Color = 5
+    //TODO: check if this has any memory or other types of benefits: try to keep the things that we normally have at start and the rest after them, like we always can produce(or have) tangent bitangent
+    Tangent = 3,
+    Bitangent = 4,
+    Color = 5,
+    Joints = 6,
+    Weights = 7,
 } Attributes;
 
 typedef enum {
     VerticesBufferIndex = 0,
-    UniformsBufferIndex = 1,
-    FragmentUniformsBufferIndex = 2,
-    LightsBufferIndex = 3,
-    BaseSolidColorBufferIndex = 4,
-    NormalSolidColorBufferIndex = 5,
+    //leaving 1 to 10 for vertexDescriptor
+    UniformsBufferIndex = 11,
+    FragmentUniformsBufferIndex = 12,
+    LightsBufferIndex = 13,
+    BaseSolidColorBufferIndex = 14,
+    NormalSolidColorBufferIndex = 15,
+    JointsBufferIndex = 16
 } BufferIndices;
 
 typedef enum {

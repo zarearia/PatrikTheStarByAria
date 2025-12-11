@@ -23,12 +23,16 @@ struct VertexIn {
     ushort4 joints [[attribute(Joints)]];
     float4 weights [[attribute(Weights)]];
     float3 color [[attribute(Color)]];
+    float3 tangent [[attribute(Tangent)]];
+    float3 bitangent [[attribute(Bitangent)]];
 };
 
 struct VertexOut {
     float4 position [[position]];
     float3 worldPosition;
     float3 worldNormal;
+    float3 worldTangent;
+    float3 worldBitangent;
     float2 uv;
     float3 color;
 };
@@ -51,8 +55,8 @@ float4 getFogColor(float4 color, float4 position, float density) {
 }
 
 vertex VertexOut vertex_main(const VertexIn vertexIn [[stage_in]],
-                             constant float4x4 *jointMatrices [[buffer(22)]],
-                             constant Uniforms &uniforms [[buffer(1)]]) {
+                             constant float4x4 *jointMatrices [[buffer(JointsBufferIndex)]],
+                             constant Uniforms &uniforms [[buffer(UniformsBufferIndex)]]) {
     
     float4 position = vertexIn.position;
     float4 normal = float4(vertexIn.normal, 0);
@@ -79,6 +83,8 @@ vertex VertexOut vertex_main(const VertexIn vertexIn [[stage_in]],
         .position = uniforms.projectionMatrix * uniforms.viewMatrix * uniforms.modelMatrix * position,
         .worldPosition = (uniforms.modelMatrix * vertexIn.position).xyz,
         .worldNormal = normalMatrix * normal.xyz,
+        .worldTangent = normalMatrix * vertexIn.tangent,
+        .worldBitangent = normalMatrix * vertexIn.bitangent,
         .uv = vertexIn.uv,
         .color = vertexIn.color
     };
@@ -86,13 +92,16 @@ vertex VertexOut vertex_main(const VertexIn vertexIn [[stage_in]],
 }
 
 fragment float4 fragment_main(VertexOut in [[stage_in]],
-                              constant FragmentUniforms &uniforms [[buffer(2)]],
-                              constant Light *lights [[buffer(3)]],
+                              constant FragmentUniforms &uniforms [[buffer(FragmentUniformsBufferIndex)]],
+                              constant Light *lights [[buffer(LightsBufferIndex)]],
                               texture2d<float> baseColorTexture2d [[texture(BaseColorTextureIndex), function_constant(hasBaseColorTexture)]],
                               texture2d<float> normalColorTexture2d [[texture(NormalColorTextureIndex), function_constant(hasNormalTexture)]],
                               sampler textureSampler [[sampler(0)]],
                               constant float3 &baseSolidColor [[buffer(BaseSolidColorBufferIndex), function_constant(hasBaseColorSolidColor)]],
                               constant float3 &normalSolidColor [[buffer(NormalSolidColorBufferIndex), function_constant(hasNormalSolidColor)]]) {
+    
+    
+    
     
     float4 baseColor;
     if (hasBaseColorTexture) {
@@ -109,7 +118,39 @@ fragment float4 fragment_main(VertexOut in [[stage_in]],
         baseColor = getFogColor(baseColor, in.position, 0.1);
     }
     
+    float3 normal = 0;
+    if (hasNormalTexture) {
+        normal = normalColorTexture2d.sample(textureSampler, in.uv * uniforms.tiling).rgb;
+    } else {
+        normal = in.worldNormal;
+    }
+    
+    //TODO: For now we just add the sunlight, later we need to add a generic more types of light
+    float3 lightDirection = normalize(float3(1, 2, -1));
+    float4 lightColor = float4(1, 1, 1, 1);
+    //Note: if we only use texture, it will not reflect the light direction
+    float3 normalDirection = float3x3(in.worldTangent, in.worldBitangent, in.worldNormal) * normal;
+    normalDirection = normalize(normalDirection);
+    
+    float diffuseIntensity = saturate(dot(lightDirection, normalDirection));
+    float4 diffuseColor = 0;
+    float4 ambientColor = 0;
+    ambientColor += lightColor * 0.1 * baseColor;//this is light intensity
+    
+    diffuseColor += lightColor * baseColor * diffuseIntensity;
+    
+    //This is for specular, we myst have material shininess for it
+//    if (diffuseIntensity > 0) {
+//        float3 reflection = reflect(lightDirection, in.worldNormal);
+//        //this is camera direction toward the fragment
+//        float3 cameraDirection = normalize(in.worldPosition - uniforms.cameraPosition);
+//        float specularIntensity = pow(saturate(dot(reflection, cameraDirection)), materialShininess);
+//        specularColor += specularIntensity * materialSpecularColor * light.specularColor;
+//    }
+    
     baseColor = normalColorTexture2d.sample(textureSampler, in.uv * uniforms.tiling).rgba;
+    baseColor = saturate(diffuseColor + ambientColor);
+    baseColor.a = 1;
     return baseColor;
     
     //This is important code, don't remove it

@@ -23,6 +23,8 @@ class Model: Node {
     
     var costumeRender: ((MTLRenderCommandEncoder) -> Void)?
     
+    static var vertexDescriptor: MDLVertexDescriptor = MDLVertexDescriptor.getDefaultVertexDescriptor()
+    
     /// at first will be inited with the first animation available
     var currentAnimation: String?
     
@@ -77,7 +79,10 @@ class Model: Node {
         
         _ = mdlMeshes.map {
             do {
+                $0.addTangentBasis(forTextureCoordinateAttributeNamed: MDLVertexAttributeTextureCoordinate, tangentAttributeNamed: MDLVertexAttributeTangent, bitangentAttributeNamed: MDLVertexAttributeBitangent)
                 let mesh: Mesh = try Mesh(mtkMesh: MTKMesh(mesh: $0, device: Renderer.device), mdlMesh: $0)
+                // set's tangent and bitangent at buffer 1 and 2(0 is taken by me)
+                Model.vertexDescriptor = $0.vertexDescriptor
                 meshes.append(mesh)
             } catch(let error) {
                 print("failed to load Mesh: \(error)")
@@ -148,13 +153,14 @@ extension Model: Renderable {
         
         for mesh in self.meshes {
             if let paletteBuffer = mesh.skeleton?.jointPaletteBuffer {
-                renderEncoder.setVertexBuffer(paletteBuffer, offset: 0, index: 22)
+                renderEncoder.setVertexBuffer(paletteBuffer, offset: 0, index: Int(JointsBufferIndex.rawValue))
             }
             let mtkMesh = mesh.mtkMesh
             let submeshs = mesh.submeshes
             
-            
-            renderEncoder.setVertexBuffer(mtkMesh.vertexBuffers[0].buffer, offset: mtkMesh.vertexBuffers[0].offset, index: 0)
+            for (index, buffer) in mtkMesh.vertexBuffers.enumerated() {
+                renderEncoder.setVertexBuffer(mtkMesh.vertexBuffers[index].buffer, offset: mtkMesh.vertexBuffers[index].offset, index: index)
+            }
             
             for submeshe in submeshs {
                 
