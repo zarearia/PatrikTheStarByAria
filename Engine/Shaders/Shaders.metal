@@ -12,10 +12,8 @@ using namespace metal;
 //TODO: Send all of hese has Solid Colors as one object in a buffer, they always exist anyways
 constant bool hasSkeleton [[function_constant(HasSkeletonIndex)]];
 constant bool hasBaseColorTexture [[function_constant(HasBaseColorTextureIndex)]];
-constant bool hasBaseColorSolidColor [[function_constant(HasBaseColorSolidColorIndex)]];
 constant bool hasFog [[function_constant(HasFogIndex)]];
 constant bool hasNormalTexture [[function_constant(HasNormalTextureIndex)]];
-constant bool hasNormalSolidColor [[function_constant(HasNormalSolidColorIndex)]];
 
 struct VertexIn {
     float4 position [[attribute(Position)]];
@@ -98,8 +96,7 @@ fragment float4 fragment_main(VertexOut in [[stage_in]],
                               texture2d<float> baseColorTexture2d [[texture(BaseColorTextureIndex), function_constant(hasBaseColorTexture)]],
                               texture2d<float> normalColorTexture2d [[texture(NormalColorTextureIndex), function_constant(hasNormalTexture)]],
                               sampler textureSampler [[sampler(0)]],
-                              constant float3 &baseSolidColor [[buffer(BaseSolidColorBufferIndex), function_constant(hasBaseColorSolidColor)]],
-                              constant float3 &normalSolidColor [[buffer(NormalSolidColorBufferIndex), function_constant(hasNormalSolidColor)]]) {
+                              constant Material &material [[buffer(MaterialBufferIndex)]]) {
     
     
     
@@ -111,8 +108,8 @@ fragment float4 fragment_main(VertexOut in [[stage_in]],
         if (baseColor.a <= 0.1) {
             discard_fragment();
         }
-    } else if (hasBaseColorSolidColor) {
-        baseColor = float4(baseSolidColor, 1);
+    } else {
+        baseColor = material.baseColor;
     }
     
     if (hasFog) {

@@ -11,13 +11,13 @@ class Submesh {
     var mtkSubmesh: MTKSubmesh
     //Texture logic can be abstracted away later if needed
     var baseColorTexture: MTLTexture?
-    var baseColorSolidColor: float3?
     
-    var normalSolidColor: float3?
     var normalTexture: MTLTexture?
     
     var pipelineState: MTLRenderPipelineState!
     var hasSkeleton: Bool
+    
+    var material = Material()
 
     init(mtkSubmesh: MTKSubmesh, mdlSubmesh: MDLSubmesh, hasSkeleton: Bool) {
         self.mtkSubmesh = mtkSubmesh
@@ -35,18 +35,13 @@ class Submesh {
         /// using usdz, ModelIO will handle the texture for us!
         if let property = material.property(with: MDLMaterialSemantic.baseColor) {
             baseColorTexture = loadTexture(property: property)
-            if baseColorTexture == nil {
-                baseColorSolidColor = property.float3Value
-            }
+            self.material.baseColor = property.float4Value
         } else {
             print("[Submesh] submesh did not have any baseColor")
         }
         
         if let property = material.property(with: MDLMaterialSemantic.tangentSpaceNormal) {
             normalTexture = loadTexture(property: property)
-            if normalTexture == nil {
-                normalSolidColor = property.float3Value
-            }
         } else {
             print("[Submesh] submesh did not have any normalColor")
         }
@@ -93,19 +88,15 @@ class Submesh {
         
         //functionConstants
         var hasSkeleton = hasSkeleton
-        functionConstant.setConstantValue(&hasSkeleton, type: .bool, index: 0)
+        functionConstant.setConstantValue(&hasSkeleton, type: .bool, index: Int(HasSkeletonIndex.rawValue))
         var hasBaseColorTexture = baseColorTexture != nil
-        functionConstant.setConstantValue(&hasBaseColorTexture, type: .bool, index: 1)
-        var hasBaseColorSolidColor = baseColorSolidColor != nil
-        functionConstant.setConstantValue(&hasBaseColorSolidColor, type: .bool, index: 2)
+        functionConstant.setConstantValue(&hasBaseColorTexture, type: .bool, index: Int(HasBaseColorTextureIndex.rawValue))
         
         var hasFog = Renderer.hasFog
-        functionConstant.setConstantValue(&hasFog, type: .bool, index: 3)
+        functionConstant.setConstantValue(&hasFog, type: .bool, index: Int(HasFogIndex.rawValue))
         
         var hasNormalTexture = normalTexture != nil
-        functionConstant.setConstantValue(&hasNormalTexture, type: .bool, index: 4)
-        var hasNormalSolidColor = normalSolidColor != nil
-        functionConstant.setConstantValue(&hasNormalSolidColor, type: .bool, index: 5)
+        functionConstant.setConstantValue(&hasNormalTexture, type: .bool, index: Int(HasNormalTextureIndex.rawValue))
 
         vertexFunction = try! Renderer.library.makeFunction(name: "vertex_main", constantValues: functionConstant)
         let fragmentFunction = try! Renderer.library.makeFunction(name: "fragment_main", constantValues: functionConstant)

@@ -61,9 +61,8 @@ typedef enum {
     UniformsBufferIndex = 11,
     FragmentUniformsBufferIndex = 12,
     LightsBufferIndex = 13,
-    BaseSolidColorBufferIndex = 14,
-    NormalSolidColorBufferIndex = 15,
-    JointsBufferIndex = 16
+    JointsBufferIndex = 14,
+    MaterialBufferIndex = 15
 } BufferIndices;
 
 typedef enum {
@@ -74,10 +73,12 @@ typedef enum {
 typedef enum {
     HasSkeletonIndex = 0,
     HasBaseColorTextureIndex = 1,
-    HasBaseColorSolidColorIndex = 2,
-    HasFogIndex = 3,
-    HasNormalTextureIndex = 4,
-    HasNormalSolidColorIndex = 5
+    HasFogIndex = 2,
+    HasNormalTextureIndex = 3,
 } ConstantFunctionIndices;
+
+typedef struct {
+    vector_float4 baseColor;
+} Material;
 
 #endif /* Header_h */

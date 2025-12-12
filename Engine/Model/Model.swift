@@ -113,10 +113,6 @@ class Model: Node {
             self.currentAnimation == $0.key
         })
         
-        if currentAnimation == nil {
-            print("Animation was not found")
-        }
-        
         for mesh in meshes {
             if let skeletonAnimation = currentAnimation?.value {
                 mesh.skeleton?.updatePose(at: time, animation: skeletonAnimation)
@@ -162,19 +158,20 @@ extension Model: Renderable {
                 renderEncoder.setVertexBuffer(mtkMesh.vertexBuffers[index].buffer, offset: mtkMesh.vertexBuffers[index].offset, index: index)
             }
             
-            for submeshe in submeshs {
+            for submesh in submeshs {
                 
-                renderEncoder.setRenderPipelineState(submeshe.pipelineState!)
+                var material = submesh.material
+                
+                renderEncoder.setRenderPipelineState(submesh.pipelineState!)
                 
                 //TODO: Add texture submeshes here
-                renderEncoder.setFragmentTexture(submeshe.baseColorTexture, index: Int(BaseColorTextureIndex.rawValue))
+                renderEncoder.setFragmentTexture(submesh.baseColorTexture, index: Int(BaseColorTextureIndex.rawValue))
 
-                renderEncoder.setFragmentBytes(&submeshe.baseColorSolidColor, length: MemoryLayout<float3>.stride, index: Int(BaseSolidColorBufferIndex.rawValue))
+                renderEncoder.setFragmentBytes(&material, length: MemoryLayout<Material>.stride, index: Int(MaterialBufferIndex.rawValue))
                 
-                renderEncoder.setFragmentTexture(submeshe.normalTexture, index: Int(NormalColorTextureIndex.rawValue))
-                renderEncoder.setFragmentBytes(&submeshe.normalSolidColor, length: MemoryLayout<float3>.stride, index: Int(NormalSolidColorBufferIndex.rawValue))
+                renderEncoder.setFragmentTexture(submesh.normalTexture, index: Int(NormalColorTextureIndex.rawValue))
                 
-                let mtkSubmesh = submeshe.mtkSubmesh
+                let mtkSubmesh = submesh.mtkSubmesh
                 renderEncoder.drawIndexedPrimitives(
                     type: .triangle,
                     indexCount: mtkSubmesh.indexCount,
