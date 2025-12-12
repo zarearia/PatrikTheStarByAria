@@ -9,6 +9,7 @@
 #include "Common.h"
 using namespace metal;
 
+//TODO: Send all of hese has Solid Colors as one object in a buffer, they always exist anyways
 constant bool hasSkeleton [[function_constant(HasSkeletonIndex)]];
 constant bool hasBaseColorTexture [[function_constant(HasBaseColorTextureIndex)]];
 constant bool hasBaseColorSolidColor [[function_constant(HasBaseColorSolidColorIndex)]];
