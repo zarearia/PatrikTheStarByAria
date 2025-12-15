@@ -35,6 +35,8 @@
 		F76940522EE6A85D00CF7FCC /* cube.obj in Resources */ = {isa = PBXBuildFile; fileRef = F76940502EE6A85D00CF7FCC /* cube.obj */; };
 		F76940532EE6A85D00CF7FCC /* cube.mtl in Resources */ = {isa = PBXBuildFile; fileRef = F769404F2EE6A85D00CF7FCC /* cube.mtl */; };
 		F76940542EE6A85D00CF7FCC /* cube.obj in Resources */ = {isa = PBXBuildFile; fileRef = F76940502EE6A85D00CF7FCC /* cube.obj */; };
+		F76940562EEFEAED00CF7FCC /* PhysicsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76940552EEFEAE800CF7FCC /* PhysicsController.swift */; };
+		F76940572EEFEAED00CF7FCC /* PhysicsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76940552EEFEAE800CF7FCC /* PhysicsController.swift */; };
 		F7A9C04C2ED82ADB0045820E /* KeyCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A9C04B2ED82ADB0045820E /* KeyCode.swift */; };
 		F7A9C04D2ED82ADB0045820E /* KeyCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A9C04B2ED82ADB0045820E /* KeyCode.swift */; };
 		F7D08A732ECEEB400093D32C /* Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D08A722ECEEB2D0093D32C /* Scene.swift */; };
@@ -77,6 +79,7 @@
 		F769404C2EE6A1B200CF7FCC /* skeleton.usda */ = {isa = PBXFileReference; lastKnownFileType = text; path = skeleton.usda; sourceTree = "<group>"; };
 		F769404F2EE6A85D00CF7FCC /* cube.mtl */ = {isa = PBXFileReference; lastKnownFileType = text; path = cube.mtl; sourceTree = "<group>"; };
 		F76940502EE6A85D00CF7FCC /* cube.obj */ = {isa = PBXFileReference; lastKnownFileType = text; path = cube.obj; sourceTree = "<group>"; };
+		F76940552EEFEAE800CF7FCC /* PhysicsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicsController.swift; sourceTree = "<group>"; };
 		F7A9C04B2ED82ADB0045820E /* KeyCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyCode.swift; sourceTree = "<group>"; };
 		F7D08A722ECEEB2D0093D32C /* Scene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scene.swift; sourceTree = "<group>"; };
 		F7D08A752ED0368D0093D32C /* MainScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScene.swift; sourceTree = "<group>"; };
@@ -98,21 +101,11 @@
 			);
 			target = F76722D12E54E57400143CE1 /* PatrikTheStarByAriaiOS */;
 		};
-		F7A9C0512ED82EF50045820E /* Exceptions for "PatrikTheStarByAria" folder in "PatrikTheStarByAriaiOS" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				MainView.swift,
-			);
-			target = F76722D12E54E57400143CE1 /* PatrikTheStarByAriaiOS */;
-		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		F76722BE2E54E05200143CE1 /* PatrikTheStarByAria */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				F7A9C0512ED82EF50045820E /* Exceptions for "PatrikTheStarByAria" folder in "PatrikTheStarByAriaiOS" target */,
-			);
 			path = PatrikTheStarByAria;
 			sourceTree = "<group>";
 		};
@@ -223,6 +216,7 @@
 		F7693FF62EDC7BC300CF7FCC /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				F76940552EEFEAE800CF7FCC /* PhysicsController.swift */,
 				F7693FF32EDC73A700CF7FCC /* CameraController.swift */,
 				F7693FF72EDC7BDF00CF7FCC /* Controllable.swift */,
 			);
@@ -412,6 +406,7 @@
 				F76723352E5ECD7B00143CE1 /* ArcballCamera.swift in Sources */,
 				F7D08A772ED036980093D32C /* MainScene.swift in Sources */,
 				F7693FF52EDC73AA00CF7FCC /* CameraController.swift in Sources */,
+				F76940562EEFEAED00CF7FCC /* PhysicsController.swift in Sources */,
 				F7693FF92EDC7BDF00CF7FCC /* Controllable.swift in Sources */,
 				F76722E92E54E67600143CE1 /* Renderer.swift in Sources */,
 				F76723122E56EFE500143CE1 /* MathHelpers.swift in Sources */,
@@ -431,6 +426,7 @@
 				F767230F2E56EB6700143CE1 /* VertexDescriptorHelper.swift in Sources */,
 				F7693FFB2EDC885D00CF7FCC /* ThirdPersonCamera.swift in Sources */,
 				F7E44EC92E680AF800D44694 /* Renderable.swift in Sources */,
+				F76940572EEFEAED00CF7FCC /* PhysicsController.swift in Sources */,
 				F7693FF82EDC7BDF00CF7FCC /* Controllable.swift in Sources */,
 				F767232E2E5D853400143CE1 /* Node.swift in Sources */,
 				F7A9C04C2ED82ADB0045820E /* KeyCode.swift in Sources */,
@@ -647,7 +643,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ariazare.PatrikTheStarByAriaiOS;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ariazare.PatrikTheStarByAriaMobile;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -678,7 +674,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ariazare.PatrikTheStarByAriaiOS;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ariazare.PatrikTheStarByAriaMobile;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
