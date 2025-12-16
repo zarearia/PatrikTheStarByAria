@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import ModelIO
 
 class Node {
     weak var parent: Node?
@@ -19,6 +20,8 @@ class Node {
     }
     
     var quaternion = simd_quatf()
+    
+    var boundingBox: MDLAxisAlignedBoundingBox = MDLAxisAlignedBoundingBox()
     
     var position: float3 = float3(0, 0, 0)
     var scale: float3 = float3(1, 1, 1)

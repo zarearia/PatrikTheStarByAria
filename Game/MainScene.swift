@@ -17,11 +17,13 @@ class MainScene: Scene {
     
     var groundModel = Model(name: "ground", resourse: "ground", extention: "obj")
 //    var patrik = Model(name: "skeleton", resourse: "skeleton", extention: "usda")
-//    var patrik = Model(name: "patrik3", resourse: "patrik3", extention: "usdz")
-    var patrik = Model(name: "cube", resourse: "cube", extention: "obj")
+    var patrik = Model(name: "patrik3", resourse: "patrik3", extention: "usdz")
+//    var patrik = Model(name: "cube", resourse: "cube", extention: "obj")
     
     var freeCameraController: Controllable = CameraController()
     var thirdPersonCameraController: Controllable = CameraController()
+    
+    var physicsController: PhysicsController?
     
     // true is camera, false is patrik focus
     var freeCameraOn: Bool = true
@@ -84,6 +86,9 @@ class MainScene: Scene {
         
 //        patrik.position.z += 3
 //        patrik.position.y -= 1.5
+        
+        physicsController = PhysicsController(dynamicObject: patrik, staticObjects: [groundModel])
+        physicsController?.test()
     }
     
     override func updateScene(deltaTime: Float) {

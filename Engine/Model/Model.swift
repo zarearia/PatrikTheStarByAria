@@ -21,6 +21,8 @@ class Model: Node {
     
     var animations: [String: SkeletonAnimation]
     
+    static var showDebugBoundingBox = false
+    
     var costumeRender: ((MTLRenderCommandEncoder) -> Void)?
     
     static var vertexDescriptor: MDLVertexDescriptor = MDLVertexDescriptor.getDefaultVertexDescriptor()
@@ -70,6 +72,8 @@ class Model: Node {
         self.asset.loadTextures()
         
         super.init()
+        
+        boundingBox = asset.boundingBox
         
         guard let mdlMeshes = asset.childObjects(of: MDLMesh.self) as? [MDLMesh] else {
             return
