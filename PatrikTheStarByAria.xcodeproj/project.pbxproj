@@ -37,6 +37,10 @@
 		F76940542EE6A85D00CF7FCC /* cube.obj in Resources */ = {isa = PBXBuildFile; fileRef = F76940502EE6A85D00CF7FCC /* cube.obj */; };
 		F76940562EEFEAED00CF7FCC /* PhysicsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76940552EEFEAE800CF7FCC /* PhysicsController.swift */; };
 		F76940572EEFEAED00CF7FCC /* PhysicsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76940552EEFEAE800CF7FCC /* PhysicsController.swift */; };
+		F769407F2EF1C56300CF7FCC /* BoundingBoxRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F769407E2EF1C54500CF7FCC /* BoundingBoxRenderer.swift */; };
+		F76940802EF1C56300CF7FCC /* BoundingBoxRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F769407E2EF1C54500CF7FCC /* BoundingBoxRenderer.swift */; };
+		F76940852EF1CB7900CF7FCC /* DebugShaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = F76940842EF1CB7900CF7FCC /* DebugShaders.metal */; };
+		F76940862EF1CB7900CF7FCC /* DebugShaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = F76940842EF1CB7900CF7FCC /* DebugShaders.metal */; };
 		F7A9C04C2ED82ADB0045820E /* KeyCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A9C04B2ED82ADB0045820E /* KeyCode.swift */; };
 		F7A9C04D2ED82ADB0045820E /* KeyCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A9C04B2ED82ADB0045820E /* KeyCode.swift */; };
 		F7D08A732ECEEB400093D32C /* Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D08A722ECEEB2D0093D32C /* Scene.swift */; };
@@ -80,6 +84,8 @@
 		F769404F2EE6A85D00CF7FCC /* cube.mtl */ = {isa = PBXFileReference; lastKnownFileType = text; path = cube.mtl; sourceTree = "<group>"; };
 		F76940502EE6A85D00CF7FCC /* cube.obj */ = {isa = PBXFileReference; lastKnownFileType = text; path = cube.obj; sourceTree = "<group>"; };
 		F76940552EEFEAE800CF7FCC /* PhysicsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicsController.swift; sourceTree = "<group>"; };
+		F769407E2EF1C54500CF7FCC /* BoundingBoxRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoundingBoxRenderer.swift; sourceTree = "<group>"; };
+		F76940842EF1CB7900CF7FCC /* DebugShaders.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = DebugShaders.metal; sourceTree = "<group>"; };
 		F7A9C04B2ED82ADB0045820E /* KeyCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyCode.swift; sourceTree = "<group>"; };
 		F7D08A722ECEEB2D0093D32C /* Scene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scene.swift; sourceTree = "<group>"; };
 		F7D08A752ED0368D0093D32C /* MainScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScene.swift; sourceTree = "<group>"; };
@@ -181,6 +187,7 @@
 		F76723142E56EFE800143CE1 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				F769407E2EF1C54500CF7FCC /* BoundingBoxRenderer.swift */,
 				F76723112E56EFE000143CE1 /* MathHelpers.swift */,
 				F767230E2E56EB5C00143CE1 /* VertexDescriptorHelper.swift */,
 				F7A9C04B2ED82ADB0045820E /* KeyCode.swift */,
@@ -209,6 +216,7 @@
 			children = (
 				F767230B2E56E65500143CE1 /* Shaders.metal */,
 				F76723292E5C31DA00143CE1 /* Common.h */,
+				F76940842EF1CB7900CF7FCC /* DebugShaders.metal */,
 			);
 			path = Shaders;
 			sourceTree = "<group>";
@@ -400,10 +408,12 @@
 				F7A9C04D2ED82ADB0045820E /* KeyCode.swift in Sources */,
 				F76723102E56EB6700143CE1 /* VertexDescriptorHelper.swift in Sources */,
 				F767230C2E56E65500143CE1 /* Shaders.metal in Sources */,
+				F76940852EF1CB7900CF7FCC /* DebugShaders.metal in Sources */,
 				F7E44ECA2E680AF800D44694 /* Renderable.swift in Sources */,
 				F767232F2E5D853400143CE1 /* Node.swift in Sources */,
 				F7D08A742ECEEB400093D32C /* Scene.swift in Sources */,
 				F76723352E5ECD7B00143CE1 /* ArcballCamera.swift in Sources */,
+				F76940802EF1C56300CF7FCC /* BoundingBoxRenderer.swift in Sources */,
 				F7D08A772ED036980093D32C /* MainScene.swift in Sources */,
 				F7693FF52EDC73AA00CF7FCC /* CameraController.swift in Sources */,
 				F76940562EEFEAED00CF7FCC /* PhysicsController.swift in Sources */,
@@ -426,8 +436,10 @@
 				F767230F2E56EB6700143CE1 /* VertexDescriptorHelper.swift in Sources */,
 				F7693FFB2EDC885D00CF7FCC /* ThirdPersonCamera.swift in Sources */,
 				F7E44EC92E680AF800D44694 /* Renderable.swift in Sources */,
+				F76940862EF1CB7900CF7FCC /* DebugShaders.metal in Sources */,
 				F76940572EEFEAED00CF7FCC /* PhysicsController.swift in Sources */,
 				F7693FF82EDC7BDF00CF7FCC /* Controllable.swift in Sources */,
+				F769407F2EF1C56300CF7FCC /* BoundingBoxRenderer.swift in Sources */,
 				F767232E2E5D853400143CE1 /* Node.swift in Sources */,
 				F7A9C04C2ED82ADB0045820E /* KeyCode.swift in Sources */,
 				F76723312E5D870100143CE1 /* Camera.swift in Sources */,

@@ -30,6 +30,8 @@ class Model: Node {
     /// at first will be inited with the first animation available
     var currentAnimation: String?
     
+    var debugBoundingBoxRenderer: BoundingBoxRenderer?
+    
     init(name: String, resourse: String, extention: String) {
         self.name = name
         
@@ -74,6 +76,7 @@ class Model: Node {
         super.init()
         
         boundingBox = asset.boundingBox
+        debugBoundingBoxRenderer = BoundingBoxRenderer(boundingBox: boundingBox)
         
         guard let mdlMeshes = asset.childObjects(of: MDLMesh.self) as? [MDLMesh] else {
             return
@@ -186,5 +189,7 @@ extension Model: Renderable {
                 )
             }
         }
+        
+        debugBoundingBoxRenderer?.debugBoundingBox(rendereEncoder: renderEncoder, uniforms: modelUniforms)
     }
 }
