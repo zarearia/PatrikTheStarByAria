@@ -10,7 +10,7 @@ import Cocoa
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
 
-    // reviewed chapters 1 to end of 8. will continue further
+    // reviewed chapter 1 to 8, finishing the review of the first section. will continue further
 
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
