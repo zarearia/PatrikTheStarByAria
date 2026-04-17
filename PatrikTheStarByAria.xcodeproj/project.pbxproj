@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F75F4F002F91FAFA0032E0F7 /* plane.obj in Resources */ = {isa = PBXBuildFile; fileRef = F75F4EFE2F91FAFA0032E0F7 /* plane.obj */; };
+		F75F4F012F91FAFA0032E0F7 /* windowColor.png in Resources */ = {isa = PBXBuildFile; fileRef = F75F4EFF2F91FAFA0032E0F7 /* windowColor.png */; };
+		F75F4F022F91FAFA0032E0F7 /* plane.obj in Resources */ = {isa = PBXBuildFile; fileRef = F75F4EFE2F91FAFA0032E0F7 /* plane.obj */; };
+		F75F4F032F91FAFA0032E0F7 /* windowColor.png in Resources */ = {isa = PBXBuildFile; fileRef = F75F4EFF2F91FAFA0032E0F7 /* windowColor.png */; };
+		F75F4F052F91FBEA0032E0F7 /* plane.mtl in Resources */ = {isa = PBXBuildFile; fileRef = F75F4F042F91FBEA0032E0F7 /* plane.mtl */; };
+		F75F4F062F91FBEA0032E0F7 /* plane.mtl in Resources */ = {isa = PBXBuildFile; fileRef = F75F4F042F91FBEA0032E0F7 /* plane.mtl */; };
 		F76722E92E54E67600143CE1 /* Renderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76722E82E54E67600143CE1 /* Renderer.swift */; };
 		F76722EA2E54E67600143CE1 /* Renderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76722E82E54E67600143CE1 /* Renderer.swift */; };
 		F767230C2E56E65500143CE1 /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = F767230B2E56E65500143CE1 /* Shaders.metal */; };
@@ -66,6 +72,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F75F4EFE2F91FAFA0032E0F7 /* plane.obj */ = {isa = PBXFileReference; lastKnownFileType = text; path = plane.obj; sourceTree = "<group>"; };
+		F75F4EFF2F91FAFA0032E0F7 /* windowColor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = windowColor.png; sourceTree = "<group>"; };
+		F75F4F042F91FBEA0032E0F7 /* plane.mtl */ = {isa = PBXFileReference; lastKnownFileType = text; path = plane.mtl; sourceTree = "<group>"; };
 		F76722BC2E54E05200143CE1 /* PatrikTheStarByAria.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PatrikTheStarByAria.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F76722D22E54E57400143CE1 /* PatrikTheStarByAriaiOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PatrikTheStarByAriaiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F76722E82E54E67600143CE1 /* Renderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Renderer.swift; sourceTree = "<group>"; };
@@ -148,6 +157,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F75F4EFD2F91FAEA0032E0F7 /* alphaFilterPlane */ = {
+			isa = PBXGroup;
+			children = (
+				F75F4F042F91FBEA0032E0F7 /* plane.mtl */,
+				F75F4EFE2F91FAFA0032E0F7 /* plane.obj */,
+				F75F4EFF2F91FAFA0032E0F7 /* windowColor.png */,
+			);
+			path = alphaFilterPlane;
+			sourceTree = "<group>";
+		};
 		F76722B32E54E05200143CE1 = {
 			isa = PBXGroup;
 			children = (
@@ -198,6 +217,7 @@
 		F76723182E583FFE00143CE1 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				F75F4EFD2F91FAEA0032E0F7 /* alphaFilterPlane */,
 				F769404F2EE6A85D00CF7FCC /* cube.mtl */,
 				F76940502EE6A85D00CF7FCC /* cube.obj */,
 				F769404C2EE6A1B200CF7FCC /* skeleton.usda */,
@@ -370,10 +390,13 @@
 			files = (
 				F7EEFE892E6DAAB9009587D0 /* ground.obj in Resources */,
 				F7E44EAF2E66BDC300D44694 /* Textures.xcassets in Resources */,
+				F75F4F062F91FBEA0032E0F7 /* plane.mtl in Resources */,
 				F76723202E5B646D00143CE1 /* train.obj in Resources */,
 				F76940512EE6A85D00CF7FCC /* cube.mtl in Resources */,
 				F76940522EE6A85D00CF7FCC /* cube.obj in Resources */,
 				F7EEFE8C2E6DAADF009587D0 /* ground.mtl in Resources */,
+				F75F4F022F91FAFA0032E0F7 /* plane.obj in Resources */,
+				F75F4F032F91FAFA0032E0F7 /* windowColor.png in Resources */,
 				F769404D2EE6A1B200CF7FCC /* skeleton.usda in Resources */,
 				F7D08A9A2ED38E7C0093D32C /* patrik2.usdz in Resources */,
 				F7D08A9C2ED38E7C0093D32C /* patrik_house.usdz in Resources */,
@@ -389,12 +412,15 @@
 				F7D08AA12ED38E7C0093D32C /* patrik_house.usdz in Resources */,
 				F7D08AA32ED38E7C0093D32C /* patrik3.usdz in Resources */,
 				F76723212E5B646D00143CE1 /* train.obj in Resources */,
+				F75F4F052F91FBEA0032E0F7 /* plane.mtl in Resources */,
 				F76940532EE6A85D00CF7FCC /* cube.mtl in Resources */,
 				F76940542EE6A85D00CF7FCC /* cube.obj in Resources */,
 				F7EEFE882E6DAAB9009587D0 /* ground.obj in Resources */,
 				F7E44EAE2E66BDC300D44694 /* Textures.xcassets in Resources */,
 				F7EEFE8D2E6DAADF009587D0 /* ground.mtl in Resources */,
 				F769404E2EE6A1B200CF7FCC /* skeleton.usda in Resources */,
+				F75F4F002F91FAFA0032E0F7 /* plane.obj in Resources */,
+				F75F4F012F91FAFA0032E0F7 /* windowColor.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

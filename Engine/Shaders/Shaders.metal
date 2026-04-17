@@ -146,7 +146,7 @@ fragment float4 fragment_main(VertexOut in [[stage_in]],
 //        specularColor += specularIntensity * materialSpecularColor * light.specularColor;
 //    }
     
-    baseColor = normalColorTexture2d.sample(textureSampler, in.uv * uniforms.tiling).rgba;
+//    baseColor = normalColorTexture2d.sample(textureSampler, in.uv * uniforms.tiling).rgba;
     baseColor = saturate(diffuseColor + ambientColor);
     baseColor.a = 1;
     return baseColor;
@@ -218,4 +218,16 @@ fragment float4 fragment_main(VertexOut in [[stage_in]],
 //    
 //    float3 finalColor = diffuseColor + ambientColor + specularColor;
 //    return float4(finalColor, 1);
+}
+
+fragment float4 fragment_red(VertexOut in [[stage_in]],
+                              texture2d<float> baseColorTexture2d [[texture(BaseColorTextureIndex), function_constant(hasBaseColorTexture)]],
+                              sampler textureSampler [[sampler(0)]],
+                              constant Material &material [[buffer(MaterialBufferIndex)]]) {
+    float4 baseColor = baseColorTexture2d.sample(textureSampler, in.uv).rgba;
+        //TODO: This one is not optimized with function constants, I have to fix it
+        if (baseColor.a <= 0.1) {
+            discard_fragment();
+        }
+    return baseColor;
 }

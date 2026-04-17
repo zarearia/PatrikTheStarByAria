@@ -17,9 +17,16 @@ class Submesh {
     var pipelineState: MTLRenderPipelineState!
     var hasSkeleton: Bool
     
+    var vertex_function: String
+    var fragment_function: String
+    
     var material = Material()
 
-    init(mtkSubmesh: MTKSubmesh, mdlSubmesh: MDLSubmesh, hasSkeleton: Bool) {
+    init(mtkSubmesh: MTKSubmesh, mdlSubmesh: MDLSubmesh, hasSkeleton: Bool, vertex_function: String, fragment_function:String) {
+        
+        self.vertex_function = vertex_function
+        self.fragment_function = fragment_function
+        
         self.mtkSubmesh = mtkSubmesh
         self.hasSkeleton = hasSkeleton
         if let material = mdlSubmesh.material {
@@ -98,8 +105,8 @@ class Submesh {
         var hasNormalTexture = normalTexture != nil
         functionConstant.setConstantValue(&hasNormalTexture, type: .bool, index: Int(HasNormalTextureIndex.rawValue))
 
-        vertexFunction = try! Renderer.library.makeFunction(name: "vertex_main", constantValues: functionConstant)
-        let fragmentFunction = try! Renderer.library.makeFunction(name: "fragment_main", constantValues: functionConstant)
+        vertexFunction = try! Renderer.library.makeFunction(name: vertex_function, constantValues: functionConstant)
+        let fragmentFunction = try! Renderer.library.makeFunction(name: fragment_function, constantValues: functionConstant)
         
         let descriptor = MTLRenderPipelineDescriptor()
         descriptor.vertexFunction = vertexFunction

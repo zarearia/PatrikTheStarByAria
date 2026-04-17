@@ -16,6 +16,8 @@ class Model: Node {
     var samplerState: MTLSamplerState?
     var time: Float = 0
     var name: String
+    let vertex_function: String
+    let fragment_function: String
     
     var isAnimating: Bool = false
     
@@ -32,8 +34,11 @@ class Model: Node {
     
     var debugBoundingBoxRenderer: BoundingBoxRenderer?
     
-    init(name: String, resourse: String, extention: String) {
+    init(name: String, resourse: String, extention: String, vertex_function: String = "vertex_main", fragment_function: String = "fragment_main") {
         self.name = name
+        
+        self.vertex_function = vertex_function
+        self.fragment_function = fragment_function
         
         guard let assetURL = Bundle.main.url(forResource: resourse, withExtension: extention) else
         {
@@ -87,7 +92,7 @@ class Model: Node {
         _ = mdlMeshes.map {
             do {
                 $0.addTangentBasis(forTextureCoordinateAttributeNamed: MDLVertexAttributeTextureCoordinate, tangentAttributeNamed: MDLVertexAttributeTangent, bitangentAttributeNamed: MDLVertexAttributeBitangent)
-                let mesh: Mesh = try Mesh(mtkMesh: MTKMesh(mesh: $0, device: Renderer.device), mdlMesh: $0)
+                let mesh: Mesh = try Mesh(mtkMesh: MTKMesh(mesh: $0, device: Renderer.device), mdlMesh: $0, vertex_function: vertex_function, fragment_function: fragment_function)
                 // set's tangent and bitangent at buffer 1 and 2(0 is taken by me)
                 Model.vertexDescriptor = $0.vertexDescriptor
                 meshes.append(mesh)
@@ -190,6 +195,6 @@ extension Model: Renderable {
             }
         }
         
-        debugBoundingBoxRenderer?.debugBoundingBox(rendereEncoder: renderEncoder, uniforms: modelUniforms)
+//        debugBoundingBoxRenderer?.debugBoundingBox(rendereEncoder: renderEncoder, uniforms: modelUniforms)
     }
 }
