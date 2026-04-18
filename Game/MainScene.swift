@@ -37,6 +37,16 @@ class MainScene: Scene {
     var freeCamera = Camera()
     var thirdPersonCamera: Camera?
     
+    var planeAlpha: Float = 0.1
+    
+    //test, should be deleted
+    enum PlaneAlphaStatus {
+        case up
+        case down
+        case still
+    }
+    var planeAlphaStatus: PlaneAlphaStatus = .still
+    
     override func setupScene() {
         
         freeCameraController.controlled = freeCamera
@@ -89,7 +99,14 @@ class MainScene: Scene {
 //        patrik.position.y -= 1.5
         
         opaquePlane.rotation = [.pi / 2, 0, 0]
-        opaquePlane.position += [-1, 1, -1]        
+        opaquePlane.position += [-1, 1, -1]
+        opaquePlane.costumeRender = { [weak self] renderer in
+            guard let self else {
+                return
+            }
+            //this is only a test, I don't plan to make alpha manually, at least until now
+            renderer.setFragmentBytes(&planeAlpha, length: MemoryLayout<Float>.stride, index: 16)
+        }
         add(node: opaquePlane)
         
         physicsController = PhysicsController(dynamicObject: patrik, staticObjects: [groundModel])
@@ -99,6 +116,23 @@ class MainScene: Scene {
     override func updateScene(deltaTime: Float) {
         freeCameraController.updateControled(deltaTime: deltaTime)
         thirdPersonCameraController.updateControled(deltaTime: deltaTime)
+        
+        switch planeAlphaStatus {
+        case .up:
+            if planeAlpha >= 1 {
+                planeAlpha = 1
+                return
+            }
+            planeAlpha += 0.02
+        case .down:
+            if planeAlpha <= 0 {
+                planeAlpha = 0
+                return
+            }
+            planeAlpha -= 0.02
+        case .still:
+            break
+        }
     }
     
     override func keyDown(keyCode: KeyCode) {
@@ -111,6 +145,13 @@ class MainScene: Scene {
             currentCameraIndex = 2
         case .three:
             currentCameraIndex = 3
+            
+            
+        case .l:
+            planeAlphaStatus = .up
+        case .k:
+            planeAlphaStatus = .down
+
 
         default:
             break
@@ -136,6 +177,13 @@ class MainScene: Scene {
                 currentCameraIndex = 3
             }
             
+            
+        case .l:
+            planeAlphaStatus = .still
+        case .k:
+            planeAlphaStatus = .still
+
+
         default:
             break
         }

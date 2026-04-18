@@ -224,13 +224,14 @@ fragment float4 fragment_post_processing_plane(VertexOut in [[stage_in]],
                               texture2d<float> baseColorTexture2d [[texture(BaseColorTextureIndex), function_constant(hasBaseColorTexture)]],
                               sampler textureSampler [[sampler(0)]],
                               constant Material &material [[buffer(MaterialBufferIndex)]],
-                              float4 attachedColor [[color(0)]]) {
+                              float4 attachedColor [[color(0)]],
+                              constant float &planeAlpha [[buffer(16)]]) {
     
     float4 baseColor = baseColorTexture2d.sample(textureSampler, in.uv).rgba;
     if (baseColor.a <= 0.1) {
         discard_fragment();
     }
-    float planeAlpha = 0.2; //should be equal/less than 1
+//    float planeAlpha = 0.2; should be equal/less than 1
     float sourceAlpha = 1 - planeAlpha;
     
     baseColor = baseColor * planeAlpha + attachedColor * sourceAlpha;
