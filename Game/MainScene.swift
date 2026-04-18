@@ -18,7 +18,7 @@ class MainScene: Scene {
     var groundModel = Model(name: "ground", resourse: "ground", extention: "obj")
 //    var patrik = Model(name: "skeleton", resourse: "skeleton", extention: "usda")
     var patrik = Model(name: "patrik3", resourse: "patrik3", extention: "usdz")
-    var opaquePlane = Model(name: "opaquePlane", resourse: "plane", extention: "obj", fragment_function: "fragment_red")
+    var opaquePlane = Model(name: "opaquePlane", resourse: "plane", extention: "obj", fragment_function: "fragment_post_processing_plane")
 //    var patrik = Model(name: "cube", resourse: "cube", extention: "obj")
     
     var freeCameraController: Controllable = CameraController()
@@ -80,7 +80,7 @@ class MainScene: Scene {
 //        thirdPersonCamera.position.y += 2
         
         patrik.rotation = [0, 0, 0]
-        patrik.position += [0, 10, 0]
+        patrik.position += [-1, 0, 0]
 //        patrik.currentAnimation = "/Skelly/Animations/walk"
 //        patrik.currentAnimation = "/Skelly/Animations/wave"
         add(node: patrik)
@@ -88,8 +88,8 @@ class MainScene: Scene {
 //        patrik.position.z += 3
 //        patrik.position.y -= 1.5
         
-//        opaquePlane.rotation = [0, 0, 90]
-        opaquePlane.position += [1, 0.5, 1]
+        opaquePlane.rotation = [.pi / 2, 0, 0]
+        opaquePlane.position += [-1, 1, -1]        
         add(node: opaquePlane)
         
         physicsController = PhysicsController(dynamicObject: patrik, staticObjects: [groundModel])

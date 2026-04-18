@@ -220,14 +220,20 @@ fragment float4 fragment_main(VertexOut in [[stage_in]],
 //    return float4(finalColor, 1);
 }
 
-fragment float4 fragment_red(VertexOut in [[stage_in]],
+fragment float4 fragment_post_processing_plane(VertexOut in [[stage_in]],
                               texture2d<float> baseColorTexture2d [[texture(BaseColorTextureIndex), function_constant(hasBaseColorTexture)]],
                               sampler textureSampler [[sampler(0)]],
-                              constant Material &material [[buffer(MaterialBufferIndex)]]) {
+                              constant Material &material [[buffer(MaterialBufferIndex)]],
+                              float4 attachedColor [[color(0)]]) {
+    
     float4 baseColor = baseColorTexture2d.sample(textureSampler, in.uv).rgba;
-        //TODO: This one is not optimized with function constants, I have to fix it
-        if (baseColor.a <= 0.1) {
-            discard_fragment();
-        }
+    if (baseColor.a <= 0.1) {
+        discard_fragment();
+    }
+    float planeAlpha = 0.2; //should be equal/less than 1
+    float sourceAlpha = 1 - planeAlpha;
+    
+    baseColor = baseColor * planeAlpha + attachedColor * sourceAlpha;
+    
     return baseColor;
 }
