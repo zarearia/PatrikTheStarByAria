@@ -37,7 +37,7 @@ class BoundingBoxRenderer {
         pipelineDescriptor.vertexDescriptor = vertexDescriptor
         
         //TODO: globalize sample counts
-        pipelineDescriptor.sampleCount = 4
+        pipelineDescriptor.sampleCount = Renderer.rasterSampleCount
         
         do {
             self.pipelineState = try Renderer.device.makeRenderPipelineState(descriptor: pipelineDescriptor)

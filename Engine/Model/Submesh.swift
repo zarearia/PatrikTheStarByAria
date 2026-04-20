@@ -123,7 +123,7 @@ class Submesh {
         
         descriptor.vertexDescriptor = MTKMetalVertexDescriptorFromModelIO(Model.vertexDescriptor)
         
-        descriptor.sampleCount = 4
+        descriptor.rasterSampleCount = Renderer.rasterSampleCount
         
         do {
             try pipelineState = Renderer.device.makeRenderPipelineState(descriptor: descriptor)

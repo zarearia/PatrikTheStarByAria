@@ -14,6 +14,7 @@ class Renderer: NSObject {
     static var library: MTLLibrary!
     static var colorPixelFormat: MTLPixelFormat!
     static var hasFog = false
+    static var rasterSampleCount = 4
     
     var scene: Scene?
     
@@ -50,7 +51,7 @@ class Renderer: NSObject {
         
         metalView.depthStencilPixelFormat = .depth32Float
         
-        metalView.sampleCount = 4
+        metalView.sampleCount = Renderer.rasterSampleCount
         
     }
     
