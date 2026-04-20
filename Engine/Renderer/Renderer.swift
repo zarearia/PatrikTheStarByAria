@@ -78,6 +78,14 @@ extension Renderer: MTKViewDelegate {
             return
         }
         
+//        let samplePosition: [MTLSamplePosition] = [
+//            MTLSamplePosition(x: 0.01, y: 0.01),
+//            MTLSamplePosition(x: 0.99, y: 0.01),
+//            MTLSamplePosition(x: 0.01, y: 0.99),
+//            MTLSamplePosition(x: 0.99, y: 0.99)
+//        ]
+//        descriptor.setSamplePositions(samplePosition)
+        
         renderEncoder.setDepthStencilState(depthStencilState)
         
         let deltaTime = 1 / Float(60)
