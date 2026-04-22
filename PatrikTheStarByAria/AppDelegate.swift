@@ -10,7 +10,7 @@ import Cocoa
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
 
-    // reviewed chapter 1 to 10
+    // Starting tessalation and heighmap collision(research)
 
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
