@@ -10,7 +10,7 @@ import Cocoa
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
 
-    // Starting tessalation and heighmap collision(research)
+    // Starting tessalation and heighmap collision(tessalation itself(chapter 11))
 
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
