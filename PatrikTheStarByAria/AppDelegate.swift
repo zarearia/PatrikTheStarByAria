@@ -10,7 +10,7 @@ import Cocoa
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
 
-    // Starting tessalation and heighmap collision(tessalation itself(chapter 11))
+    // It appears tesselation is my weak point, I'm spending some time reading about it from multiple resources to understand the pipeline better
 
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
