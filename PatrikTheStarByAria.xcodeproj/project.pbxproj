@@ -49,6 +49,8 @@
 		F76940862EF1CB7900CF7FCC /* DebugShaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = F76940842EF1CB7900CF7FCC /* DebugShaders.metal */; };
 		F7A9C04C2ED82ADB0045820E /* KeyCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A9C04B2ED82ADB0045820E /* KeyCode.swift */; };
 		F7A9C04D2ED82ADB0045820E /* KeyCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A9C04B2ED82ADB0045820E /* KeyCode.swift */; };
+		F7C31D572FC56B5000CE13E0 /* SkyboxShaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = F7C31D562FC56B4800CE13E0 /* SkyboxShaders.metal */; };
+		F7C31D582FC56B5000CE13E0 /* SkyboxShaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = F7C31D562FC56B4800CE13E0 /* SkyboxShaders.metal */; };
 		F7D08A732ECEEB400093D32C /* Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D08A722ECEEB2D0093D32C /* Scene.swift */; };
 		F7D08A742ECEEB400093D32C /* Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D08A722ECEEB2D0093D32C /* Scene.swift */; };
 		F7D08A762ED036980093D32C /* MainScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D08A752ED0368D0093D32C /* MainScene.swift */; };
@@ -96,6 +98,7 @@
 		F769407E2EF1C54500CF7FCC /* BoundingBoxRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoundingBoxRenderer.swift; sourceTree = "<group>"; };
 		F76940842EF1CB7900CF7FCC /* DebugShaders.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = DebugShaders.metal; sourceTree = "<group>"; };
 		F7A9C04B2ED82ADB0045820E /* KeyCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyCode.swift; sourceTree = "<group>"; };
+		F7C31D562FC56B4800CE13E0 /* SkyboxShaders.metal */ = {isa = PBXFileReference; explicitFileType = sourcecode.metal; path = SkyboxShaders.metal; sourceTree = "<group>"; };
 		F7D08A722ECEEB2D0093D32C /* Scene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scene.swift; sourceTree = "<group>"; };
 		F7D08A752ED0368D0093D32C /* MainScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScene.swift; sourceTree = "<group>"; };
 		F7D08A952ED38E7C0093D32C /* patrik_house.usdz */ = {isa = PBXFileReference; lastKnownFileType = file; path = patrik_house.usdz; sourceTree = "<group>"; };
@@ -234,6 +237,7 @@
 		F76723222E5C319000143CE1 /* Shaders */ = {
 			isa = PBXGroup;
 			children = (
+				F7C31D562FC56B4800CE13E0 /* SkyboxShaders.metal */,
 				F767230B2E56E65500143CE1 /* Shaders.metal */,
 				F76723292E5C31DA00143CE1 /* Common.h */,
 				F76940842EF1CB7900CF7FCC /* DebugShaders.metal */,
@@ -446,6 +450,7 @@
 				F7693FF92EDC7BDF00CF7FCC /* Controllable.swift in Sources */,
 				F76722E92E54E67600143CE1 /* Renderer.swift in Sources */,
 				F76723122E56EFE500143CE1 /* MathHelpers.swift in Sources */,
+				F7C31D572FC56B5000CE13E0 /* SkyboxShaders.metal in Sources */,
 				F7D30B0C2E73DCE500254E80 /* Animation.swift in Sources */,
 				F76723322E5D870100143CE1 /* Camera.swift in Sources */,
 				F7693FFC2EDC885D00CF7FCC /* ThirdPersonCamera.swift in Sources */,
@@ -471,6 +476,7 @@
 				F76723312E5D870100143CE1 /* Camera.swift in Sources */,
 				F7D08A732ECEEB400093D32C /* Scene.swift in Sources */,
 				F767230D2E56E65500143CE1 /* Shaders.metal in Sources */,
+				F7C31D582FC56B5000CE13E0 /* SkyboxShaders.metal in Sources */,
 				F7D08A762ED036980093D32C /* MainScene.swift in Sources */,
 				F7D30B0B2E73DCE500254E80 /* Animation.swift in Sources */,
 				F76723132E56EFE500143CE1 /* MathHelpers.swift in Sources */,
