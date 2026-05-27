@@ -20,7 +20,9 @@ struct VertexOut {
 vertex VertexOut verte_skybox(const VertexIn vertexIn [[stage_in]],
                                constant Uniforms &uniforms [[buffer(UniformsBufferIndex)]]) {
     VertexOut vertexOut;
-    vertexOut.position = uniforms.projectionMatrix * uniforms.viewMatrix * vertexIn.position;
+    float4x4 viewMatrix = uniforms.viewMatrix;
+    viewMatrix.columns[3] = float4(0, 0, 0, 1);
+    vertexOut.position = uniforms.projectionMatrix * viewMatrix * vertexIn.position;
     vertexOut.position = vertexOut.position.xyww;
     return vertexOut;
 }

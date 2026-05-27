@@ -8,18 +8,18 @@
 import MetalKit
 import ModelIO
 
-class Skybox: Renderable {
+class Skybox {
     
     var name: String
     
     let cubeMesh: MTKMesh
-    let pipelineState: MTLRenderPipelineState
+    let renderPipelineState: MTLRenderPipelineState
     let depthStencilState: MTLDepthStencilState
     
     init(name: String) {
         self.name = name
-        let allocator = MDLMeshBufferDataAllocator()
-        let mesh = MDLMesh(boxWithExtent: [1, 1, 1], segments: [1, 1, 1], inwardNormals: true, geometryType: .triangles, allocator: allocator)
+        let allocator = MTKMeshBufferAllocator(device: Renderer.device)
+        let mesh = MDLMesh(boxWithExtent: [1, 1, 1], segments: [1, 1, 1], inwardNormals: false, geometryType: .triangles, allocator: allocator)
         
         cubeMesh = try! MTKMesh(mesh: mesh, device: Renderer.device)
         
@@ -29,7 +29,9 @@ class Skybox: Renderable {
         pipelineDescriptor.fragmentFunction = library?.makeFunction(name: "fragment_skybox")
         pipelineDescriptor.depthAttachmentPixelFormat = .depth32Float
         pipelineDescriptor.vertexDescriptor = MTKMetalVertexDescriptorFromModelIO(cubeMesh.vertexDescriptor)
-        pipelineState = try! Renderer.device.makeRenderPipelineState(descriptor: pipelineDescriptor)
+        pipelineDescriptor.rasterSampleCount = 4
+        pipelineDescriptor.colorAttachments[0].pixelFormat = .bgra8Unorm
+        renderPipelineState = try! Renderer.device.makeRenderPipelineState(descriptor: pipelineDescriptor)
         
         let depthDescriptor = MTLDepthStencilDescriptor()
         depthDescriptor.depthCompareFunction = .lessEqual
@@ -38,11 +40,15 @@ class Skybox: Renderable {
     }
     
     
-    func render(renderEncoder: any MTLRenderCommandEncoder, uniforms: Uniforms, fragmentUniforms fragment: FragmentUniforms) {
+    func render(renderEncoder: any MTLRenderCommandEncoder, uniforms: Uniforms) {
         var uniforms = uniforms
+        renderEncoder.pushDebugGroup("Skybox: \(name)")
+        renderEncoder.setDepthStencilState(depthStencilState)
+        renderEncoder.setRenderPipelineState(renderPipelineState)
         renderEncoder.setVertexBuffer(cubeMesh.vertexBuffers[0].buffer, offset: 0, index: Int(VerticesBufferIndex.rawValue))
         renderEncoder.setVertexBytes(&uniforms, length: MemoryLayout<Uniforms>.stride, index: Int(UniformsBufferIndex.rawValue))
 //        add pipelineState and depth stencil and make all these array calls a variable on top of draw call and dont forget to put the translation of the a part of uniform to 0 so the box won't move around
         renderEncoder.drawIndexedPrimitives(type: .triangle, indexCount: cubeMesh.submeshes[0].indexCount, indexType: cubeMesh.submeshes[0].indexType, indexBuffer: cubeMesh.submeshes[0].indexBuffer.buffer, indexBufferOffset: 0)
+        renderEncoder.popDebugGroup()
     }
 }

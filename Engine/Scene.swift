@@ -23,6 +23,8 @@ class Scene: ControleDelegate {
     var rootNode = Node()
     var renderables: [Renderable] = []
     
+    var skyBox = Skybox(name: "sky")
+    
     
     var uniforms = Uniforms()
     var fragmentUniforms = FragmentUniforms()
@@ -40,6 +42,8 @@ class Scene: ControleDelegate {
         sunLight.type = SunLight
         sunLight.specularColor = float3(1, 1, 1)
         lights.append(sunLight)
+        
+//        renderables.append(skyBox)
     }
     
     func setupScene() {
