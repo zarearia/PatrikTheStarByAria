@@ -15,6 +15,7 @@ struct VertexIn {
 
 struct VertexOut {
     float4 position [[position]];
+    float3 textureCoordinates;
 };
 
 vertex VertexOut verte_skybox(const VertexIn vertexIn [[stage_in]],
@@ -24,9 +25,13 @@ vertex VertexOut verte_skybox(const VertexIn vertexIn [[stage_in]],
     viewMatrix.columns[3] = float4(0, 0, 0, 1);
     vertexOut.position = uniforms.projectionMatrix * viewMatrix * vertexIn.position;
     vertexOut.position = vertexOut.position.xyww;
+    vertexOut.textureCoordinates = vertexIn.position.xyz;
     return vertexOut;
 }
 
-fragment float4 fragment_skybox(VertexOut vertexIn [[stage_in]]) {
-    return float4(1, 1, 0, 1);
+fragment half4 fragment_skybox(VertexOut vertexIn [[stage_in]],
+                                texturecube<half> skyTexture [[texture(0)]]) {
+    constexpr sampler defaultSampler(filter::linear);
+    half4 color = skyTexture.sample(defaultSampler, vertexIn.textureCoordinates);
+    return color;
 }
