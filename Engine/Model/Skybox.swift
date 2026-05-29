@@ -40,7 +40,8 @@ class Skybox {
         depthDescriptor.isDepthWriteEnabled = true
         depthStencilState = Renderer.device.makeDepthStencilState(descriptor: depthDescriptor)!
        
-        makeGenerativeSky()
+//        makeGenerativeSky()
+        loadSkyTexture(textureName: "sky")
         
     }
     
@@ -58,6 +59,11 @@ class Skybox {
         
         let textureLoader = MTKTextureLoader(device: Renderer.device)
         skyTexture = try! textureLoader.newTexture(texture: sky, options: nil)
+    }
+    
+    func loadSkyTexture(textureName: String) {
+        let textureLoader = MTKTextureLoader(device: Renderer.device)
+        skyTexture = try! textureLoader.newTexture(name: textureName, scaleFactor: 1, bundle: Bundle.main)
     }
     
     
