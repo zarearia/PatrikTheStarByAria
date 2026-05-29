@@ -96,6 +96,8 @@ extension Renderer: MTKViewDelegate {
         
         scene.update(deltaTime: deltaTime)
         
+        scene.skyBox.update(renderEncoder: renderEncoder)
+        
         scene.fragmentUniforms.lightCount = UInt32(scene.lights.count)
         
         renderEncoder.setFragmentBytes(&scene.lights, length: MemoryLayout<Light>.stride * scene.lights.count, index: Int(LightsBufferIndex.rawValue))

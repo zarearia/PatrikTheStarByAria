@@ -66,6 +66,10 @@ class Skybox {
         skyTexture = try! textureLoader.newTexture(name: textureName, scaleFactor: 1, bundle: Bundle.main)
     }
     
+    func update(renderEncoder: any MTLRenderCommandEncoder) {
+        renderEncoder.setFragmentTexture(skyTexture, index: Int(SkyBoxIndex.rawValue))
+    }
+    
     
     func render(renderEncoder: any MTLRenderCommandEncoder, uniforms: Uniforms) {
         var uniforms = uniforms
@@ -74,7 +78,7 @@ class Skybox {
         renderEncoder.setRenderPipelineState(renderPipelineState)
         renderEncoder.setVertexBuffer(cubeMesh.vertexBuffers[0].buffer, offset: 0, index: Int(VerticesBufferIndex.rawValue))
         renderEncoder.setVertexBytes(&uniforms, length: MemoryLayout<Uniforms>.stride, index: Int(UniformsBufferIndex.rawValue))
-        renderEncoder.setFragmentTexture(skyTexture, index: 0)
+        renderEncoder.setFragmentTexture(skyTexture, index: Int(SkyBoxIndex.rawValue))
 //        add pipelineState and depth stencil and make all these array calls a variable on top of draw call and dont forget to put the translation of the a part of uniform to 0 so the box won't move around
         renderEncoder.drawIndexedPrimitives(type: .triangle, indexCount: cubeMesh.submeshes[0].indexCount, indexType: cubeMesh.submeshes[0].indexType, indexBuffer: cubeMesh.submeshes[0].indexBuffer.buffer, indexBufferOffset: 0)
         renderEncoder.popDebugGroup()

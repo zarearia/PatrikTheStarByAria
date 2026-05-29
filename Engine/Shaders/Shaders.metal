@@ -238,3 +238,15 @@ fragment float4 fragment_post_processing_plane(VertexOut in [[stage_in]],
     
     return baseColor;
 }
+
+
+fragment float4 fragment_skyBox_reflection_test(VertexOut in [[stage_in]],
+                                                constant FragmentUniforms &uniforms [[buffer(FragmentUniformsBufferIndex)]],
+                                                texturecube<float> skyTexture [[texture(SkyBoxIndex)]]) {
+    float3 cameraDirection = in.worldPosition - uniforms.cameraPosition;
+    float3 reflection = reflect(cameraDirection, in.worldNormal);
+    constexpr sampler defaultSampler(filter::linear);
+    float4 color = skyTexture.sample(defaultSampler, reflection);
+    float4 copper = float4(1.0, 0.8, 0.0, 1);
+    return color * copper;
+}
