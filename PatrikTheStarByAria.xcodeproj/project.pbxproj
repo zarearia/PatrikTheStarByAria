@@ -71,6 +71,8 @@
 		F7EEFE892E6DAAB9009587D0 /* ground.obj in Resources */ = {isa = PBXBuildFile; fileRef = F7EEFE872E6DAAB9009587D0 /* ground.obj */; };
 		F7EEFE8C2E6DAADF009587D0 /* ground.mtl in Resources */ = {isa = PBXBuildFile; fileRef = F7EEFE8B2E6DAADF009587D0 /* ground.mtl */; };
 		F7EEFE8D2E6DAADF009587D0 /* ground.mtl in Resources */ = {isa = PBXBuildFile; fileRef = F7EEFE8B2E6DAADF009587D0 /* ground.mtl */; };
+		F7FBD7532FCEA5F1002463A0 /* cube-sky.png in Resources */ = {isa = PBXBuildFile; fileRef = F7FBD7522FCEA5F1002463A0 /* cube-sky.png */; };
+		F7FBD7542FCEA5F1002463A0 /* cube-sky.png in Resources */ = {isa = PBXBuildFile; fileRef = F7FBD7522FCEA5F1002463A0 /* cube-sky.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -109,6 +111,7 @@
 		F7E44EC82E680AF300D44694 /* Renderable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Renderable.swift; sourceTree = "<group>"; };
 		F7EEFE872E6DAAB9009587D0 /* ground.obj */ = {isa = PBXFileReference; lastKnownFileType = text; path = ground.obj; sourceTree = "<group>"; };
 		F7EEFE8B2E6DAADF009587D0 /* ground.mtl */ = {isa = PBXFileReference; lastKnownFileType = text; path = ground.mtl; sourceTree = "<group>"; };
+		F7FBD7522FCEA5F1002463A0 /* cube-sky.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cube-sky.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -220,6 +223,7 @@
 		F76723182E583FFE00143CE1 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				F7FBD7522FCEA5F1002463A0 /* cube-sky.png */,
 				F75F4EFD2F91FAEA0032E0F7 /* alphaFilterPlane */,
 				F769404F2EE6A85D00CF7FCC /* cube.mtl */,
 				F76940502EE6A85D00CF7FCC /* cube.obj */,
@@ -394,6 +398,7 @@
 			files = (
 				F7EEFE892E6DAAB9009587D0 /* ground.obj in Resources */,
 				F7E44EAF2E66BDC300D44694 /* Textures.xcassets in Resources */,
+				F7FBD7532FCEA5F1002463A0 /* cube-sky.png in Resources */,
 				F75F4F062F91FBEA0032E0F7 /* plane.mtl in Resources */,
 				F76723202E5B646D00143CE1 /* train.obj in Resources */,
 				F76940512EE6A85D00CF7FCC /* cube.mtl in Resources */,
@@ -422,6 +427,7 @@
 				F7EEFE882E6DAAB9009587D0 /* ground.obj in Resources */,
 				F7E44EAE2E66BDC300D44694 /* Textures.xcassets in Resources */,
 				F7EEFE8D2E6DAADF009587D0 /* ground.mtl in Resources */,
+				F7FBD7542FCEA5F1002463A0 /* cube-sky.png in Resources */,
 				F769404E2EE6A1B200CF7FCC /* skeleton.usda in Resources */,
 				F75F4F002F91FAFA0032E0F7 /* plane.obj in Resources */,
 				F75F4F012F91FAFA0032E0F7 /* windowColor.png in Resources */,

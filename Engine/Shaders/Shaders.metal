@@ -250,3 +250,38 @@ fragment float4 fragment_skyBox_reflection_test(VertexOut in [[stage_in]],
     float4 copper = float4(1.0, 0.8, 0.0, 1);
     return color * copper;
 }
+
+
+
+fragment float4 fragment_ibl(VertexOut in [[stage_in]],
+                              constant FragmentUniforms &uniforms [[buffer(FragmentUniformsBufferIndex)]],
+                              constant Light *lights [[buffer(LightsBufferIndex)]],
+                              texture2d<float> baseColorTexture2d [[texture(BaseColorTextureIndex), function_constant(hasBaseColorTexture)]],
+                              texture2d<float> normalColorTexture2d [[texture(NormalColorTextureIndex), function_constant(hasNormalTexture)]],
+                              sampler textureSampler [[sampler(0)]],
+                              constant Material &material [[buffer(MaterialBufferIndex)]],
+                              texturecube<float> diffuseSkyBox [[texture(DiffuseSkyBoxIndex)]]) {
+    
+    float4 baseColor;
+    if (hasBaseColorTexture) {
+        baseColor = baseColorTexture2d.sample(textureSampler, in.uv * uniforms.tiling).rgba;
+        //TODO: This one is not optimized with function constants, I have to fix it
+        if (baseColor.a <= 0.1) {
+            discard_fragment();
+        }
+    } else {
+        baseColor = material.baseColor;
+    }
+    
+    float3 normal = 0;
+    if (hasNormalTexture) {
+        normal = normalColorTexture2d.sample(textureSampler, in.uv * uniforms.tiling).rgb;
+    } else {
+        normal = in.worldNormal;
+    }
+    
+    float4 skyBoxDiffuse = diffuseSkyBox.sample(textureSampler, normal);
+    baseColor *= skyBoxDiffuse * 2;
+    
+    return baseColor;
+}

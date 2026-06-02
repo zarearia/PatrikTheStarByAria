@@ -17,6 +17,7 @@ class Skybox {
     let depthStencilState: MTLDepthStencilState
     
     var skyTexture: MTLTexture?
+    var irradianceTexture: MTLTexture?
     
     init(name: String) {
         self.name = name
@@ -42,6 +43,7 @@ class Skybox {
        
 //        makeGenerativeSky()
         loadSkyTexture(textureName: "sky")
+        loadIrradianceTexture(textureName: "irradiance_sky")
         
     }
     
@@ -66,8 +68,21 @@ class Skybox {
         skyTexture = try! textureLoader.newTexture(name: textureName, scaleFactor: 1, bundle: Bundle.main)
     }
     
+    func loadIrradianceTexture(textureName: String) {
+        let textureLoader = MTKTextureLoader(device: Renderer.device)
+        irradianceTexture = try! textureLoader.newTexture(name: textureName, scaleFactor: 1, bundle: Bundle.main)
+    }
+    
+    func makeIrradianceTexture(textureName: String) {
+        let textureLoader = MTKTextureLoader(device: Renderer.device)
+        let skyTextureMdl = MDLTexture(named: textureName)!
+        let irradianceTextureMDL = MDLTexture.irradianceTextureCube(with: skyTextureMdl, name: "skyIrradianceTexture", dimensions: SIMD2<Int32>(64, 64), roughness: 0.7)
+        irradianceTexture = try! textureLoader.newTexture(texture: irradianceTextureMDL)
+    }
+    
     func update(renderEncoder: any MTLRenderCommandEncoder) {
         renderEncoder.setFragmentTexture(skyTexture, index: Int(SkyBoxIndex.rawValue))
+        renderEncoder.setFragmentTexture(irradianceTexture, index: Int(DiffuseSkyBoxIndex.rawValue))
     }
     
     
@@ -84,3 +99,4 @@ class Skybox {
         renderEncoder.popDebugGroup()
     }
 }
+

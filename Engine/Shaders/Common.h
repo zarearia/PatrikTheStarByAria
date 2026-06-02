@@ -68,7 +68,8 @@ typedef enum {
 typedef enum {
     BaseColorTextureIndex = 0,
     NormalColorTextureIndex = 1,
-    SkyBoxIndex = 2
+    SkyBoxIndex = 2,
+    DiffuseSkyBoxIndex = 3
 } TextureIndices;
 
 typedef enum {
