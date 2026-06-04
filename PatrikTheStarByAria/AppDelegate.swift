@@ -10,8 +10,7 @@ import Cocoa
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
 
-    // It appears tesselation is my weak point, I'm spending some time reading about it from multiple resources to understand the pipeline better
-
+    // adding metalic and routhness for image based lighting
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application

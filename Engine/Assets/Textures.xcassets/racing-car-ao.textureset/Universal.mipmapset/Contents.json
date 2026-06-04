@@ -1,0 +1,12 @@
+{
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  },
+  "levels" : [
+    {
+      "filename" : "Ambient Occlusion Map from Mesh Opaque.png",
+      "mipmap-level" : "base"
+    }
+  ]
+}
