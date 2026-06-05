@@ -73,6 +73,14 @@
 		F7EEFE8D2E6DAADF009587D0 /* ground.mtl in Resources */ = {isa = PBXBuildFile; fileRef = F7EEFE8B2E6DAADF009587D0 /* ground.mtl */; };
 		F7FBD7532FCEA5F1002463A0 /* cube-sky.png in Resources */ = {isa = PBXBuildFile; fileRef = F7FBD7522FCEA5F1002463A0 /* cube-sky.png */; };
 		F7FBD7542FCEA5F1002463A0 /* cube-sky.png in Resources */ = {isa = PBXBuildFile; fileRef = F7FBD7522FCEA5F1002463A0 /* cube-sky.png */; };
+		F7FF38352FD1472F00C3A51E /* RendererBRDF.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FF38332FD1472E00C3A51E /* RendererBRDF.swift */; };
+		F7FF38362FD1472F00C3A51E /* BRDF.metal in Sources */ = {isa = PBXBuildFile; fileRef = F7FF38322FD1472E00C3A51E /* BRDF.metal */; };
+		F7FF38372FD1472F00C3A51E /* RendererBRDF.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FF38332FD1472E00C3A51E /* RendererBRDF.swift */; };
+		F7FF38382FD1472F00C3A51E /* BRDF.metal in Sources */ = {isa = PBXBuildFile; fileRef = F7FF38322FD1472E00C3A51E /* BRDF.metal */; };
+		F7FF383C2FD1496300C3A51E /* racing-car.mtl in Resources */ = {isa = PBXBuildFile; fileRef = F7FF38392FD1496300C3A51E /* racing-car.mtl */; };
+		F7FF383D2FD1496300C3A51E /* racing-car.obj in Resources */ = {isa = PBXBuildFile; fileRef = F7FF383A2FD1496300C3A51E /* racing-car.obj */; };
+		F7FF383E2FD1496300C3A51E /* racing-car.mtl in Resources */ = {isa = PBXBuildFile; fileRef = F7FF38392FD1496300C3A51E /* racing-car.mtl */; };
+		F7FF383F2FD1496300C3A51E /* racing-car.obj in Resources */ = {isa = PBXBuildFile; fileRef = F7FF383A2FD1496300C3A51E /* racing-car.obj */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -112,6 +120,10 @@
 		F7EEFE872E6DAAB9009587D0 /* ground.obj */ = {isa = PBXFileReference; lastKnownFileType = text; path = ground.obj; sourceTree = "<group>"; };
 		F7EEFE8B2E6DAADF009587D0 /* ground.mtl */ = {isa = PBXFileReference; lastKnownFileType = text; path = ground.mtl; sourceTree = "<group>"; };
 		F7FBD7522FCEA5F1002463A0 /* cube-sky.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cube-sky.png"; sourceTree = "<group>"; };
+		F7FF38322FD1472E00C3A51E /* BRDF.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = BRDF.metal; sourceTree = "<group>"; };
+		F7FF38332FD1472E00C3A51E /* RendererBRDF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RendererBRDF.swift; sourceTree = "<group>"; };
+		F7FF38392FD1496300C3A51E /* racing-car.mtl */ = {isa = PBXFileReference; lastKnownFileType = text; path = "racing-car.mtl"; sourceTree = "<group>"; };
+		F7FF383A2FD1496300C3A51E /* racing-car.obj */ = {isa = PBXFileReference; lastKnownFileType = text; path = "racing-car.obj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -212,6 +224,7 @@
 		F76723142E56EFE800143CE1 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				F7FF38342FD1472E00C3A51E /* BRDF */,
 				F769407E2EF1C54500CF7FCC /* BoundingBoxRenderer.swift */,
 				F76723112E56EFE000143CE1 /* MathHelpers.swift */,
 				F767230E2E56EB5C00143CE1 /* VertexDescriptorHelper.swift */,
@@ -223,6 +236,7 @@
 		F76723182E583FFE00143CE1 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				F7FF383B2FD1496300C3A51E /* Car */,
 				F7FBD7522FCEA5F1002463A0 /* cube-sky.png */,
 				F75F4EFD2F91FAEA0032E0F7 /* alphaFilterPlane */,
 				F769404F2EE6A85D00CF7FCC /* cube.mtl */,
@@ -302,6 +316,24 @@
 				F7EEFE872E6DAAB9009587D0 /* ground.obj */,
 			);
 			path = Ground;
+			sourceTree = "<group>";
+		};
+		F7FF38342FD1472E00C3A51E /* BRDF */ = {
+			isa = PBXGroup;
+			children = (
+				F7FF38322FD1472E00C3A51E /* BRDF.metal */,
+				F7FF38332FD1472E00C3A51E /* RendererBRDF.swift */,
+			);
+			path = BRDF;
+			sourceTree = "<group>";
+		};
+		F7FF383B2FD1496300C3A51E /* Car */ = {
+			isa = PBXGroup;
+			children = (
+				F7FF38392FD1496300C3A51E /* racing-car.mtl */,
+				F7FF383A2FD1496300C3A51E /* racing-car.obj */,
+			);
+			path = Car;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -409,6 +441,8 @@
 				F769404D2EE6A1B200CF7FCC /* skeleton.usda in Resources */,
 				F7D08A9A2ED38E7C0093D32C /* patrik2.usdz in Resources */,
 				F7D08A9C2ED38E7C0093D32C /* patrik_house.usdz in Resources */,
+				F7FF383C2FD1496300C3A51E /* racing-car.mtl in Resources */,
+				F7FF383D2FD1496300C3A51E /* racing-car.obj in Resources */,
 				F7D08A9E2ED38E7C0093D32C /* patrik3.usdz in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -429,6 +463,8 @@
 				F7EEFE8D2E6DAADF009587D0 /* ground.mtl in Resources */,
 				F7FBD7542FCEA5F1002463A0 /* cube-sky.png in Resources */,
 				F769404E2EE6A1B200CF7FCC /* skeleton.usda in Resources */,
+				F7FF383E2FD1496300C3A51E /* racing-car.mtl in Resources */,
+				F7FF383F2FD1496300C3A51E /* racing-car.obj in Resources */,
 				F75F4F002F91FAFA0032E0F7 /* plane.obj in Resources */,
 				F75F4F012F91FAFA0032E0F7 /* windowColor.png in Resources */,
 			);
@@ -452,6 +488,8 @@
 				F76940802EF1C56300CF7FCC /* BoundingBoxRenderer.swift in Sources */,
 				F7D08A772ED036980093D32C /* MainScene.swift in Sources */,
 				F7693FF52EDC73AA00CF7FCC /* CameraController.swift in Sources */,
+				F7FF38372FD1472F00C3A51E /* RendererBRDF.swift in Sources */,
+				F7FF38382FD1472F00C3A51E /* BRDF.metal in Sources */,
 				F76940562EEFEAED00CF7FCC /* PhysicsController.swift in Sources */,
 				F7693FF92EDC7BDF00CF7FCC /* Controllable.swift in Sources */,
 				F76722E92E54E67600143CE1 /* Renderer.swift in Sources */,
@@ -481,6 +519,8 @@
 				F7A9C04C2ED82ADB0045820E /* KeyCode.swift in Sources */,
 				F76723312E5D870100143CE1 /* Camera.swift in Sources */,
 				F7D08A732ECEEB400093D32C /* Scene.swift in Sources */,
+				F7FF38352FD1472F00C3A51E /* RendererBRDF.swift in Sources */,
+				F7FF38362FD1472F00C3A51E /* BRDF.metal in Sources */,
 				F767230D2E56E65500143CE1 /* Shaders.metal in Sources */,
 				F7C31D582FC56B5000CE13E0 /* SkyboxShaders.metal in Sources */,
 				F7D08A762ED036980093D32C /* MainScene.swift in Sources */,

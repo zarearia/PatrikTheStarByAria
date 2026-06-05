@@ -21,6 +21,8 @@ class Renderer: NSObject {
     var depthStencilState: MTLDepthStencilState?
     
     var texture: MTLTexture
+    
+    var brdfLut: MTLTexture
 
     init(metalView: MTKView) {
         guard
@@ -41,6 +43,10 @@ class Renderer: NSObject {
         
         self.texture = try! textureLoader.newTexture(name: "starfish_cloth_santa_baseColor", scaleFactor: 1.0, bundle: Bundle.main, options: textureLoaderOptions)
 
+        guard let brdfLut = Renderer.buildBRDF() else {
+            fatalError("could not find brdfLut")
+        }
+        self.brdfLut = brdfLut
 
         super.init()
         
@@ -101,6 +107,7 @@ extension Renderer: MTKViewDelegate {
         scene.fragmentUniforms.lightCount = UInt32(scene.lights.count)
         
         renderEncoder.setFragmentBytes(&scene.lights, length: MemoryLayout<Light>.stride * scene.lights.count, index: Int(LightsBufferIndex.rawValue))
+        renderEncoder.setFragmentTexture(brdfLut, index: Int(BrdfLutTextureIndex.rawValue))
         
         for renderable in scene.renderables {
             renderEncoder.pushDebugGroup(renderable.name)

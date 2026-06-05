@@ -22,6 +22,7 @@ class MainScene: Scene {
 //    var opaquePlane = Model(name: "opaquePlane", resourse: "plane", extention: "obj", fragment_function: "fragment_skyBox_reflection_test")
     var opaquePlane = Model(name: "opaquePlane", resourse: "plane", extention: "obj", fragment_function: "fragment_ibl")
 //    var patrik = Model(name: "cube", resourse: "cube", extention: "obj")
+    var racingCar = Model(name: "racingCar", resourse: "racing-car", extention: "obj", fragment_function: "fragment_ibl")
     
     var freeCameraController: Controllable = CameraController()
     var thirdPersonCameraController: Controllable = CameraController()
@@ -100,8 +101,11 @@ class MainScene: Scene {
 //        patrik.position.z += 3
 //        patrik.position.y -= 1.5
         
+        racingCar.position += [-2, 0, 0]
+        add(node: racingCar)
+        
         opaquePlane.rotation = [.pi / 2, 0, 0]
-        opaquePlane.position += [-1, 1, -1]
+        opaquePlane.position += [-1, 1, 10]
         opaquePlane.costumeRender = { [weak self] renderer in
             guard let self else {
                 return

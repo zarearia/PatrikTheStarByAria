@@ -13,6 +13,8 @@ class Submesh {
     var baseColorTexture: MTLTexture?
     
     var normalTexture: MTLTexture?
+    var metalicTexture: MTLTexture?
+    var routhnessTexture: MTLTexture?
     
     var pipelineState: MTLRenderPipelineState!
     var hasSkeleton: Bool
@@ -40,6 +42,7 @@ class Submesh {
         
         //MARK: Loading BaseColor
         /// using usdz, ModelIO will handle the texture for us!
+        /// if there is no material texture, we use self.material float 4 color for obj color, look at the code:
         if let property = material.property(with: MDLMaterialSemantic.baseColor) {
             baseColorTexture = loadTexture(property: property)
             self.material.baseColor = property.float4Value
@@ -53,6 +56,17 @@ class Submesh {
             print("[Submesh] submesh did not have any normalColor")
         }
         
+        if let property = material.property(with: MDLMaterialSemantic.metallic) {
+            metalicTexture = loadTexture(property: property)
+        } else {
+            print("[Submesh] submesh did not have any normalColor")
+        }
+
+        if let property = material.property(with: MDLMaterialSemantic.roughness) {
+            routhnessTexture = loadTexture(property: property)
+        } else {
+            print("[Submesh] submesh did not have any normalColor")
+        }
     }
     
     private func loadTexture(property: MDLMaterialProperty) -> (any MTLTexture)? {
