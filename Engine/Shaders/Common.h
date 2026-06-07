@@ -72,7 +72,8 @@ typedef enum {
     RouthnessTextureIndex = 3,
     SkyBoxIndex = 4,
     DiffuseSkyBoxIndex = 5,
-    BrdfLutTextureIndex = 6
+    BrdfLutTextureIndex = 6,
+    AmbientOcclusionTextureIndex = 7
 } TextureIndices;
 
 typedef enum {

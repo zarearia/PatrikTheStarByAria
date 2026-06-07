@@ -181,6 +181,7 @@ extension Model: Renderable {
                 renderEncoder.setFragmentTexture(submesh.normalTexture, index: Int(NormalColorTextureIndex.rawValue))
                 renderEncoder.setFragmentTexture(submesh.metalicTexture, index: Int(MetalicTextureIndex.rawValue))
                 renderEncoder.setFragmentTexture(submesh.routhnessTexture, index: Int(RouthnessTextureIndex.rawValue))
+                renderEncoder.setFragmentTexture(submesh.ambientOcclusion, index: Int(AmbientOcclusionTextureIndex.rawValue))
                 
                 renderEncoder.setFragmentBytes(&material, length: MemoryLayout<Material>.stride, index: Int(MaterialBufferIndex.rawValue))
                 

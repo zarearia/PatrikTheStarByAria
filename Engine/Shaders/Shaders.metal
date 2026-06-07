@@ -265,8 +265,9 @@ fragment float4 fragment_ibl(VertexOut in [[stage_in]],
                               constant Material &material [[buffer(MaterialBufferIndex)]],
                               texturecube<float> diffuseSkyBox [[texture(DiffuseSkyBoxIndex)]],
                               texturecube<float> skyTexture [[texture(SkyBoxIndex)]],
-                              texture2d<float> brdfLut [[texture(BrdfLutTextureIndex)]]) {
-    
+                              texture2d<float> brdfLut [[texture(BrdfLutTextureIndex)]],
+                              texture2d<float> ambientOcclusion [[texture(AmbientOcclusionTextureIndex)]]) {
+
     float4 baseColor;
     if (hasBaseColorTexture) {
         baseColor = baseColorTexture2d.sample(textureSampler, in.uv * uniforms.tiling).rgba;
@@ -310,66 +311,9 @@ fragment float4 fragment_ibl(VertexOut in [[stage_in]],
     
     float4 finalColor = skyBoxDiffuse * baseColor + float4(specularColor, 1);
     
+    float4 ambientOcclusionColor = ambientOcclusion.sample(textureSampler, in.uv);
+    
+    finalColor *= ambientOcclusionColor;
+    
     return finalColor;
 }
-
-//fragment float4 fragment_ibl(VertexOut in [[stage_in]],
-//                              constant FragmentUniforms &uniforms [[buffer(FragmentUniformsBufferIndex)]],
-//                              constant Light *lights [[buffer(LightsBufferIndex)]],
-//                              texture2d<float> baseColorTexture2d [[texture(BaseColorTextureIndex), function_constant(hasBaseColorTexture)]],
-//                              texture2d<float> normalColorTexture2d [[texture(NormalColorTextureIndex), function_constant(hasNormalTexture)]],
-//                              texture2d<float> metalicTexture2d [[texture(MetalicTextureIndex), function_constant(hasNormalTexture)]],
-//                              texture2d<float> rothnessColorTexture2d [[texture(RouthnessTextureIndex), function_constant(hasNormalTexture)]],
-//                              sampler textureSampler [[sampler(0)]],
-//                              constant Material &material [[buffer(MaterialBufferIndex)]],
-//                              texturecube<float> diffuseSkyBox [[texture(DiffuseSkyBoxIndex)]],
-//                              texturecube<float> skyTexture [[texture(SkyBoxIndex)]],
-//                              texture2d<float> brdfLut [[texture(BrdfLutTextureIndex)]]) {
-//
-//    // --- Base Color ---
-//    float4 baseColor;
-//    if (hasBaseColorTexture) {
-//        baseColor = baseColorTexture2d.sample(textureSampler, in.uv * uniforms.tiling).rgba;
-//        if (baseColor.a <= 0.1) {
-//            discard_fragment();
-//        }
-//    } else {
-//        baseColor = material.baseColor;
-//    }
-//
-//    // --- Normal ---
-//    float3 normal = normalize(in.worldNormal);
-//    
-//
-//    // --- Roughness & Metallic ---
-//    // Bug 4 fixed: metallic is a scalar, sample only .r
-//    float roughness = rothnessColorTexture2d.sample(textureSampler, in.uv).r;
-//    float metallic = metalicTexture2d.sample(textureSampler, in.uv).r;
-//
-//    // --- Diffuse IBL ---
-//    float4 skyBoxDiffuse = diffuseSkyBox.sample(textureSampler, normal);
-//
-//    // --- Specular IBL ---
-//    // Bug 5 fixed: use dedicated sampler with mip_filter::linear for correct mipmap blending
-//    constexpr sampler mipSampler(filter::linear, mip_filter::linear);
-//
-//    float3 viewDirection = in.worldPosition.xyz - uniforms.cameraPosition;
-//    float3 textureCoordinates = reflect(viewDirection, normal);
-//    float3 prefilteredColor = skyTexture.sample(mipSampler, textureCoordinates, level(roughness * 10)).rgb;
-//
-//    // --- BRDF LUT ---
-//    float NdotV = saturate(dot(normal, normalize(-viewDirection)));
-//    // Bug 1 fixed: correct UV order is float2(roughness, NdotV)
-//    float2 envBRDF = brdfLut.sample(mipSampler, float2(roughness, NdotV)).rg;
-//
-//    // --- F0 & Specular ---
-//    float3 f0 = mix(float3(0.04), baseColor.rgb, metallic);
-//    float3 specularIBL = f0 * envBRDF.r + envBRDF.g;
-//    float3 specularColor = prefilteredColor * specularIBL;
-//
-//    // Bug 3 fixed: diffuse is no longer applied twice
-//    // baseColor is kept clean, skyBoxDiffuse applied only in final composition
-//    float4 finalColor = skyBoxDiffuse * baseColor + float4(specularColor, 1.0);
-//
-//    return finalColor;
-//}

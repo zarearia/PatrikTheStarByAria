@@ -15,7 +15,8 @@ class Submesh {
     var normalTexture: MTLTexture?
     var metalicTexture: MTLTexture?
     var routhnessTexture: MTLTexture?
-    
+    var ambientOcclusion: MTLTexture?
+
     var pipelineState: MTLRenderPipelineState!
     var hasSkeleton: Bool
     
@@ -64,6 +65,12 @@ class Submesh {
 
         if let property = material.property(with: MDLMaterialSemantic.roughness) {
             routhnessTexture = loadTexture(property: property)
+        } else {
+            print("[Submesh] submesh did not have any normalColor")
+        }
+        
+        if let property = material.property(with: MDLMaterialSemantic.ambientOcclusion) {
+            ambientOcclusion = loadTexture(property: property)
         } else {
             print("[Submesh] submesh did not have any normalColor")
         }
