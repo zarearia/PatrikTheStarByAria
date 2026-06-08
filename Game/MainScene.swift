@@ -17,10 +17,10 @@ class MainScene: Scene {
     
     var groundModel = Model(name: "ground", resourse: "ground", extention: "obj")
 //    var patrik = Model(name: "skeleton", resourse: "skeleton", extention: "usda")
-    var patrik = Model(name: "patrik3", resourse: "patrik3", extention: "usdz", fragment_function: "fragment_ibl")
+    var patrik = Model(name: "patrik3", resourse: "patrik3", extention: "usdz", vertex_function: "vertex_main", fragment_function: "fragment_main")
 //    var opaquePlane = Model(name: "opaquePlane", resourse: "plane", extention: "obj", fragment_function: "fragment_post_processing_plane")
 //    var opaquePlane = Model(name: "opaquePlane", resourse: "plane", extention: "obj", fragment_function: "fragment_skyBox_reflection_test")
-    var opaquePlane = Model(name: "opaquePlane", resourse: "plane", extention: "obj", fragment_function: "fragment_ibl")
+    var opaquePlane = Model(name: "opaquePlane", resourse: "plane", extention: "obj", fragment_function: "fragment_post_processing_plane")
 //    var patrik = Model(name: "cube", resourse: "cube", extention: "obj")
     var racingCar = Model(name: "racingCar", resourse: "racing-car", extention: "obj", fragment_function: "fragment_ibl")
     
