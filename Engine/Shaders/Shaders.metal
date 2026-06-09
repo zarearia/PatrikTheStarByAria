@@ -56,11 +56,13 @@ float4 getFogColor(float4 color, float4 position, float density) {
 
 vertex VertexOut vertex_main(const VertexIn vertexIn [[stage_in]],
                              constant float4x4 *jointMatrices [[buffer(JointsBufferIndex)]],
-                             constant Uniforms &uniforms [[buffer(UniformsBufferIndex)]]) {
+                             constant Uniforms &uniforms [[buffer(UniformsBufferIndex)]],
+                             constant Instance *instances [[buffer(InstancesBufferIndex)]],
+                             uint instanceId [[instance_id]]) {
     
     float4 position = vertexIn.position;
     float4 normal = float4(vertexIn.normal, 0);
-    
+    Instance instance = instances[instanceId];
     
     float4 weights = vertexIn.weights;
     ushort4 joints = vertexIn.joints;
@@ -78,13 +80,14 @@ vertex VertexOut vertex_main(const VertexIn vertexIn [[stage_in]],
     
     
     matrix_float3x3 normalMatrix = extract_top_3x3(uniforms.modelMatrix);
+    matrix_float3x3 instanceNormalMatrix = extract_top_3x3(instance.modelMatrix);
     
     VertexOut vertexOut = VertexOut {
-        .position = uniforms.projectionMatrix * uniforms.viewMatrix * uniforms.modelMatrix * position,
-        .worldPosition = (uniforms.modelMatrix * vertexIn.position).xyz,
-        .worldNormal = normalMatrix * normal.xyz,
-        .worldTangent = normalMatrix * vertexIn.tangent,
-        .worldBitangent = normalMatrix * vertexIn.bitangent,
+        .position = uniforms.projectionMatrix * uniforms.viewMatrix * uniforms.modelMatrix * instance.modelMatrix * position,
+        .worldPosition = (uniforms.modelMatrix * instance.modelMatrix * vertexIn.position).xyz,
+        .worldNormal = normalMatrix * instanceNormalMatrix * normal.xyz,
+        .worldTangent = normalMatrix * instanceNormalMatrix * vertexIn.tangent,
+        .worldBitangent = normalMatrix * instanceNormalMatrix * vertexIn.bitangent,
         .uv = vertexIn.uv,
         .color = vertexIn.color
     };

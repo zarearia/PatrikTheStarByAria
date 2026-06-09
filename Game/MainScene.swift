@@ -22,7 +22,7 @@ class MainScene: Scene {
 //    var opaquePlane = Model(name: "opaquePlane", resourse: "plane", extention: "obj", fragment_function: "fragment_skyBox_reflection_test")
     var opaquePlane = Model(name: "opaquePlane", resourse: "plane", extention: "obj", fragment_function: "fragment_post_processing_plane")
 //    var patrik = Model(name: "cube", resourse: "cube", extention: "obj")
-    var racingCar = Model(name: "racingCar", resourse: "racing-car", extention: "obj", fragment_function: "fragment_ibl")
+    var racingCar = Model(name: "racingCar", resourse: "racing-car", extention: "obj", fragment_function: "fragment_ibl", instanceCount: 2)
     
     var freeCameraController: Controllable = CameraController()
     var thirdPersonCameraController: Controllable = CameraController()
@@ -103,6 +103,17 @@ class MainScene: Scene {
         
         racingCar.position += [-2, 0, 0]
         add(node: racingCar)
+        for i in 0..<racingCar.instanceCount {
+            var position = float3()
+            position.x = .random(in: -10..<10)
+            position.z = .random(in: -10..<10)
+            let rotationY: Float = .random(in: -.pi..<Float.pi)
+            var rotation = matrix_float4x4(rotation: [0, rotationY, 0])
+            var translation = matrix_float4x4(translation: position)
+            let transformation = translation * rotation
+            racingCar.instances[i] = Instance(modelMatrix: transformation)
+        }
+        racingCar.updateInstanceBuffer()
         
         opaquePlane.rotation = [.pi / 2, 0, 0]
         opaquePlane.position += [-1, 1, 10]

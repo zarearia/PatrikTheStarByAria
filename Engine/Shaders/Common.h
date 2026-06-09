@@ -62,7 +62,8 @@ typedef enum {
     FragmentUniformsBufferIndex = 12,
     LightsBufferIndex = 13,
     JointsBufferIndex = 14,
-    MaterialBufferIndex = 15
+    MaterialBufferIndex = 15,
+    InstancesBufferIndex = 16
 } BufferIndices;
 
 typedef enum {
@@ -86,5 +87,9 @@ typedef enum {
 typedef struct {
     vector_float4 baseColor;
 } Material;
+
+typedef struct {
+    matrix_float4x4 modelMatrix;
+} Instance;
 
 #endif /* Header_h */

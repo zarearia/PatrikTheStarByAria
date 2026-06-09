@@ -18,6 +18,11 @@ class Model: Node {
     var name: String
     let vertex_function: String
     let fragment_function: String
+    var instances: [Instance] = []
+    var instanceCount: Int {
+        instances.count
+    }
+    var instancesBuffer: MTLBuffer?
     
     var isAnimating: Bool = false
     
@@ -34,7 +39,7 @@ class Model: Node {
     
     var debugBoundingBoxRenderer: BoundingBoxRenderer?
     
-    init(name: String, resourse: String, extention: String, vertex_function: String = "vertex_main", fragment_function: String = "fragment_main") {
+    init(name: String, resourse: String, extention: String, vertex_function: String = "vertex_main", fragment_function: String = "fragment_main", instanceCount: Int = 1) {
         self.name = name
         
         self.vertex_function = vertex_function
@@ -72,13 +77,12 @@ class Model: Node {
         
         ////////////////////////////////////
         
-        
-        
-        
-        
         self.asset.loadTextures()
         
+        instances = Array(repeating: Instance(modelMatrix: matrix_float4x4.identity()), count: instanceCount);
         super.init()
+        
+        updateInstanceBuffer()
         
         boundingBox = asset.boundingBox
         debugBoundingBoxRenderer = BoundingBoxRenderer(boundingBox: boundingBox)
@@ -102,6 +106,18 @@ class Model: Node {
             
         }
         
+    }
+    
+    func updateInstanceBuffer() {
+        
+        instancesBuffer = Renderer.device.makeBuffer(length: MemoryLayout<Instance>.stride * instanceCount)
+        
+        guard let pointer: UnsafeMutablePointer<Instance> = instancesBuffer?.contents().bindMemory(to: Instance.self, capacity: instanceCount) else { return }
+        
+        for i in 0..<instanceCount {
+            let itemUnsafe = pointer.advanced(by: i)
+            itemUnsafe.pointee.modelMatrix = instances[i].modelMatrix
+        }
     }
     
     func buildSamplerState() -> MTLSamplerState? {
@@ -170,6 +186,8 @@ extension Model: Renderable {
                 renderEncoder.setVertexBuffer(mtkMesh.vertexBuffers[index].buffer, offset: mtkMesh.vertexBuffers[index].offset, index: index)
             }
             
+            renderEncoder.setVertexBuffer(instancesBuffer, offset: 0, index: Int(InstancesBufferIndex.rawValue))
+            
             for submesh in submeshs {
                 
                 var material = submesh.material
@@ -193,7 +211,8 @@ extension Model: Renderable {
                     indexType: mtkSubmesh.indexType,
                     indexBuffer:
                         mtkSubmesh.indexBuffer.buffer,
-                    indexBufferOffset: 0
+                    indexBufferOffset: 0,
+                    instanceCount: instanceCount
                 )
             }
         }
