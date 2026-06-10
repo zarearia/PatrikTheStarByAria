@@ -22,7 +22,8 @@ class MainScene: Scene {
 //    var opaquePlane = Model(name: "opaquePlane", resourse: "plane", extention: "obj", fragment_function: "fragment_skyBox_reflection_test")
     var opaquePlane = Model(name: "opaquePlane", resourse: "plane", extention: "obj", fragment_function: "fragment_post_processing_plane")
 //    var patrik = Model(name: "cube", resourse: "cube", extention: "obj")
-    var racingCar = Model(name: "racingCar", resourse: "racing-car", extention: "obj", fragment_function: "fragment_ibl", instanceCount: 2)
+//    var racingCar = Model(name: "racingCar", resourse: "racing-car", extention: "obj", fragment_function: "fragment_ibl", instanceCount: 10)
+    var smallCoral = Model(name: "smallCoral", resourse: "smallCoral", extention: "usdz", instanceCount: 100)
     
     var freeCameraController: Controllable = CameraController()
     var thirdPersonCameraController: Controllable = CameraController()
@@ -101,19 +102,34 @@ class MainScene: Scene {
 //        patrik.position.z += 3
 //        patrik.position.y -= 1.5
         
-        racingCar.position += [-2, 0, 0]
-        add(node: racingCar)
-        for i in 0..<racingCar.instanceCount {
+//        racingCar.position += [-2, 0, 0]
+//        add(node: racingCar)
+//        for i in 0..<racingCar.instanceCount {
+//            var position = float3()
+//            position.x = .random(in: -10..<10)
+//            position.z = .random(in: -10..<10)
+//            let rotationY: Float = .random(in: -.pi..<Float.pi)
+//            var rotation = matrix_float4x4(rotation: [0, rotationY, 0])
+//            var translation = matrix_float4x4(translation: position)
+//            let transformation = translation * rotation
+//            racingCar.instances[i] = Instance(modelMatrix: transformation)
+//        }
+//        racingCar.updateInstanceBuffer()
+        
+        smallCoral.position += [-2, 0, 0]
+        smallCoral.rotation = [-.pi/2, 0, 0]
+        add(node: smallCoral)
+        for i in 0..<smallCoral.instanceCount {
             var position = float3()
-            position.x = .random(in: -10..<10)
-            position.z = .random(in: -10..<10)
+            position.x = .random(in: -100..<100)
+            position.y = .random(in: -100..<100)
             let rotationY: Float = .random(in: -.pi..<Float.pi)
             var rotation = matrix_float4x4(rotation: [0, rotationY, 0])
             var translation = matrix_float4x4(translation: position)
-            let transformation = translation * rotation
-            racingCar.instances[i] = Instance(modelMatrix: transformation)
+            let transformation = translation
+            smallCoral.instances[i] = Instance(modelMatrix: transformation)
         }
-        racingCar.updateInstanceBuffer()
+        smallCoral.updateInstanceBuffer()
         
         opaquePlane.rotation = [.pi / 2, 0, 0]
         opaquePlane.position += [-1, 1, 10]

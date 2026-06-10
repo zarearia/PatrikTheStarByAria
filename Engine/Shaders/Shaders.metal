@@ -137,7 +137,7 @@ fragment float4 fragment_main(VertexOut in [[stage_in]],
     float diffuseIntensity = saturate(dot(lightDirection, normalDirection));
     float4 diffuseColor = 0;
     float4 ambientColor = 0;
-    ambientColor += lightColor * 0.1 * baseColor;//this is light intensity
+    ambientColor += lightColor * 0.5 * baseColor;//this is light intensity
     
     diffuseColor += lightColor * baseColor * diffuseIntensity;
     

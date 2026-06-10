@@ -49,6 +49,12 @@
 		F76940862EF1CB7900CF7FCC /* DebugShaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = F76940842EF1CB7900CF7FCC /* DebugShaders.metal */; };
 		F7A9C04C2ED82ADB0045820E /* KeyCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A9C04B2ED82ADB0045820E /* KeyCode.swift */; };
 		F7A9C04D2ED82ADB0045820E /* KeyCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A9C04B2ED82ADB0045820E /* KeyCode.swift */; };
+		F7AF67E82FD9337800E33FD3 /* smallCoral.mtl in Resources */ = {isa = PBXBuildFile; fileRef = F7AF67E62FD9337800E33FD3 /* smallCoral.mtl */; };
+		F7AF67E92FD9337800E33FD3 /* smallCoral.obj in Resources */ = {isa = PBXBuildFile; fileRef = F7AF67E72FD9337800E33FD3 /* smallCoral.obj */; };
+		F7AF67EA2FD9337800E33FD3 /* smallCoral.mtl in Resources */ = {isa = PBXBuildFile; fileRef = F7AF67E62FD9337800E33FD3 /* smallCoral.mtl */; };
+		F7AF67EB2FD9337800E33FD3 /* smallCoral.obj in Resources */ = {isa = PBXBuildFile; fileRef = F7AF67E72FD9337800E33FD3 /* smallCoral.obj */; };
+		F7AF67ED2FD9349900E33FD3 /* smallCoral.usdz in Resources */ = {isa = PBXBuildFile; fileRef = F7AF67EC2FD9349900E33FD3 /* smallCoral.usdz */; };
+		F7AF67EE2FD9349900E33FD3 /* smallCoral.usdz in Resources */ = {isa = PBXBuildFile; fileRef = F7AF67EC2FD9349900E33FD3 /* smallCoral.usdz */; };
 		F7C31D572FC56B5000CE13E0 /* SkyboxShaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = F7C31D562FC56B4800CE13E0 /* SkyboxShaders.metal */; };
 		F7C31D582FC56B5000CE13E0 /* SkyboxShaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = F7C31D562FC56B4800CE13E0 /* SkyboxShaders.metal */; };
 		F7D08A732ECEEB400093D32C /* Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D08A722ECEEB2D0093D32C /* Scene.swift */; };
@@ -108,6 +114,9 @@
 		F769407E2EF1C54500CF7FCC /* BoundingBoxRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoundingBoxRenderer.swift; sourceTree = "<group>"; };
 		F76940842EF1CB7900CF7FCC /* DebugShaders.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = DebugShaders.metal; sourceTree = "<group>"; };
 		F7A9C04B2ED82ADB0045820E /* KeyCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyCode.swift; sourceTree = "<group>"; };
+		F7AF67E62FD9337800E33FD3 /* smallCoral.mtl */ = {isa = PBXFileReference; lastKnownFileType = text; path = smallCoral.mtl; sourceTree = "<group>"; };
+		F7AF67E72FD9337800E33FD3 /* smallCoral.obj */ = {isa = PBXFileReference; lastKnownFileType = text; path = smallCoral.obj; sourceTree = "<group>"; };
+		F7AF67EC2FD9349900E33FD3 /* smallCoral.usdz */ = {isa = PBXFileReference; lastKnownFileType = file; path = smallCoral.usdz; sourceTree = "<group>"; };
 		F7C31D562FC56B4800CE13E0 /* SkyboxShaders.metal */ = {isa = PBXFileReference; explicitFileType = sourcecode.metal; path = SkyboxShaders.metal; sourceTree = "<group>"; };
 		F7D08A722ECEEB2D0093D32C /* Scene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scene.swift; sourceTree = "<group>"; };
 		F7D08A752ED0368D0093D32C /* MainScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScene.swift; sourceTree = "<group>"; };
@@ -236,6 +245,7 @@
 		F76723182E583FFE00143CE1 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				F7AF67DF2FD932EF00E33FD3 /* SmallCoral */,
 				F7FF383B2FD1496300C3A51E /* Car */,
 				F7FBD7522FCEA5F1002463A0 /* cube-sky.png */,
 				F75F4EFD2F91FAEA0032E0F7 /* alphaFilterPlane */,
@@ -290,6 +300,16 @@
 				F7D08A752ED0368D0093D32C /* MainScene.swift */,
 			);
 			path = Game;
+			sourceTree = "<group>";
+		};
+		F7AF67DF2FD932EF00E33FD3 /* SmallCoral */ = {
+			isa = PBXGroup;
+			children = (
+				F7AF67EC2FD9349900E33FD3 /* smallCoral.usdz */,
+				F7AF67E62FD9337800E33FD3 /* smallCoral.mtl */,
+				F7AF67E72FD9337800E33FD3 /* smallCoral.obj */,
+			);
+			path = SmallCoral;
 			sourceTree = "<group>";
 		};
 		F7D30B092E73DCD200254E80 /* Animation */ = {
@@ -432,12 +452,15 @@
 				F7E44EAF2E66BDC300D44694 /* Textures.xcassets in Resources */,
 				F7FBD7532FCEA5F1002463A0 /* cube-sky.png in Resources */,
 				F75F4F062F91FBEA0032E0F7 /* plane.mtl in Resources */,
+				F7AF67E82FD9337800E33FD3 /* smallCoral.mtl in Resources */,
+				F7AF67E92FD9337800E33FD3 /* smallCoral.obj in Resources */,
 				F76723202E5B646D00143CE1 /* train.obj in Resources */,
 				F76940512EE6A85D00CF7FCC /* cube.mtl in Resources */,
 				F76940522EE6A85D00CF7FCC /* cube.obj in Resources */,
 				F7EEFE8C2E6DAADF009587D0 /* ground.mtl in Resources */,
 				F75F4F022F91FAFA0032E0F7 /* plane.obj in Resources */,
 				F75F4F032F91FAFA0032E0F7 /* windowColor.png in Resources */,
+				F7AF67ED2FD9349900E33FD3 /* smallCoral.usdz in Resources */,
 				F769404D2EE6A1B200CF7FCC /* skeleton.usda in Resources */,
 				F7D08A9A2ED38E7C0093D32C /* patrik2.usdz in Resources */,
 				F7D08A9C2ED38E7C0093D32C /* patrik_house.usdz in Resources */,
@@ -452,6 +475,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				F7D08A9F2ED38E7C0093D32C /* patrik2.usdz in Resources */,
+				F7AF67EA2FD9337800E33FD3 /* smallCoral.mtl in Resources */,
+				F7AF67EB2FD9337800E33FD3 /* smallCoral.obj in Resources */,
 				F7D08AA12ED38E7C0093D32C /* patrik_house.usdz in Resources */,
 				F7D08AA32ED38E7C0093D32C /* patrik3.usdz in Resources */,
 				F76723212E5B646D00143CE1 /* train.obj in Resources */,
@@ -465,6 +490,7 @@
 				F769404E2EE6A1B200CF7FCC /* skeleton.usda in Resources */,
 				F7FF383E2FD1496300C3A51E /* racing-car.mtl in Resources */,
 				F7FF383F2FD1496300C3A51E /* racing-car.obj in Resources */,
+				F7AF67EE2FD9349900E33FD3 /* smallCoral.usdz in Resources */,
 				F75F4F002F91FAFA0032E0F7 /* plane.obj in Resources */,
 				F75F4F012F91FAFA0032E0F7 /* windowColor.png in Resources */,
 			);
