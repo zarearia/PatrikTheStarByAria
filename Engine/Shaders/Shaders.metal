@@ -320,3 +320,15 @@ fragment float4 fragment_ibl(VertexOut in [[stage_in]],
     
     return finalColor;
 }
+
+fragment float4 fragment_simple_baseColor(VertexOut in [[stage_in]],
+                                          texture2d<float> baseColorTexture2d [[texture(BaseColorTextureIndex), function_constant(hasBaseColorTexture)]],
+                                          sampler textureSampler [[sampler(0)]],
+                                          constant Material &material [[buffer(MaterialBufferIndex)]]) {
+    
+    float4 baseColor = baseColorTexture2d.sample(textureSampler, in.uv).rgba;
+    if (baseColor.a <= 0.1) {
+        discard_fragment();
+    }
+    return baseColor;
+}

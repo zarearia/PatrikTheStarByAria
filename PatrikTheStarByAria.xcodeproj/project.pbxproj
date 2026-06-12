@@ -77,6 +77,18 @@
 		F7EEFE892E6DAAB9009587D0 /* ground.obj in Resources */ = {isa = PBXBuildFile; fileRef = F7EEFE872E6DAAB9009587D0 /* ground.obj */; };
 		F7EEFE8C2E6DAADF009587D0 /* ground.mtl in Resources */ = {isa = PBXBuildFile; fileRef = F7EEFE8B2E6DAADF009587D0 /* ground.mtl */; };
 		F7EEFE8D2E6DAADF009587D0 /* ground.mtl in Resources */ = {isa = PBXBuildFile; fileRef = F7EEFE8B2E6DAADF009587D0 /* ground.mtl */; };
+		F7F65FCE2FDBD4E20042048F /* rock3.obj in Resources */ = {isa = PBXBuildFile; fileRef = F7F65FC82FDBD4E20042048F /* rock3.obj */; };
+		F7F65FCF2FDBD4E20042048F /* rock2.obj in Resources */ = {isa = PBXBuildFile; fileRef = F7F65FC72FDBD4E20042048F /* rock2.obj */; };
+		F7F65FD02FDBD4E20042048F /* rock1.obj in Resources */ = {isa = PBXBuildFile; fileRef = F7F65FC92FDBD4E20042048F /* rock1.obj */; };
+		F7F65FD12FDBD4E20042048F /* rock1.mtl in Resources */ = {isa = PBXBuildFile; fileRef = F7F65FCA2FDBD4E20042048F /* rock1.mtl */; };
+		F7F65FD22FDBD4E20042048F /* rock3.mtl in Resources */ = {isa = PBXBuildFile; fileRef = F7F65FCC2FDBD4E20042048F /* rock3.mtl */; };
+		F7F65FD32FDBD4E20042048F /* rock2.mtl in Resources */ = {isa = PBXBuildFile; fileRef = F7F65FCB2FDBD4E20042048F /* rock2.mtl */; };
+		F7F65FD42FDBD4E20042048F /* rock3.obj in Resources */ = {isa = PBXBuildFile; fileRef = F7F65FC82FDBD4E20042048F /* rock3.obj */; };
+		F7F65FD52FDBD4E20042048F /* rock2.obj in Resources */ = {isa = PBXBuildFile; fileRef = F7F65FC72FDBD4E20042048F /* rock2.obj */; };
+		F7F65FD62FDBD4E20042048F /* rock1.obj in Resources */ = {isa = PBXBuildFile; fileRef = F7F65FC92FDBD4E20042048F /* rock1.obj */; };
+		F7F65FD72FDBD4E20042048F /* rock1.mtl in Resources */ = {isa = PBXBuildFile; fileRef = F7F65FCA2FDBD4E20042048F /* rock1.mtl */; };
+		F7F65FD82FDBD4E20042048F /* rock3.mtl in Resources */ = {isa = PBXBuildFile; fileRef = F7F65FCC2FDBD4E20042048F /* rock3.mtl */; };
+		F7F65FD92FDBD4E20042048F /* rock2.mtl in Resources */ = {isa = PBXBuildFile; fileRef = F7F65FCB2FDBD4E20042048F /* rock2.mtl */; };
 		F7FBD7532FCEA5F1002463A0 /* cube-sky.png in Resources */ = {isa = PBXBuildFile; fileRef = F7FBD7522FCEA5F1002463A0 /* cube-sky.png */; };
 		F7FBD7542FCEA5F1002463A0 /* cube-sky.png in Resources */ = {isa = PBXBuildFile; fileRef = F7FBD7522FCEA5F1002463A0 /* cube-sky.png */; };
 		F7FF38352FD1472F00C3A51E /* RendererBRDF.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FF38332FD1472E00C3A51E /* RendererBRDF.swift */; };
@@ -128,6 +140,12 @@
 		F7E44EC82E680AF300D44694 /* Renderable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Renderable.swift; sourceTree = "<group>"; };
 		F7EEFE872E6DAAB9009587D0 /* ground.obj */ = {isa = PBXFileReference; lastKnownFileType = text; path = ground.obj; sourceTree = "<group>"; };
 		F7EEFE8B2E6DAADF009587D0 /* ground.mtl */ = {isa = PBXFileReference; lastKnownFileType = text; path = ground.mtl; sourceTree = "<group>"; };
+		F7F65FC72FDBD4E20042048F /* rock2.obj */ = {isa = PBXFileReference; lastKnownFileType = text; path = rock2.obj; sourceTree = "<group>"; };
+		F7F65FC82FDBD4E20042048F /* rock3.obj */ = {isa = PBXFileReference; lastKnownFileType = text; path = rock3.obj; sourceTree = "<group>"; };
+		F7F65FC92FDBD4E20042048F /* rock1.obj */ = {isa = PBXFileReference; lastKnownFileType = text; path = rock1.obj; sourceTree = "<group>"; };
+		F7F65FCA2FDBD4E20042048F /* rock1.mtl */ = {isa = PBXFileReference; lastKnownFileType = text; path = rock1.mtl; sourceTree = "<group>"; };
+		F7F65FCB2FDBD4E20042048F /* rock2.mtl */ = {isa = PBXFileReference; lastKnownFileType = text; path = rock2.mtl; sourceTree = "<group>"; };
+		F7F65FCC2FDBD4E20042048F /* rock3.mtl */ = {isa = PBXFileReference; lastKnownFileType = text; path = rock3.mtl; sourceTree = "<group>"; };
 		F7FBD7522FCEA5F1002463A0 /* cube-sky.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cube-sky.png"; sourceTree = "<group>"; };
 		F7FF38322FD1472E00C3A51E /* BRDF.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = BRDF.metal; sourceTree = "<group>"; };
 		F7FF38332FD1472E00C3A51E /* RendererBRDF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RendererBRDF.swift; sourceTree = "<group>"; };
@@ -245,6 +263,7 @@
 		F76723182E583FFE00143CE1 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				F7F65FCD2FDBD4E20042048F /* Rocks */,
 				F7AF67DF2FD932EF00E33FD3 /* SmallCoral */,
 				F7FF383B2FD1496300C3A51E /* Car */,
 				F7FBD7522FCEA5F1002463A0 /* cube-sky.png */,
@@ -336,6 +355,19 @@
 				F7EEFE872E6DAAB9009587D0 /* ground.obj */,
 			);
 			path = Ground;
+			sourceTree = "<group>";
+		};
+		F7F65FCD2FDBD4E20042048F /* Rocks */ = {
+			isa = PBXGroup;
+			children = (
+				F7F65FC72FDBD4E20042048F /* rock2.obj */,
+				F7F65FC82FDBD4E20042048F /* rock3.obj */,
+				F7F65FC92FDBD4E20042048F /* rock1.obj */,
+				F7F65FCA2FDBD4E20042048F /* rock1.mtl */,
+				F7F65FCB2FDBD4E20042048F /* rock2.mtl */,
+				F7F65FCC2FDBD4E20042048F /* rock3.mtl */,
+			);
+			path = Rocks;
 			sourceTree = "<group>";
 		};
 		F7FF38342FD1472E00C3A51E /* BRDF */ = {
@@ -465,6 +497,12 @@
 				F7D08A9A2ED38E7C0093D32C /* patrik2.usdz in Resources */,
 				F7D08A9C2ED38E7C0093D32C /* patrik_house.usdz in Resources */,
 				F7FF383C2FD1496300C3A51E /* racing-car.mtl in Resources */,
+				F7F65FD42FDBD4E20042048F /* rock3.obj in Resources */,
+				F7F65FD52FDBD4E20042048F /* rock2.obj in Resources */,
+				F7F65FD62FDBD4E20042048F /* rock1.obj in Resources */,
+				F7F65FD72FDBD4E20042048F /* rock1.mtl in Resources */,
+				F7F65FD82FDBD4E20042048F /* rock3.mtl in Resources */,
+				F7F65FD92FDBD4E20042048F /* rock2.mtl in Resources */,
 				F7FF383D2FD1496300C3A51E /* racing-car.obj in Resources */,
 				F7D08A9E2ED38E7C0093D32C /* patrik3.usdz in Resources */,
 			);
@@ -490,6 +528,12 @@
 				F769404E2EE6A1B200CF7FCC /* skeleton.usda in Resources */,
 				F7FF383E2FD1496300C3A51E /* racing-car.mtl in Resources */,
 				F7FF383F2FD1496300C3A51E /* racing-car.obj in Resources */,
+				F7F65FCE2FDBD4E20042048F /* rock3.obj in Resources */,
+				F7F65FCF2FDBD4E20042048F /* rock2.obj in Resources */,
+				F7F65FD02FDBD4E20042048F /* rock1.obj in Resources */,
+				F7F65FD12FDBD4E20042048F /* rock1.mtl in Resources */,
+				F7F65FD22FDBD4E20042048F /* rock3.mtl in Resources */,
+				F7F65FD32FDBD4E20042048F /* rock2.mtl in Resources */,
 				F7AF67EE2FD9349900E33FD3 /* smallCoral.usdz in Resources */,
 				F75F4F002F91FAFA0032E0F7 /* plane.obj in Resources */,
 				F75F4F012F91FAFA0032E0F7 /* windowColor.png in Resources */,

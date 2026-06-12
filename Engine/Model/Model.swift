@@ -24,6 +24,8 @@ class Model: Node {
     }
     var instancesBuffer: MTLBuffer?
     
+    var isMorphing: Bool = false
+    
     var isAnimating: Bool = false
     
     var animations: [String: SkeletonAnimation]
@@ -39,7 +41,10 @@ class Model: Node {
     
     var debugBoundingBoxRenderer: BoundingBoxRenderer?
     
-    init(name: String, resourse: String, extention: String, vertex_function: String = "vertex_main", fragment_function: String = "fragment_main", instanceCount: Int = 1) {
+    /**
+        if you set isMorphing to true, you will need ti habdle vertexDescription and some other buffer related stuff yourself.
+     */
+    init(name: String, resourse: String, extention: String, vertex_function: String = "vertex_main", fragment_function: String = "fragment_main", instanceCount: Int = 1, isMorphing: Bool = false) {
         self.name = name
         
         self.vertex_function = vertex_function
@@ -53,6 +58,7 @@ class Model: Node {
         let allocator = MTKMeshBufferAllocator(device: Renderer.device)
         self.asset = MDLAsset(url: assetURL, vertexDescriptor: MDLVertexDescriptor.getDefaultVertexDescriptor(), bufferAllocator: allocator)
         
+        self.isMorphing = isMorphing
         
         
         
