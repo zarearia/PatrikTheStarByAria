@@ -321,6 +321,22 @@ fragment float4 fragment_ibl(VertexOut in [[stage_in]],
     return finalColor;
 }
 
+struct SimpleVertexIn {
+    packed_float3 position;
+    float2 uv;
+};
+
+vertex VertexOut vertex_simple_morphing(constant SimpleVertexIn *in [[buffer(VerticesBufferIndex)]],
+                                        constant Uniforms &uniforms [[buffer(UniformsBufferIndex)]],
+                                        const uint vertexId [[__vertex_id__]]) {
+    SimpleVertexIn vertexIn = in[vertexId];
+    VertexOut vertexOut = VertexOut {
+        .position = uniforms.projectionMatrix * uniforms.viewMatrix * uniforms.modelMatrix * float4(vertexIn.position, 1),
+        .uv = vertexIn.uv
+    };
+    return vertexOut;
+}
+
 fragment float4 fragment_simple_baseColor(VertexOut in [[stage_in]],
                                           texture2d<float> baseColorTexture2d [[texture(BaseColorTextureIndex), function_constant(hasBaseColorTexture)]],
                                           sampler textureSampler [[sampler(0)]],

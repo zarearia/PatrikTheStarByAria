@@ -42,7 +42,7 @@ class Model: Node {
     var debugBoundingBoxRenderer: BoundingBoxRenderer?
     
     /**
-        if you set isMorphing to true, you will need ti habdle vertexDescription and some other buffer related stuff yourself.
+        if you set isMorphing to true, you will need ti handle vertexDescription and some other buffer related stuff yourself.
      */
     init(name: String, resourse: String, extention: String, vertex_function: String = "vertex_main", fragment_function: String = "fragment_main", instanceCount: Int = 1, isMorphing: Bool = false) {
         self.name = name
@@ -55,10 +55,11 @@ class Model: Node {
             fatalError()
         }
         
-        let allocator = MTKMeshBufferAllocator(device: Renderer.device)
-        self.asset = MDLAsset(url: assetURL, vertexDescriptor: MDLVertexDescriptor.getDefaultVertexDescriptor(), bufferAllocator: allocator)
-        
         self.isMorphing = isMorphing
+        Model.vertexDescriptor = isMorphing ? MDLVertexDescriptor.getMorphingVertexDescriptor() : MDLVertexDescriptor.getDefaultVertexDescriptor()
+        
+        let allocator = MTKMeshBufferAllocator(device: Renderer.device)
+        self.asset = MDLAsset(url: assetURL, vertexDescriptor: Model.vertexDescriptor, bufferAllocator: allocator)
         
         
         
