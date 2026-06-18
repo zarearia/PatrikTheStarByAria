@@ -17,15 +17,16 @@ class MainScene: Scene {
     
     var groundModel = Model(name: "ground", resourse: "ground", extention: "obj")
 //    var skeleton = Model(name: "skeleton", resourse: "skeleton", extention: "usda")
-//    var patrik = Model(name: "patrik3", resourse: "patrik3", extention: "usdz", vertex_function: "vertex_main", fragment_function: "fragment_main")
-    var patrik = Model(name: "rock1", resourse: "rock1", extention: "obj", vertex_function: "vertex_simple_morphing", fragment_function: "fragment_simple_baseColor", isMorphing: true)
+    var patrik = Model(name: "patrik3", resourse: "patrik3", extention: "usdz", vertex_function: "vertex_main", fragment_function: "fragment_main")
+    var rocks = Model(name: "rock1", resourse: "rock1", extention: "obj", vertex_function: "vertex_simple_morphing", fragment_function: "fragment_simple_baseColor", isMorphing: true)
 //    var opaquePlane = Model(name: "opaquePlane", resourse: "plane", extention: "obj", fragment_function: "fragment_post_processing_plane")
 //    var opaquePlane = Model(name: "opaquePlane", resourse: "plane", extention: "obj", fragment_function: "fragment_skyBox_reflection_test")
     var opaquePlane = Model(name: "opaquePlane", resourse: "plane", extention: "obj", fragment_function: "fragment_post_processing_plane")
 //    var patrik = Model(name: "cube", resourse: "cube", extention: "obj")
 //    var racingCar = Model(name: "racingCar", resourse: "racing-car", extention: "obj", fragment_function: "fragment_ibl", instanceCount: 10)
-    var smallCoral = Model(name: "smallCoral", resourse: "smallCoral", extention: "usdz", instanceCount: 100)
-    
+//    var smallCoral = Model(name: "smallCoral", resourse: "smallCoral", extention: "usdz", instanceCount: 100)
+    var smallCoral = Model(name: "rock1", resourse: "rock1", extention: "obj", vertex_function: "vertex_simple_morphing", fragment_function: "fragment_simple_baseColor", instanceCount: 100, isMorphing: true)
+
     var freeCameraController: Controllable = CameraController()
     var thirdPersonCameraController: Controllable = CameraController()
     
@@ -83,6 +84,9 @@ class MainScene: Scene {
         
         add(node: groundModel)
         
+//        rocks.position += [-1, 0, 0]
+//        add(node: rocks)
+        
         //This is how we add a costume render for a model
 //        patrik.costumeRender = { [weak self] renderer in
 //            guard let self else {
@@ -117,13 +121,15 @@ class MainScene: Scene {
 //        }
 //        racingCar.updateInstanceBuffer()
         
-        smallCoral.position += [-2, 0, 0]
-        smallCoral.rotation = [-.pi/2, 0, 0]
+//        smallCoral.position += [-2, 0, 0]
+//        smallCoral.rotation = [-.pi/2, 0, 0]
+        smallCoral.position += [0, 0, 0]
+        smallCoral.rotation = [0, 0, 0]
         add(node: smallCoral)
         for i in 0..<smallCoral.instanceCount {
             var position = float3()
-            position.x = .random(in: -100..<100)
-            position.y = .random(in: -100..<100)
+            position.x = .random(in: -15..<15)
+            position.z = .random(in: -15..<15)
             let rotationY: Float = .random(in: -.pi..<Float.pi)
             var rotation = matrix_float4x4(rotation: [0, rotationY, 0])
             var translation = matrix_float4x4(translation: position)
