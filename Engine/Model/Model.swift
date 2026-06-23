@@ -25,6 +25,11 @@ class Model: Node {
     var instancesBuffer: MTLBuffer?
     
     var isMorphing: Bool = false
+    var morphTargetResources: [(resource: String, extention: String)]?
+    var morphTextures: [String]?
+    
+    var vertexCount: Int?
+    var morphingVertexBuffer: MTLBuffer?
     
     var isAnimating: Bool = false
     
@@ -44,7 +49,7 @@ class Model: Node {
     /**
         if you set isMorphing to true, you will need ti handle vertexDescription and some other buffer related stuff yourself.
      */
-    init(name: String, resourse: String, extention: String, vertex_function: String = "vertex_main", fragment_function: String = "fragment_main", instanceCount: Int = 1, isMorphing: Bool = false) {
+    init(name: String, resourse: String, extention: String, vertex_function: String = "vertex_main", fragment_function: String = "fragment_main", instanceCount: Int = 1, isMorphing: Bool = false, morphTargetResources: [(resource: String, extention: String)]? = nil, morphTextures: [String]? = nil) {
         self.name = name
         
         self.vertex_function = vertex_function
@@ -56,6 +61,8 @@ class Model: Node {
         }
         
         self.isMorphing = isMorphing
+        self.morphTargetResources = morphTargetResources
+        self.morphTextures = morphTextures
         Model.vertexDescriptor = isMorphing ? MDLVertexDescriptor.getMorphingVertexDescriptor() : MDLVertexDescriptor.getDefaultVertexDescriptor()
         
         let allocator = MTKMeshBufferAllocator(device: Renderer.device)
@@ -86,7 +93,7 @@ class Model: Node {
         
         self.asset.loadTextures()
         
-        instances = Array(repeating: Instance(modelMatrix: matrix_float4x4.identity()), count: instanceCount);
+        instances = Array(repeating: Instance(modelMatrix: matrix_float4x4.identity(), morphTextureId: 0, morphTargetId: 0), count: instanceCount)
         super.init()
         
         updateInstanceBuffer()
@@ -113,6 +120,37 @@ class Model: Node {
             
         }
         
+        // for rock which has 1 mesh at the moment
+        if isMorphing,
+           let morphTargetResources,
+           let mesh = meshes.first?.mtkMesh,
+           let vertexBuffer = self.meshes.first?.mtkMesh.vertexBuffers,
+           let bufferSize = vertexBuffer.first?.length,
+           let vertexLayout = mesh.vertexDescriptor.layouts[0] as? MDLVertexBufferLayout,
+           let morphingVertexBuffer = Renderer.device.makeBuffer(length: bufferSize * morphTargetResources.count)
+        {
+            self.morphingVertexBuffer = morphingVertexBuffer
+            self.vertexCount = bufferSize / vertexLayout.stride
+            
+            let commandBuffer = Renderer.commandQueue.makeCommandBuffer()
+            let blitEncoder = commandBuffer?.makeBlitCommandEncoder()
+            
+            for i in 0..<morphTargetResources.count {
+                let targetResource = morphTargetResources[i]
+                guard let mesh = Model.loadMesh(resourceName: targetResource.resource, resourceExtention: targetResource.extention) else {
+                    fatalError("could not load the morphTargetMesh")
+                }
+                let meshBuffer = mesh.vertexBuffers[0].buffer
+                
+                blitEncoder?.copy(from: meshBuffer,
+                                  sourceOffset: 0,
+                                  to: morphingVertexBuffer,
+                                  destinationOffset: i * bufferSize,
+                                  size: meshBuffer.length)
+            }
+            blitEncoder?.endEncoding()
+            commandBuffer?.commit()
+        }
     }
     
     func updateInstanceBuffer() {
@@ -124,6 +162,8 @@ class Model: Node {
         for i in 0..<instanceCount {
             let itemUnsafe = pointer.advanced(by: i)
             itemUnsafe.pointee.modelMatrix = instances[i].modelMatrix
+            itemUnsafe.pointee.morphTargetId = instances[i].morphTargetId
+            itemUnsafe.pointee.morphTextureId = instances[i].morphTextureId
         }
     }
     
@@ -155,6 +195,25 @@ class Model: Node {
         }
     }
     
+    static func loadMesh(resourceName: String, resourceExtention: String) -> MTKMesh? {
+        guard let assetURL = Bundle.main.url(forResource: resourceName, withExtension: resourceExtention) else
+        {
+            fatalError()
+        }
+        let allocator = MTKMeshBufferAllocator(device: Renderer.device)
+        let asset = MDLAsset(url: assetURL, vertexDescriptor: Model.vertexDescriptor, bufferAllocator: allocator)
+        
+        guard let mdlMesh = asset.childObjects(of: MDLMesh.self).first as? MDLMesh else {
+            return nil
+        }
+        
+        let mtkMesh = try? MTKMesh(mesh: mdlMesh, device: Renderer.device)
+        
+        
+        return mtkMesh
+    }
+    
+
     // send this to submesh later to be able to add texture constants
 
 }
@@ -189,8 +248,13 @@ extension Model: Renderable {
             let mtkMesh = mesh.mtkMesh
             let submeshs = mesh.submeshes
             
-            for (index, buffer) in mtkMesh.vertexBuffers.enumerated() {
-                renderEncoder.setVertexBuffer(mtkMesh.vertexBuffers[index].buffer, offset: mtkMesh.vertexBuffers[index].offset, index: index)
+            if isMorphing {
+                renderEncoder.setVertexBuffer(self.morphingVertexBuffer, offset: 0, index: 0)
+                renderEncoder.setVertexBytes(&vertexCount, length: MemoryLayout<Int>.stride, index: Int(VertexCountIndexBuffer.rawValue))
+            } else {
+                for (index, buffer) in mtkMesh.vertexBuffers.enumerated() {
+                    renderEncoder.setVertexBuffer(mtkMesh.vertexBuffers[index].buffer, offset: mtkMesh.vertexBuffers[index].offset, index: index)
+                }
             }
             
             renderEncoder.setVertexBuffer(instancesBuffer, offset: 0, index: Int(InstancesBufferIndex.rawValue))

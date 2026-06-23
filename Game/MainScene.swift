@@ -25,7 +25,7 @@ class MainScene: Scene {
 //    var patrik = Model(name: "cube", resourse: "cube", extention: "obj")
 //    var racingCar = Model(name: "racingCar", resourse: "racing-car", extention: "obj", fragment_function: "fragment_ibl", instanceCount: 10)
 //    var smallCoral = Model(name: "smallCoral", resourse: "smallCoral", extention: "usdz", instanceCount: 100)
-    var smallCoral = Model(name: "rock1", resourse: "rock1", extention: "obj", vertex_function: "vertex_simple_morphing", fragment_function: "fragment_simple_baseColor", instanceCount: 100, isMorphing: true)
+    var smallCoral = Model(name: "rock1", resourse: "rock1", extention: "obj", vertex_function: "vertex_simple_morphing", fragment_function: "fragment_simple_baseColor", instanceCount: 100, isMorphing: true, morphTargetResources: [(resource: "rock1", extention: ".obj"), (resource: "rock2", extention: ".obj"), (resource: "rock3", extention: ".obj")], morphTextures: ["rock1-color", "rock2-color", "rock3-color"])
 
     var freeCameraController: Controllable = CameraController()
     var thirdPersonCameraController: Controllable = CameraController()
@@ -134,7 +134,9 @@ class MainScene: Scene {
             var rotation = matrix_float4x4(rotation: [0, rotationY, 0])
             var translation = matrix_float4x4(translation: position)
             let transformation = translation
-            smallCoral.instances[i] = Instance(modelMatrix: transformation)
+            let morpthTargetId = Int.random(in: 0..<smallCoral.morphTargetResources!.count)
+            let morphTextureId = Int.random(in: 0..<smallCoral.morphTextures!.count)
+            smallCoral.instances[i] = Instance(modelMatrix: transformation, morphTextureId: UInt32(morphTextureId), morphTargetId: UInt32(morpthTargetId))
         }
         smallCoral.updateInstanceBuffer()
         

@@ -328,11 +328,12 @@ struct SimpleVertexIn {
 
 vertex VertexOut vertex_simple_morphing(constant SimpleVertexIn *in [[buffer(VerticesBufferIndex)]],
                                         constant Uniforms &uniforms [[buffer(UniformsBufferIndex)]],
+                                        constant int &vertexCount [[buffer(VertexCountIndexBuffer)]],
                                         const uint vertexId [[vertex_id]],
                                         constant Instance *instances [[buffer(InstancesBufferIndex)]],
                                         uint instanceId [[instance_id]]) {
     Instance instance = instances[instanceId];
-    SimpleVertexIn vertexIn = in[vertexId];
+    SimpleVertexIn vertexIn = in[instance.morphTargetId * vertexCount + vertexId];
     VertexOut vertexOut = VertexOut {
         .position = uniforms.projectionMatrix * uniforms.viewMatrix * uniforms.modelMatrix * instance.modelMatrix * float4(vertexIn.position, 1),
         .uv = vertexIn.uv

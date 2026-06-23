@@ -57,6 +57,7 @@ typedef enum {
 
 typedef enum {
     VerticesBufferIndex = 0,
+    VertexCountIndexBuffer = 1, //at the moment when we have vertexCount(which is for morphing, we don't have vertexDescriptor like the one on bottom)
     //leaving 1 to 10 for vertexDescriptor
     UniformsBufferIndex = 11,
     FragmentUniformsBufferIndex = 12,
@@ -90,6 +91,8 @@ typedef struct {
 
 typedef struct {
     matrix_float4x4 modelMatrix;
+    uint32_t morphTextureId;
+    uint32_t morphTargetId;
 } Instance;
 
 #endif /* Header_h */
