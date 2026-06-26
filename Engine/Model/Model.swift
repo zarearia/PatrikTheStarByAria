@@ -26,10 +26,11 @@ class Model: Node {
     
     var isMorphing: Bool = false
     var morphTargetResources: [(resource: String, extention: String)]?
-    var morphTextures: [String]?
+    var morphTextures: [(resource: String, extention: String)]?
     
     var vertexCount: Int?
     var morphingVertexBuffer: MTLBuffer?
+    var morphArrayTexture: MTLTexture?
     
     var isAnimating: Bool = false
     
@@ -49,7 +50,7 @@ class Model: Node {
     /**
         if you set isMorphing to true, you will need ti handle vertexDescription and some other buffer related stuff yourself.
      */
-    init(name: String, resourse: String, extention: String, vertex_function: String = "vertex_main", fragment_function: String = "fragment_main", instanceCount: Int = 1, isMorphing: Bool = false, morphTargetResources: [(resource: String, extention: String)]? = nil, morphTextures: [String]? = nil) {
+    init(name: String, resourse: String, extention: String, vertex_function: String = "vertex_main", fragment_function: String = "fragment_main", instanceCount: Int = 1, isMorphing: Bool = false, morphTargetResources: [(resource: String, extention: String)]? = nil, morphTextures: [(resource: String, extention: String)]? = nil) {
         self.name = name
         
         self.vertex_function = vertex_function
@@ -150,7 +151,12 @@ class Model: Node {
             }
             blitEncoder?.endEncoding()
             commandBuffer?.commit()
+            
+            if let morphTextures {
+                self.morphArrayTexture = loadTextureArray(resources: morphTextures)
+            }
         }
+        
     }
     
     func updateInstanceBuffer() {
@@ -165,6 +171,66 @@ class Model: Node {
             itemUnsafe.pointee.morphTargetId = instances[i].morphTargetId
             itemUnsafe.pointee.morphTextureId = instances[i].morphTextureId
         }
+    }
+    
+    func loadTextureArray(resources: [(resource: String, extention: String)]) -> MTLTexture {
+        var textures: [MTLTexture] = []
+        for resource in resources {
+            if let texture = Model.loadTexture(resource: resource) {
+                textures.append(texture)
+            } else {
+                print("could not load the texture")
+            }
+        }
+        
+        let textureDescriptor = MTLTextureDescriptor()
+        textureDescriptor.textureType = .type2DArray
+        let sampleTexture = textures[0]
+        textureDescriptor.width = sampleTexture.width
+        textureDescriptor.height = sampleTexture.height
+        textureDescriptor.pixelFormat = sampleTexture.pixelFormat
+        textureDescriptor.arrayLength = resources.count
+        guard let arrayTexture = Renderer.device.makeTexture(descriptor: textureDescriptor) else {
+            fatalError("Could not make arrayTexture")
+        }
+        
+        let commandBuffer = Renderer.commandQueue.makeCommandBuffer()
+        let blitEncoder = commandBuffer?.makeBlitCommandEncoder()
+        
+        let origin = MTLOrigin(x: 0, y: 0, z: 0)
+        let size = MTLSize(width: sampleTexture.width, height: sampleTexture.height, depth: 1)
+        
+        for (index, texture) in textures.enumerated() {
+            blitEncoder?.copy(from: texture,
+                              sourceSlice: 0,
+                              sourceLevel: 0,
+                              sourceOrigin: origin,
+                              sourceSize: size,
+                              to: arrayTexture,
+                              destinationSlice: index,
+                              destinationLevel: 0,
+                              destinationOrigin: origin)
+        }
+        
+        blitEncoder?.endEncoding()
+        commandBuffer?.commit()
+        
+        return arrayTexture
+    }
+    
+    static func loadTexture(resource: (resource: String, extention: String)) -> MTLTexture? {
+        let textureLoader = MTKTextureLoader(device: Renderer.device)
+        
+        guard let url = Bundle.main.url(forResource: resource.resource, withExtension: resource.extention) else {
+            print("no resource found: \(resource)")
+            return nil
+        }
+        let textureLoaderOptions: [MTKTextureLoader.Option: Any] = [
+            .origin: MTKTextureLoader.Origin.bottomLeft,
+            .SRGB: false,
+            .generateMipmaps: true
+        ]
+        return try? textureLoader.newTexture(URL: url, options: textureLoaderOptions)
     }
     
     func buildSamplerState() -> MTLSamplerState? {
@@ -266,7 +332,12 @@ extension Model: Renderable {
                 renderEncoder.setRenderPipelineState(submesh.pipelineState!)
                 
                 //TODO: Add texture submeshes here
-                renderEncoder.setFragmentTexture(submesh.baseColorTexture, index: Int(BaseColorTextureIndex.rawValue))
+                if isMorphing,
+                   let morphArrayTexture {
+                    renderEncoder.setFragmentTexture(morphArrayTexture, index: Int(BaseColorTextureIndex.rawValue))
+                } else {
+                    renderEncoder.setFragmentTexture(submesh.baseColorTexture, index: Int(BaseColorTextureIndex.rawValue))
+                }
                 renderEncoder.setFragmentTexture(submesh.normalTexture, index: Int(NormalColorTextureIndex.rawValue))
                 renderEncoder.setFragmentTexture(submesh.metalicTexture, index: Int(MetalicTextureIndex.rawValue))
                 renderEncoder.setFragmentTexture(submesh.routhnessTexture, index: Int(RouthnessTextureIndex.rawValue))

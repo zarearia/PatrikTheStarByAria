@@ -35,6 +35,8 @@ struct VertexOut {
     float3 worldBitangent;
     float2 uv;
     float3 color;
+    //only for morphing
+    uint textureId [[flat]];
 };
 
 float3x3 extract_top_3x3(float4x4 m)
@@ -336,7 +338,8 @@ vertex VertexOut vertex_simple_morphing(constant SimpleVertexIn *in [[buffer(Ver
     SimpleVertexIn vertexIn = in[instance.morphTargetId * vertexCount + vertexId];
     VertexOut vertexOut = VertexOut {
         .position = uniforms.projectionMatrix * uniforms.viewMatrix * uniforms.modelMatrix * instance.modelMatrix * float4(vertexIn.position, 1),
-        .uv = vertexIn.uv
+        .uv = vertexIn.uv,
+        .textureId = instance.morphTextureId
     };
     return vertexOut;
 }
@@ -347,6 +350,18 @@ fragment float4 fragment_simple_baseColor(VertexOut in [[stage_in]],
                                           constant Material &material [[buffer(MaterialBufferIndex)]]) {
     
     float4 baseColor = baseColorTexture2d.sample(textureSampler, in.uv).rgba;
+    if (baseColor.a <= 0.1) {
+        discard_fragment();
+    }
+    return baseColor;
+}
+
+fragment float4 fragment_simple_array_baseColor(VertexOut in [[stage_in]],
+                                          texture2d_array<float> baseColorArrayTexture2d [[texture(BaseColorTextureIndex), function_constant(hasBaseColorTexture)]],
+                                          sampler textureSampler [[sampler(0)]],
+                                          constant Material &material [[buffer(MaterialBufferIndex)]]) {
+    
+    float4 baseColor = baseColorArrayTexture2d.sample(textureSampler, in.uv, in.textureId);
     if (baseColor.a <= 0.1) {
         discard_fragment();
     }

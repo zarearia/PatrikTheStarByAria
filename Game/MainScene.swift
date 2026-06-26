@@ -25,7 +25,15 @@ class MainScene: Scene {
 //    var patrik = Model(name: "cube", resourse: "cube", extention: "obj")
 //    var racingCar = Model(name: "racingCar", resourse: "racing-car", extention: "obj", fragment_function: "fragment_ibl", instanceCount: 10)
 //    var smallCoral = Model(name: "smallCoral", resourse: "smallCoral", extention: "usdz", instanceCount: 100)
-    var smallCoral = Model(name: "rock1", resourse: "rock1", extention: "obj", vertex_function: "vertex_simple_morphing", fragment_function: "fragment_simple_baseColor", instanceCount: 100, isMorphing: true, morphTargetResources: [(resource: "rock1", extention: ".obj"), (resource: "rock2", extention: ".obj"), (resource: "rock3", extention: ".obj")], morphTextures: ["rock1-color", "rock2-color", "rock3-color"])
+    var smallCoral = Model(name: "rock1",
+                           resourse: "rock1",
+                           extention: "obj",
+                           vertex_function: "vertex_simple_morphing",
+                           fragment_function: "fragment_simple_array_baseColor",
+                           instanceCount: 20,
+                           isMorphing: true,
+                           morphTargetResources: [(resource: "rock1", extention: ".obj"), (resource: "rock2", extention: ".obj"), (resource: "rock3", extention: ".obj")],
+                           morphTextures:[(resource: "rock1-color", extention: ".png"), (resource: "rock2-color", extention: ".png"), (resource: "rock3-color", extention: ".png")])
 
     var freeCameraController: Controllable = CameraController()
     var thirdPersonCameraController: Controllable = CameraController()

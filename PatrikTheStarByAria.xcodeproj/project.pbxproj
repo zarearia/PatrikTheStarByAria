@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F725F90A2FEBAFFA00AFAC6B /* rock3-color.png in Resources */ = {isa = PBXBuildFile; fileRef = F725F9092FEBAFFA00AFAC6B /* rock3-color.png */; };
+		F725F90B2FEBAFFA00AFAC6B /* rock3-color.png in Resources */ = {isa = PBXBuildFile; fileRef = F725F9092FEBAFFA00AFAC6B /* rock3-color.png */; };
+		F725F90D2FEBB00000AFAC6B /* rock2-color.png in Resources */ = {isa = PBXBuildFile; fileRef = F725F90C2FEBB00000AFAC6B /* rock2-color.png */; };
+		F725F90E2FEBB00000AFAC6B /* rock2-color.png in Resources */ = {isa = PBXBuildFile; fileRef = F725F90C2FEBB00000AFAC6B /* rock2-color.png */; };
+		F725F9132FEBB01300AFAC6B /* rock1-color.png in Resources */ = {isa = PBXBuildFile; fileRef = F725F9122FEBB01300AFAC6B /* rock1-color.png */; };
+		F725F9142FEBB01300AFAC6B /* rock1-color.png in Resources */ = {isa = PBXBuildFile; fileRef = F725F9122FEBB01300AFAC6B /* rock1-color.png */; };
 		F75F4F002F91FAFA0032E0F7 /* plane.obj in Resources */ = {isa = PBXBuildFile; fileRef = F75F4EFE2F91FAFA0032E0F7 /* plane.obj */; };
 		F75F4F012F91FAFA0032E0F7 /* windowColor.png in Resources */ = {isa = PBXBuildFile; fileRef = F75F4EFF2F91FAFA0032E0F7 /* windowColor.png */; };
 		F75F4F022F91FAFA0032E0F7 /* plane.obj in Resources */ = {isa = PBXBuildFile; fileRef = F75F4EFE2F91FAFA0032E0F7 /* plane.obj */; };
@@ -102,6 +108,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F725F9092FEBAFFA00AFAC6B /* rock3-color.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rock3-color.png"; sourceTree = "<group>"; };
+		F725F90C2FEBB00000AFAC6B /* rock2-color.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rock2-color.png"; sourceTree = "<group>"; };
+		F725F9122FEBB01300AFAC6B /* rock1-color.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rock1-color.png"; sourceTree = "<group>"; };
 		F75F4EFE2F91FAFA0032E0F7 /* plane.obj */ = {isa = PBXFileReference; lastKnownFileType = text; path = plane.obj; sourceTree = "<group>"; };
 		F75F4EFF2F91FAFA0032E0F7 /* windowColor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = windowColor.png; sourceTree = "<group>"; };
 		F75F4F042F91FBEA0032E0F7 /* plane.mtl */ = {isa = PBXFileReference; lastKnownFileType = text; path = plane.mtl; sourceTree = "<group>"; };
@@ -360,6 +369,9 @@
 		F7F65FCD2FDBD4E20042048F /* Rocks */ = {
 			isa = PBXGroup;
 			children = (
+				F725F9122FEBB01300AFAC6B /* rock1-color.png */,
+				F725F90C2FEBB00000AFAC6B /* rock2-color.png */,
+				F725F9092FEBAFFA00AFAC6B /* rock3-color.png */,
 				F7F65FC72FDBD4E20042048F /* rock2.obj */,
 				F7F65FC82FDBD4E20042048F /* rock3.obj */,
 				F7F65FC92FDBD4E20042048F /* rock1.obj */,
@@ -488,7 +500,10 @@
 				F7AF67E92FD9337800E33FD3 /* smallCoral.obj in Resources */,
 				F76723202E5B646D00143CE1 /* train.obj in Resources */,
 				F76940512EE6A85D00CF7FCC /* cube.mtl in Resources */,
+				F725F9142FEBB01300AFAC6B /* rock1-color.png in Resources */,
 				F76940522EE6A85D00CF7FCC /* cube.obj in Resources */,
+				F725F90A2FEBAFFA00AFAC6B /* rock3-color.png in Resources */,
+				F725F90D2FEBB00000AFAC6B /* rock2-color.png in Resources */,
 				F7EEFE8C2E6DAADF009587D0 /* ground.mtl in Resources */,
 				F75F4F022F91FAFA0032E0F7 /* plane.obj in Resources */,
 				F75F4F032F91FAFA0032E0F7 /* windowColor.png in Resources */,
@@ -520,7 +535,9 @@
 				F76723212E5B646D00143CE1 /* train.obj in Resources */,
 				F75F4F052F91FBEA0032E0F7 /* plane.mtl in Resources */,
 				F76940532EE6A85D00CF7FCC /* cube.mtl in Resources */,
+				F725F9132FEBB01300AFAC6B /* rock1-color.png in Resources */,
 				F76940542EE6A85D00CF7FCC /* cube.obj in Resources */,
+				F725F90E2FEBB00000AFAC6B /* rock2-color.png in Resources */,
 				F7EEFE882E6DAAB9009587D0 /* ground.obj in Resources */,
 				F7E44EAE2E66BDC300D44694 /* Textures.xcassets in Resources */,
 				F7EEFE8D2E6DAADF009587D0 /* ground.mtl in Resources */,
@@ -531,6 +548,7 @@
 				F7F65FCE2FDBD4E20042048F /* rock3.obj in Resources */,
 				F7F65FCF2FDBD4E20042048F /* rock2.obj in Resources */,
 				F7F65FD02FDBD4E20042048F /* rock1.obj in Resources */,
+				F725F90B2FEBAFFA00AFAC6B /* rock3-color.png in Resources */,
 				F7F65FD12FDBD4E20042048F /* rock1.mtl in Resources */,
 				F7F65FD22FDBD4E20042048F /* rock3.mtl in Resources */,
 				F7F65FD32FDBD4E20042048F /* rock2.mtl in Resources */,
