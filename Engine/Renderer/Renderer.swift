@@ -24,8 +24,10 @@ class Renderer: NSObject {
     
     var brdfLut: MTLTexture
     
+    // all shadow pass code needs to be relocated elsewhere
     var shadowTexture: MTLTexture!
     var shadowRenderPassDescription: MTLRenderPassDescriptor = MTLRenderPassDescriptor()
+    var shadowPipelineState: MTLRenderPipelineState!
 
     init(metalView: MTKView) {
         guard
@@ -52,6 +54,8 @@ class Renderer: NSObject {
         self.brdfLut = brdfLut
 
         super.init()
+        
+        makeShadowPipelineState()
         
         metalView.delegate = self
         metalView.clearColor = .init(red: 1, green: 1, blue: 1, alpha: 1)
@@ -93,6 +97,56 @@ class Renderer: NSObject {
         self.shadowTexture = Renderer.makeTexture(pixelFormat: .depth32Float, width: width, height: height, label: "shadow")
         shadowRenderPassDescription.setupDepthAttachment(texture: self.shadowTexture)
     }
+    
+    func makeShadowPipelineState() {
+        let descriptor = MTLRenderPipelineDescriptor()
+        descriptor.vertexFunction = Renderer.library.makeFunction(name: "vertex_shadow")
+        descriptor.fragmentFunction = nil
+        descriptor.colorAttachments[0].pixelFormat = .invalid
+        descriptor.depthAttachmentPixelFormat = .depth32Float
+        descriptor.vertexDescriptor = MTKMetalVertexDescriptorFromModelIO(MDLVertexDescriptor.getDefaultVertexDescriptor())
+        do {
+            shadowPipelineState =
+            try Renderer.device.makeRenderPipelineState(
+                descriptor: descriptor)
+        } catch let error {
+            fatalError(error.localizedDescription)
+        }
+        descriptor.fragmentFunction = nil
+    }
+    
+    func renderShadowPass(renderEncoder: MTLRenderCommandEncoder) {
+        guard let scene = scene else {
+            return
+        }
+        renderEncoder.pushDebugGroup("shadow pass")
+        renderEncoder.label = "shadow encoder"
+        renderEncoder.setDepthStencilState(depthStencilState)
+        // .none cull mode should be the default one
+//        renderEncoder.setCullMode(.none)
+        renderEncoder.setDepthBias(0.01, slopeScale: 1.0, clamp: 0.01)
+        scene.uniforms.projectionMatrix = float4x4(orthoLeft: -8, right: 8,
+                                                    bottom: -8, top: 8,
+                                                    near: 0.1, far: 16)
+        
+        // using first light for now
+        guard let light = scene.lights.first else {
+            return
+        }
+        let position: float3 = [light.position.x, light.position.y, light.position.z]
+        let lookAt: float4x4 = float4x4(eye: position, center: [0, 0, 0], up: [0, 1, 0])
+        scene.uniforms.viewMatrix = lookAt
+        scene.uniforms.shadowMatrix = scene.uniforms.projectionMatrix * lookAt
+        renderEncoder.setRenderPipelineState(shadowPipelineState)
+        for renderable in scene.renderables {
+            renderEncoder.pushDebugGroup(renderable.name + "_shadow")
+            renderable.renderShadow(renderEncoder: renderEncoder, uniforms: scene.uniforms, fragmentUniforms: scene.fragmentUniforms)
+            renderEncoder.popDebugGroup()
+        }
+        
+        renderEncoder.endEncoding()
+    }
+
 }
 
 
@@ -103,20 +157,32 @@ extension Renderer: MTKViewDelegate {
     }
     
     func draw(in view: MTKView) {
+        
         guard let descriptor = view.currentRenderPassDescriptor,
-              let commandBuffer = Renderer.commandQueue.makeCommandBuffer(),
-              let renderEncoder = commandBuffer.makeRenderCommandEncoder(descriptor: descriptor) else {
+              let commandBuffer = Renderer.commandQueue.makeCommandBuffer() else {
             return
         }
         
-//        let samplePosition: [MTLSamplePosition] = [
-//            MTLSamplePosition(x: 0.01, y: 0.01),
-//            MTLSamplePosition(x: 0.99, y: 0.01),
-//            MTLSamplePosition(x: 0.01, y: 0.99),
-//            MTLSamplePosition(x: 0.99, y: 0.99)
-//        ]
-//        descriptor.setSamplePositions(samplePosition)
+        if let shadowEncoder = commandBuffer.makeRenderCommandEncoder(descriptor: shadowRenderPassDescription) {
+            renderShadowPass(renderEncoder: shadowEncoder)
+        }
         
+        if let renderEncoder = commandBuffer.makeRenderCommandEncoder(descriptor: descriptor) {
+            mainPass(renderEncoder: renderEncoder)
+        } else {
+            return
+        }
+        
+        guard let drawable = view.currentDrawable else {
+            return
+        }
+        commandBuffer.present(drawable)
+        commandBuffer.commit()
+        commandBuffer.waitUntilCompleted()
+    }
+    
+    func mainPass(renderEncoder: MTLRenderCommandEncoder) {
+
         renderEncoder.setDepthStencilState(depthStencilState)
         
         let deltaTime = 1 / Float(60)
@@ -131,6 +197,8 @@ extension Renderer: MTKViewDelegate {
         
         scene.fragmentUniforms.lightCount = UInt32(scene.lights.count)
         
+        scene.uniforms.projectionMatrix = scene.camera.projectionMatrix
+        
         renderEncoder.setFragmentBytes(&scene.lights, length: MemoryLayout<Light>.stride * scene.lights.count, index: Int(LightsBufferIndex.rawValue))
         renderEncoder.setFragmentTexture(brdfLut, index: Int(BrdfLutTextureIndex.rawValue))
         
@@ -143,12 +211,6 @@ extension Renderer: MTKViewDelegate {
         scene.skyBox.render(renderEncoder: renderEncoder, uniforms: scene.uniforms)
         
         renderEncoder.endEncoding()
-        guard let drawable = view.currentDrawable else {
-            return
-        }
-        commandBuffer.present(drawable)
-        commandBuffer.commit()
-        commandBuffer.waitUntilCompleted()
     }
 }
 

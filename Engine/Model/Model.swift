@@ -285,6 +285,30 @@ class Model: Node {
 }
 
 extension Model: Renderable {
+    func renderShadow(renderEncoder: any MTLRenderCommandEncoder, uniforms: Uniforms, fragmentUniforms fragment: FragmentUniforms) {
+        var modelUniforms = uniforms
+        renderEncoder.setVertexBytes(&modelUniforms, length: MemoryLayout<Uniforms>.stride, index: Int(UniformsBufferIndex.rawValue))
+        
+        for mesh in self.meshes {
+            let mtkMesh = mesh.mtkMesh
+            let submeshs = mesh.submeshes
+            for (index, buffer) in mtkMesh.vertexBuffers.enumerated() {
+                renderEncoder.setVertexBuffer(mtkMesh.vertexBuffers[index].buffer, offset: mtkMesh.vertexBuffers[index].offset, index: index)
+                for submesh in submeshs {
+                    var material = submesh.material
+
+                    let mtkSubmesh = submesh.mtkSubmesh
+                    renderEncoder.setFragmentBytes(&material, length: MemoryLayout<Material>.stride, index: Int(MaterialBufferIndex.rawValue))
+                    renderEncoder.drawIndexedPrimitives(type: .triangle,
+                                                        indexCount: mtkSubmesh.indexCount,
+                                                        indexType: mtkSubmesh.indexType,
+                                                        indexBuffer: mtkSubmesh.indexBuffer.buffer,
+                                                        indexBufferOffset: mtkSubmesh.indexBuffer.offset)
+                }
+            }
+        }
+    }
+    
     func render(renderEncoder: any MTLRenderCommandEncoder, uniforms: Uniforms, fragmentUniforms fragment: FragmentUniforms) {
         
         var fragmentUniforms = fragment
