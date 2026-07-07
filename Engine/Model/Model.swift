@@ -287,6 +287,7 @@ class Model: Node {
 extension Model: Renderable {
     func renderShadow(renderEncoder: any MTLRenderCommandEncoder, uniforms: Uniforms, fragmentUniforms fragment: FragmentUniforms) {
         var modelUniforms = uniforms
+        modelUniforms.modelMatrix = self.modelMatrix
         renderEncoder.setVertexBytes(&modelUniforms, length: MemoryLayout<Uniforms>.stride, index: Int(UniformsBufferIndex.rawValue))
         
         for mesh in self.meshes {

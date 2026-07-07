@@ -371,10 +371,10 @@ fragment float4 fragment_simple_array_baseColor(VertexOut in [[stage_in]],
 
 
 struct ShadowVertexIn {
-    float4 position;
+    float4 position [[attribute(Position)]];
 };
 
-vertex float4 vertex_shadow(const VertexIn vertexIn [[ stage_in ]],
+vertex float4 vertex_shadow(const ShadowVertexIn vertexIn [[ stage_in ]],
              constant Uniforms &uniforms [[buffer(UniformsBufferIndex)]]) {
     matrix_float4x4 mvp = uniforms.projectionMatrix * uniforms.viewMatrix * uniforms.modelMatrix;
     float4 position = mvp * vertexIn.position;
