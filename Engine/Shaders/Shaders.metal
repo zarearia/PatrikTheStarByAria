@@ -37,6 +37,7 @@ struct VertexOut {
     float3 color;
     //only for morphing
     uint textureId [[flat]];
+    float4 shadowPosition;
 };
 
 float3x3 extract_top_3x3(float4x4 m)
@@ -91,7 +92,8 @@ vertex VertexOut vertex_main(const VertexIn vertexIn [[stage_in]],
         .worldTangent = normalMatrix * instanceNormalMatrix * vertexIn.tangent,
         .worldBitangent = normalMatrix * instanceNormalMatrix * vertexIn.bitangent,
         .uv = vertexIn.uv,
-        .color = vertexIn.color
+        .color = vertexIn.color,
+        .shadowPosition = uniforms.shadowMatrix * uniforms.modelMatrix * vertexIn.position
     };
     return vertexOut;
 }
@@ -102,7 +104,8 @@ fragment float4 fragment_main(VertexOut in [[stage_in]],
                               texture2d<float> baseColorTexture2d [[texture(BaseColorTextureIndex), function_constant(hasBaseColorTexture)]],
                               texture2d<float> normalColorTexture2d [[texture(NormalColorTextureIndex), function_constant(hasNormalTexture)]],
                               sampler textureSampler [[sampler(0)]],
-                              constant Material &material [[buffer(MaterialBufferIndex)]]) {
+                              constant Material &material [[buffer(MaterialBufferIndex)]],
+                              depth2d<float> shadowTexture [[texture(ShadowTexture)]]) {
     
     
     
@@ -142,6 +145,23 @@ fragment float4 fragment_main(VertexOut in [[stage_in]],
     ambientColor += lightColor * 0.5 * baseColor;//this is light intensity
     
     diffuseColor += lightColor * baseColor * diffuseIntensity;
+    
+    
+    // 1
+    float2 xy = in.shadowPosition.xy;
+    xy = xy * 0.5 + 0.5;
+    xy.y = 1 - xy.y;
+    // 2
+    constexpr sampler s(coord::normalized, filter::linear,
+                        address::clamp_to_edge,
+                        compare_func:: less);
+    float shadow_sample = shadowTexture.sample(s, xy);
+    float current_sample = in.shadowPosition.z / in.shadowPosition.w;
+    // 3
+    if (current_sample > shadow_sample ) {
+        diffuseColor *= 0.5;
+    }
+    
     
     //This is for specular, we myst have material shininess for it
 //    if (diffuseIntensity > 0) {
@@ -376,8 +396,9 @@ struct ShadowVertexIn {
 
 vertex float4 vertex_shadow(const ShadowVertexIn vertexIn [[ stage_in ]],
              constant Uniforms &uniforms [[buffer(UniformsBufferIndex)]]) {
-    matrix_float4x4 mvp = uniforms.projectionMatrix * uniforms.viewMatrix * uniforms.modelMatrix;
-    float4 position = mvp * vertexIn.position;
+    // this is the shadow position
+    float4 position = uniforms.shadowMatrix/*uniforms.projectionMatrix * uniforms.viewMatrix*/ * uniforms.modelMatrix * vertexIn.position;
+    // uniforms.shadowMatrix is setted to be uniforms.projectionMatrix * uniforms.viewMatrix, but I find it more intuitive with the way it works with tha vertex_main so that we know what the purpose of shadowMatrix is up there.
     return position;
 }
 

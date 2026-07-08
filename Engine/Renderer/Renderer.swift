@@ -215,6 +215,7 @@ extension Renderer: MTKViewDelegate {
         
         renderEncoder.setFragmentBytes(&scene.lights, length: MemoryLayout<Light>.stride * scene.lights.count, index: Int(LightsBufferIndex.rawValue))
         renderEncoder.setFragmentTexture(brdfLut, index: Int(BrdfLutTextureIndex.rawValue))
+        renderEncoder.setFragmentTexture(shadowTexture, index: Int(ShadowTexture.rawValue))
         
         for renderable in scene.renderables {
             renderEncoder.pushDebugGroup(renderable.name)
