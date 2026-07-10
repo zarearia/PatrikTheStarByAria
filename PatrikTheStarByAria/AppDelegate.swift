@@ -10,7 +10,7 @@ import Cocoa
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
 
-    // started implementing g buffer render pass
+    // started implementing g buffer render pass almost finished, has bugs to run
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
